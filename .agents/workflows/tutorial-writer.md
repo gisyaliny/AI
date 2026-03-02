@@ -47,4 +47,16 @@ Every tutorial text MUST end with a "Knowledge Quiz" section under an `## Knowle
 Because this is a Jupyter Book repository, **every time you create, delete, or heavily update a tutorial file**, you MUST also proactively update the `_toc.yml` file located in the root directory.
 Ensure the internal chapter linking remains completely accurate. Note that `_toc.yml` file entries generally omit the `.md` extension.
 
+## 8. Read More / References Section
+Every tutorial MUST end with a `## Read More` section (placed **before** the Knowledge Quiz) that lists curated external references used or relevant to the tutorial content.
+- Use markdown link format: `- [Title](URL) — Brief description.`
+- Include official documentation, foundational papers, popular blog posts, and video tutorials.
+- Organize into logical sub-groups if there are more than 5 links.
+
+## 9. Online Research & Enrichment
+When writing a tutorial, you MUST actively **search online** for supplementary material (official docs, blog posts, academic papers, video tutorials) to ensure comprehensiveness and accuracy.
+- Do not rely solely on transcripts or user-provided material.
+- Cross-reference claims with official documentation.
+- Incorporate best practices, common pitfalls, and ecosystem tools discovered through research.
+
 When applying this skill, execute the tutorial generation adopting all the above formatting constraints to ensure maximum readability and educational quality.

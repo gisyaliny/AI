@@ -25,11 +25,13 @@ parts:
     maxdepth: 2
     chapters:
       - file: docs/local-llm/01-deploy-local-llm
-  # - caption: RAG
-  #   numbered: true
-  #   maxdepth: 2
-  #   chapters:
-  #     - file: docs/rag/intro
+  - caption: RAG
+    numbered: true
+    maxdepth: 2
+    chapters:
+      - file: docs/rag/01-what-is-rag
+      - file: docs/rag/02-implementing-rag
+      - file: docs/rag/03-graph-rag
   # - caption: MCP
   #   numbered: true
   #   maxdepth: 2
