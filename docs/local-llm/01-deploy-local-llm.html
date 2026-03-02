@@ -1,0 +1,1220 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>6. Deploy Open-Source LLMs Locally with Ollama &amp; AnythingLLM &#8212; AI Tools Learning Handbook</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b76e3c8a" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css?v=6644e6bb" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../_static/design-tabs.js?v=36754332"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'docs/local-llm/01-deploy-local-llm';</script>
+    <link rel="canonical" href="https://gisyaliny.github.io/AI/docs/local-llm/01-deploy-local-llm.html" />
+    <link rel="icon" href="../../_static/fav.ico"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="prev" title="5. AI Prompts &amp; Skills for Academic Research" href="../research/01-ai-prompts-for-research.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/logo.png" class="logo__image only-light" alt="AI Tools Learning Handbook - Home"/>
+    <script>document.write(`<img src="../../_static/logo.png" class="logo__image only-dark" alt="AI Tools Learning Handbook - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Vibe Coding</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../vibe-coding/01-environment-and-basics.html">1. Environment Setup &amp; Basic Interaction (Environment Setup &amp; Basic Interaction)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../vibe-coding/02-complex-tasks-and-terminal.html">2. Complex Tasks &amp; Terminal Control</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../vibe-coding/03-multimodal-and-context.html">3. Multimodal &amp; Context Management</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../vibe-coding/04-advanced-features.html">4. Advanced Features &amp; Customization</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Research</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../research/01-ai-prompts-for-research.html">5. AI Prompts &amp; Skills for Academic Research</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Local LLM</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">6. Deploy Open-Source LLMs Locally with Ollama &amp; AnythingLLM</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/gisyaliny/AI" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/gisyaliny/AI/edit/main/docs/local-llm/01-deploy-local-llm.md" target="_blank"
+   class="btn btn-sm btn-source-edit-button dropdown-item"
+   title="Suggest edit"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-pencil-alt"></i>
+  </span>
+<span class="btn__text-container">Suggest edit</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/gisyaliny/AI/issues/new?title=Issue%20on%20page%20%2Fdocs/local-llm/01-deploy-local-llm.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../_sources/docs/local-llm/01-deploy-local-llm.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Deploy Open-Source LLMs Locally with Ollama & AnythingLLM</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-run-llms-locally">6.1. 1. Why Run LLMs Locally?</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#system-requirements-minimum-recommended">6.1.1. System Requirements (Minimum → Recommended)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ollama-your-local-model-engine">6.2. 2. Ollama: Your Local Model Engine</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#installation">6.2.1. 2.1 Installation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#downloading-your-first-model">6.2.2. 2.2 Downloading Your First Model</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#running-a-model-interactive-chat">6.2.3. 2.3 Running a Model (Interactive Chat)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#essential-ollama-cli-commands">6.2.4. 2.4 Essential Ollama CLI Commands</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#using-ollama-s-rest-api-programmatic-access">6.2.5. 2.5 Using Ollama’s REST API (Programmatic Access)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#creating-custom-models-with-modelfiles">6.2.6. 2.6 Creating Custom Models with Modelfiles</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#anythingllm-a-private-document-q-a-system-rag">6.3. 3. AnythingLLM: A Private Document Q&amp;A System (RAG)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#how-rag-works-for-beginners">6.3.1. 3.1 How RAG Works (For Beginners)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#installing-anythingllm">6.3.2. 3.2 Installing AnythingLLM</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#connecting-anythingllm-to-ollama">6.3.3. 3.3 Connecting AnythingLLM to Ollama</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#creating-a-workspace-uploading-documents">6.3.4. 3.4 Creating a Workspace &amp; Uploading Documents</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#chatting-with-your-documents">6.3.5. 3.5 Chatting With Your Documents</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#advanced-anythingllm-features">6.3.6. 3.6 Advanced AnythingLLM Features</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#publishing-models-to-hugging-face">6.4. 4. Publishing Models to Hugging Face</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#setting-up-your-hugging-face-account">6.4.1. 4.1 Setting Up Your Hugging Face Account</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#installing-the-hugging-face-cli">6.4.2. 4.2 Installing the Hugging Face CLI</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#authenticating">6.4.3. 4.3 Authenticating</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#uploading-a-model-python-api">6.4.4. 4.4 Uploading a Model (Python API)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#uploading-a-model-cli">6.4.5. 4.5 Uploading a Model (CLI)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#uploading-gguf-files-ollama-compatible-format">6.4.6. 4.6 Uploading GGUF Files (Ollama-Compatible Format)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#writing-a-good-model-card">6.4.7. 4.7 Writing a Good Model Card</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#evaluation">6.5. Evaluation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#limitations">6.6. Limitations</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#citation">6.7. Citation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#end-to-end-workflow-from-download-to-deployment">6.8. 5. End-to-End Workflow: From Download to Deployment</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#troubleshooting-common-issues">6.9. 6. Troubleshooting Common Issues</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#curated-resources-further-reading">6.10. 7. Curated Resources &amp; Further Reading</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#official-documentation">6.10.1. Official Documentation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tutorials-guides">6.10.2. Tutorials &amp; Guides</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#community-ecosystem">6.10.3. Community &amp; Ecosystem</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#knowledge-quiz">6.11. Knowledge Quiz</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="deploy-open-source-llms-locally-with-ollama-anythingllm">
+<h1><span class="section-number">6. </span>Deploy Open-Source LLMs Locally with Ollama &amp; AnythingLLM<a class="headerlink" href="#deploy-open-source-llms-locally-with-ollama-anythingllm" title="Link to this heading">#</a></h1>
+<p>Running large language models (LLMs) on your own machine gives you complete privacy, zero API costs, and the freedom to experiment offline. This tutorial walks you through the entire local AI stack — from installing your first model with <strong>Ollama</strong>, to building a private document Q&amp;A system with <strong>AnythingLLM</strong>, and finally publishing your own fine-tuned model to <strong>Hugging Face</strong>.</p>
+<hr class="docutils" />
+<section id="why-run-llms-locally">
+<h2><span class="section-number">6.1. </span>1. Why Run LLMs Locally?<a class="headerlink" href="#why-run-llms-locally" title="Link to this heading">#</a></h2>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>Benefit</p></th>
+<th class="head text-left"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p><strong>Privacy</strong></p></td>
+<td class="text-left"><p>Your data never leaves your machine. Critical for proprietary code, medical records, or sensitive research.</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><strong>Cost</strong></p></td>
+<td class="text-left"><p>No per-token API fees. Run as many queries as your hardware allows.</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><strong>Offline</strong></p></td>
+<td class="text-left"><p>Works on airplanes, in restricted labs, and behind firewalls.</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><strong>Customization</strong></p></td>
+<td class="text-left"><p>Swap models, tweak parameters, and build custom workflows freely.</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><strong>Latency</strong></p></td>
+<td class="text-left"><p>No network round-trip. Responses can be faster for small models on good hardware.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<section id="system-requirements-minimum-recommended">
+<h3><span class="section-number">6.1.1. </span>System Requirements (Minimum → Recommended)<a class="headerlink" href="#system-requirements-minimum-recommended" title="Link to this heading">#</a></h3>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>Component</p></th>
+<th class="head text-left"><p>Minimum</p></th>
+<th class="head text-left"><p>Recommended</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>RAM</p></td>
+<td class="text-left"><p>8 GB</p></td>
+<td class="text-left"><p>16–32 GB</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>Storage</p></td>
+<td class="text-left"><p>10 GB free</p></td>
+<td class="text-left"><p>50+ GB (models are large)</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>GPU</p></td>
+<td class="text-left"><p>Not required (CPU mode)</p></td>
+<td class="text-left"><p>NVIDIA GPU with 8+ GB VRAM</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>OS</p></td>
+<td class="text-left"><p>Windows 10+, macOS 12+, Linux</p></td>
+<td class="text-left"><p>Same</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</section>
+<hr class="docutils" />
+<section id="ollama-your-local-model-engine">
+<h2><span class="section-number">6.2. </span>2. Ollama: Your Local Model Engine<a class="headerlink" href="#ollama-your-local-model-engine" title="Link to this heading">#</a></h2>
+<p><a class="reference external" href="https://ollama.com/">Ollama</a> is a lightweight CLI tool that lets you download and run open-source LLMs with a single command. Think of it as “Docker for LLMs.”</p>
+<section id="installation">
+<h3><span class="section-number">6.2.1. </span>2.1 Installation<a class="headerlink" href="#installation" title="Link to this heading">#</a></h3>
+<div class="sd-tab-set docutils">
+<input checked="checked" id="sd-tab-item-0" name="sd-tab-set-0" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-0">
+Windows</label><div class="sd-tab-content docutils">
+<ol class="arabic simple">
+<li><p>Visit <a class="reference external" href="https://ollama.com/download">ollama.com/download</a> and download the <code class="docutils literal notranslate"><span class="pre">.exe</span></code> installer.</p></li>
+<li><p>Run the installer and follow the setup wizard.</p></li>
+<li><p>Ollama will appear in your system tray when ready.</p></li>
+</ol>
+</div>
+<input id="sd-tab-item-1" name="sd-tab-set-0" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-1">
+macOS</label><div class="sd-tab-content docutils">
+<ol class="arabic simple">
+<li><p>Download the <code class="docutils literal notranslate"><span class="pre">.dmg</span></code> from <a class="reference external" href="https://ollama.com/download">ollama.com/download</a>.</p></li>
+<li><p>Drag Ollama to your Applications folder.</p></li>
+<li><p>Open Ollama from Applications — it runs in the menu bar.</p></li>
+</ol>
+</div>
+<input id="sd-tab-item-2" name="sd-tab-set-0" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-2">
+Linux</label><div class="sd-tab-content docutils">
+<p>Run the official install script:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl<span class="w"> </span>-fsSL<span class="w"> </span>https://ollama.com/install.sh<span class="w"> </span><span class="p">|</span><span class="w"> </span>sh
+</pre></div>
+</div>
+</div>
+</div>
+<p>Verify your installation:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ollama<span class="w"> </span>--version
+</pre></div>
+</div>
+</section>
+<section id="downloading-your-first-model">
+<h3><span class="section-number">6.2.2. </span>2.2 Downloading Your First Model<a class="headerlink" href="#downloading-your-first-model" title="Link to this heading">#</a></h3>
+<p>Browse the full model library at <a class="reference external" href="https://ollama.com/library">ollama.com/library</a>. Here are popular choices for beginners:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>Model</p></th>
+<th class="head text-left"><p>Size</p></th>
+<th class="head text-left"><p>Best For</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">llama3.2</span></code></p></td>
+<td class="text-left"><p>~2 GB</p></td>
+<td class="text-left"><p>General chat, fast responses</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">llama3.1:8b</span></code></p></td>
+<td class="text-left"><p>~4.7 GB</p></td>
+<td class="text-left"><p>Balanced quality and speed</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">qwen2.5:7b</span></code></p></td>
+<td class="text-left"><p>~4.4 GB</p></td>
+<td class="text-left"><p>Multilingual, strong reasoning</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">codellama:7b</span></code></p></td>
+<td class="text-left"><p>~3.8 GB</p></td>
+<td class="text-left"><p>Code generation and debugging</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">mistral</span></code></p></td>
+<td class="text-left"><p>~4.1 GB</p></td>
+<td class="text-left"><p>Creative writing, summarization</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">deepseek-r1:7b</span></code></p></td>
+<td class="text-left"><p>~4.7 GB</p></td>
+<td class="text-left"><p>Deep reasoning and math</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">llava</span></code></p></td>
+<td class="text-left"><p>~4.5 GB</p></td>
+<td class="text-left"><p>Vision — understands images</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">nomic-embed-text</span></code></p></td>
+<td class="text-left"><p>~274 MB</p></td>
+<td class="text-left"><p>Text embeddings (for RAG)</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Download a model with <code class="docutils literal notranslate"><span class="pre">pull</span></code>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Download Llama 3.1 (8B parameter version)</span>
+ollama<span class="w"> </span>pull<span class="w"> </span>llama3.1:8b
+
+<span class="c1"># Download a lightweight embedding model (needed for RAG later)</span>
+ollama<span class="w"> </span>pull<span class="w"> </span>nomic-embed-text
+</pre></div>
+</div>
+</section>
+<section id="running-a-model-interactive-chat">
+<h3><span class="section-number">6.2.3. </span>2.3 Running a Model (Interactive Chat)<a class="headerlink" href="#running-a-model-interactive-chat" title="Link to this heading">#</a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ollama<span class="w"> </span>run<span class="w"> </span>llama3.1:8b
+</pre></div>
+</div>
+<p>You’ll enter an interactive chat session directly in your terminal:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>&gt;&gt;&gt; What is the capital of France?
+The capital of France is Paris...
+
+&gt;&gt;&gt; /bye
+</pre></div>
+</div>
+<p><strong>Useful Commands Inside the Chat:</strong></p>
+<ul class="simple">
+<li><p>Type your question and press Enter to get a response.</p></li>
+<li><p>Type <code class="docutils literal notranslate"><span class="pre">/bye</span></code> to exit the session.</p></li>
+<li><p>Type <code class="docutils literal notranslate"><span class="pre">/set</span> <span class="pre">parameter</span> <span class="pre">num_ctx</span> <span class="pre">4096</span></code> to change context window size on the fly.</p></li>
+</ul>
+</section>
+<section id="essential-ollama-cli-commands">
+<h3><span class="section-number">6.2.4. </span>2.4 Essential Ollama CLI Commands<a class="headerlink" href="#essential-ollama-cli-commands" title="Link to this heading">#</a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># List all downloaded models</span>
+ollama<span class="w"> </span>list
+
+<span class="c1"># Show model metadata (parameters, size, quantization)</span>
+ollama<span class="w"> </span>show<span class="w"> </span>llama3.1:8b
+
+<span class="c1"># Remove a model to free disk space</span>
+ollama<span class="w"> </span>rm<span class="w"> </span>codellama:7b
+
+<span class="c1"># Start the Ollama API server (usually auto-starts)</span>
+ollama<span class="w"> </span>serve
+
+<span class="c1"># Copy/rename a model locally</span>
+ollama<span class="w"> </span>cp<span class="w"> </span>llama3.1:8b<span class="w"> </span>my-research-model
+</pre></div>
+</div>
+</section>
+<section id="using-ollama-s-rest-api-programmatic-access">
+<h3><span class="section-number">6.2.5. </span>2.5 Using Ollama’s REST API (Programmatic Access)<a class="headerlink" href="#using-ollama-s-rest-api-programmatic-access" title="Link to this heading">#</a></h3>
+<p>Ollama exposes a local REST API at <code class="docutils literal notranslate"><span class="pre">http://localhost:11434</span></code>. You can call it from any language:</p>
+<p><strong>Python Example:</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">requests</span>
+
+<span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span>
+    <span class="s2">&quot;http://localhost:11434/api/generate&quot;</span><span class="p">,</span>
+    <span class="n">json</span><span class="o">=</span><span class="p">{</span>
+        <span class="s2">&quot;model&quot;</span><span class="p">:</span> <span class="s2">&quot;llama3.1:8b&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;prompt&quot;</span><span class="p">:</span> <span class="s2">&quot;Explain quantum computing in 3 sentences.&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;stream&quot;</span><span class="p">:</span> <span class="kc">False</span>
+    <span class="p">}</span>
+<span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">()[</span><span class="s2">&quot;response&quot;</span><span class="p">])</span>
+</pre></div>
+</div>
+<p><strong>cURL Example:</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl<span class="w"> </span>http://localhost:11434/api/generate<span class="w"> </span>-d<span class="w"> </span><span class="s1">&#39;{</span>
+<span class="s1">  &quot;model&quot;: &quot;llama3.1:8b&quot;,</span>
+<span class="s1">  &quot;prompt&quot;: &quot;Write a haiku about machine learning.&quot;,</span>
+<span class="s1">  &quot;stream&quot;: false</span>
+<span class="s1">}&#39;</span>
+</pre></div>
+</div>
+</section>
+<section id="creating-custom-models-with-modelfiles">
+<h3><span class="section-number">6.2.6. </span>2.6 Creating Custom Models with Modelfiles<a class="headerlink" href="#creating-custom-models-with-modelfiles" title="Link to this heading">#</a></h3>
+<p>You can create a specialized version of any model by writing a <code class="docutils literal notranslate"><span class="pre">Modelfile</span></code>:</p>
+<div class="highlight-dockerfile notranslate"><div class="highlight"><pre><span></span><span class="c"># Modelfile for a research writing assistant</span>
+<span class="k">FROM</span><span class="w"> </span><span class="s">llama3.1:8b</span>
+
+<span class="c"># Set system personality</span>
+SYSTEM<span class="w"> </span><span class="s2">&quot;&quot;&quot;</span>
+You<span class="w"> </span>are<span class="w"> </span>an<span class="w"> </span>expert<span class="w"> </span>academic<span class="w"> </span>research<span class="w"> </span>assistant<span class="w"> </span>specializing<span class="w"> </span><span class="k">in</span><span class="w"> </span>GIScience
+and<span class="w"> </span>remote<span class="w"> </span>sensing.<span class="w"> </span>Always<span class="w"> </span>cite<span class="w"> </span>methodology<span class="w"> </span>precisely<span class="w"> </span>and<span class="w"> </span>use<span class="w"> </span>formal
+academic<span class="w"> </span>tone.<span class="w"> </span>When<span class="w"> </span>uncertain,<span class="w"> </span>say<span class="w"> </span>so<span class="w"> </span>rather<span class="w"> </span>than<span class="w"> </span>hallucinate.
+<span class="s2">&quot;&quot;&quot;</span>
+
+<span class="c"># Increase context window</span>
+PARAMETER<span class="w"> </span>num_ctx<span class="w"> </span><span class="m">8192</span>
+
+<span class="c"># Lower temperature for more deterministic outputs</span>
+PARAMETER<span class="w"> </span>temperature<span class="w"> </span><span class="m">0</span>.3
+</pre></div>
+</div>
+<p>Build and run your custom model:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create the custom model</span>
+ollama<span class="w"> </span>create<span class="w"> </span>research-assistant<span class="w"> </span>-f<span class="w"> </span>Modelfile
+
+<span class="c1"># Run it</span>
+ollama<span class="w"> </span>run<span class="w"> </span>research-assistant
+</pre></div>
+</div>
+</section>
+</section>
+<hr class="docutils" />
+<section id="anythingllm-a-private-document-q-a-system-rag">
+<h2><span class="section-number">6.3. </span>3. AnythingLLM: A Private Document Q&amp;A System (RAG)<a class="headerlink" href="#anythingllm-a-private-document-q-a-system-rag" title="Link to this heading">#</a></h2>
+<p><a class="reference external" href="https://anythingllm.com/">AnythingLLM</a> is a desktop application that connects to your local Ollama models and lets you chat with your own documents — PDFs, Word files, code repositories, and more. This is called <strong>Retrieval-Augmented Generation (RAG)</strong>.</p>
+<section id="how-rag-works-for-beginners">
+<h3><span class="section-number">6.3.1. </span>3.1 How RAG Works (For Beginners)<a class="headerlink" href="#how-rag-works-for-beginners" title="Link to this heading">#</a></h3>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Your Documents  →  Split into Chunks  →  Convert to Embeddings  →  Store in Vector DB
+                                                                          ↓
+    Your Question  →  Find Relevant Chunks  →  Feed to LLM  →  AI Answer (with sources!)
+</pre></div>
+</div>
+<p>Instead of the LLM guessing from its training data, RAG forces it to <strong>look up your actual documents first</strong>, then generate an answer based on what it found. This dramatically reduces hallucination.</p>
+</section>
+<section id="installing-anythingllm">
+<h3><span class="section-number">6.3.2. </span>3.2 Installing AnythingLLM<a class="headerlink" href="#installing-anythingllm" title="Link to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p>Visit <a class="reference external" href="https://useanything.com/">useanything.com</a> and download the desktop app for your OS.</p></li>
+<li><p>Install and launch it. You’ll see a setup wizard.</p></li>
+</ol>
+<p><strong>Docker Alternative:</strong></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker<span class="w"> </span>pull<span class="w"> </span>mintplexlabs/anythingllm
+docker<span class="w"> </span>run<span class="w"> </span>-d<span class="w"> </span>-p<span class="w"> </span><span class="m">3001</span>:3001<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--name<span class="w"> </span>anythingllm<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-v<span class="w"> </span><span class="si">${</span><span class="nv">HOME</span><span class="si">}</span>/anythingllm:/app/server/storage<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>mintplexlabs/anythingllm
+</pre></div>
+</div>
+</section>
+<section id="connecting-anythingllm-to-ollama">
+<h3><span class="section-number">6.3.3. </span>3.3 Connecting AnythingLLM to Ollama<a class="headerlink" href="#connecting-anythingllm-to-ollama" title="Link to this heading">#</a></h3>
+<p>During the setup wizard (or in Settings):</p>
+<ol class="arabic simple">
+<li><p><strong>LLM Provider</strong>: Select <strong>Ollama</strong>.</p>
+<ul class="simple">
+<li><p>Base URL: <code class="docutils literal notranslate"><span class="pre">http://localhost:11434</span></code> (default, auto-detected).</p></li>
+<li><p>Model: Choose from your downloaded Ollama models (e.g., <code class="docutils literal notranslate"><span class="pre">llama3.1:8b</span></code>).</p></li>
+</ul>
+</li>
+<li><p><strong>Embedding Provider</strong>: Select <strong>Ollama</strong>.</p>
+<ul class="simple">
+<li><p>Model: Choose <code class="docutils literal notranslate"><span class="pre">nomic-embed-text</span></code> (the embedding model we downloaded earlier).</p></li>
+</ul>
+</li>
+<li><p><strong>Vector Database</strong>: Keep the default <strong>LanceDB</strong> (built-in, zero config).</p></li>
+</ol>
+</section>
+<section id="creating-a-workspace-uploading-documents">
+<h3><span class="section-number">6.3.4. </span>3.4 Creating a Workspace &amp; Uploading Documents<a class="headerlink" href="#creating-a-workspace-uploading-documents" title="Link to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p>Click <strong>“New Workspace”</strong> and name it (e.g., “Research Papers”).</p></li>
+<li><p>Click the <strong>Upload</strong> icon in your workspace.</p></li>
+<li><p>Drag and drop your files:</p>
+<ul class="simple">
+<li><p>Supported formats: <code class="docutils literal notranslate"><span class="pre">.pdf</span></code>, <code class="docutils literal notranslate"><span class="pre">.txt</span></code>, <code class="docutils literal notranslate"><span class="pre">.docx</span></code>, <code class="docutils literal notranslate"><span class="pre">.md</span></code>, <code class="docutils literal notranslate"><span class="pre">.csv</span></code>, <code class="docutils literal notranslate"><span class="pre">.json</span></code>, <code class="docutils literal notranslate"><span class="pre">.py</span></code>, <code class="docutils literal notranslate"><span class="pre">.js</span></code>, and more.</p></li>
+</ul>
+</li>
+<li><p>Click <strong>“Move to Workspace”</strong> to process and embed your documents.</p></li>
+<li><p>Wait for the status to show <strong>“Embedded”</strong> for each file.</p></li>
+</ol>
+</section>
+<section id="chatting-with-your-documents">
+<h3><span class="section-number">6.3.5. </span>3.5 Chatting With Your Documents<a class="headerlink" href="#chatting-with-your-documents" title="Link to this heading">#</a></h3>
+<p>Once documents are embedded, simply type questions in the chat box:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>You:  What methodology did the authors use for building extraction?
+AI:   Based on the uploaded papers, the authors employed a two-stage approach:
+      first using HSV color thresholding for initial segmentation, followed by
+      a Mask R-CNN model for refined building footprint extraction...
+      [Source: paper_2024_building_extraction.pdf, page 7]
+</pre></div>
+</div>
+<p>The AI will cite which document and page it found the answer in!</p>
+</section>
+<section id="advanced-anythingllm-features">
+<h3><span class="section-number">6.3.6. </span>3.6 Advanced AnythingLLM Features<a class="headerlink" href="#advanced-anythingllm-features" title="Link to this heading">#</a></h3>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>Feature</p></th>
+<th class="head text-left"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p><strong>Multiple Workspaces</strong></p></td>
+<td class="text-left"><p>Separate knowledge bases per project (e.g., “Thesis”, “Course Prep”, “Code Docs”).</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><strong>Chat Modes</strong></p></td>
+<td class="text-left"><p>Switch between “Chat” (conversational) and “Query” (strict document-only answers).</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><strong>API Access</strong></p></td>
+<td class="text-left"><p>AnythingLLM provides its own API at <code class="docutils literal notranslate"><span class="pre">http://localhost:3001/api</span></code> for integrations.</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><strong>Agent Mode</strong></p></td>
+<td class="text-left"><p>Enable web browsing, code execution, and file management agents within AnythingLLM.</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><strong>Multi-User</strong></p></td>
+<td class="text-left"><p>Share your instance with lab mates, each with their own login and workspaces.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</section>
+<hr class="docutils" />
+<section id="publishing-models-to-hugging-face">
+<h2><span class="section-number">6.4. </span>4. Publishing Models to Hugging Face<a class="headerlink" href="#publishing-models-to-hugging-face" title="Link to this heading">#</a></h2>
+<p>Once you’ve fine-tuned a model or created a useful custom variant, you can share it with the world via the <a class="reference external" href="https://huggingface.co/">Hugging Face Hub</a>.</p>
+<section id="setting-up-your-hugging-face-account">
+<h3><span class="section-number">6.4.1. </span>4.1 Setting Up Your Hugging Face Account<a class="headerlink" href="#setting-up-your-hugging-face-account" title="Link to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p>Sign up at <a class="reference external" href="https://huggingface.co/join">huggingface.co/join</a>.</p></li>
+<li><p>Go to <strong>Settings → Access Tokens → New Token</strong>.</p></li>
+<li><p>Create a token with <strong>Write</strong> access. Copy it — you’ll need it shortly.</p></li>
+</ol>
+</section>
+<section id="installing-the-hugging-face-cli">
+<h3><span class="section-number">6.4.2. </span>4.2 Installing the Hugging Face CLI<a class="headerlink" href="#installing-the-hugging-face-cli" title="Link to this heading">#</a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>huggingface_hub<span class="w"> </span>transformers
+</pre></div>
+</div>
+</section>
+<section id="authenticating">
+<h3><span class="section-number">6.4.3. </span>4.3 Authenticating<a class="headerlink" href="#authenticating" title="Link to this heading">#</a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>huggingface-cli<span class="w"> </span>login
+</pre></div>
+</div>
+<p>Paste your Write token when prompted. This stores credentials locally so you don’t need to re-authenticate.</p>
+<p><strong>Alternatively, in Python:</strong></p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">huggingface_hub</span> <span class="kn">import</span> <span class="n">login</span>
+<span class="n">login</span><span class="p">(</span><span class="n">token</span><span class="o">=</span><span class="s2">&quot;hf_YOUR_TOKEN_HERE&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="uploading-a-model-python-api">
+<h3><span class="section-number">6.4.4. </span>4.4 Uploading a Model (Python API)<a class="headerlink" href="#uploading-a-model-python-api" title="Link to this heading">#</a></h3>
+<p>If you have a fine-tuned Transformers model saved locally:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">transformers</span> <span class="kn">import</span> <span class="n">AutoModelForCausalLM</span><span class="p">,</span> <span class="n">AutoTokenizer</span>
+
+<span class="c1"># Load your locally fine-tuned model</span>
+<span class="n">model</span> <span class="o">=</span> <span class="n">AutoModelForCausalLM</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="s2">&quot;./my-finetuned-model&quot;</span><span class="p">)</span>
+<span class="n">tokenizer</span> <span class="o">=</span> <span class="n">AutoTokenizer</span><span class="o">.</span><span class="n">from_pretrained</span><span class="p">(</span><span class="s2">&quot;./my-finetuned-model&quot;</span><span class="p">)</span>
+
+<span class="c1"># Push to Hugging Face Hub</span>
+<span class="c1"># This creates the repo &quot;your-username/my-research-llm&quot; automatically</span>
+<span class="n">model</span><span class="o">.</span><span class="n">push_to_hub</span><span class="p">(</span><span class="s2">&quot;your-username/my-research-llm&quot;</span><span class="p">)</span>
+<span class="n">tokenizer</span><span class="o">.</span><span class="n">push_to_hub</span><span class="p">(</span><span class="s2">&quot;your-username/my-research-llm&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="uploading-a-model-cli">
+<h3><span class="section-number">6.4.5. </span>4.5 Uploading a Model (CLI)<a class="headerlink" href="#uploading-a-model-cli" title="Link to this heading">#</a></h3>
+<p>For uploading arbitrary files (GGUF, safetensors, configs):</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create a new repository on Hugging Face</span>
+huggingface-cli<span class="w"> </span>repo<span class="w"> </span>create<span class="w"> </span>my-research-llm<span class="w"> </span>--type<span class="w"> </span>model
+
+<span class="c1"># Upload all files from a local directory to the repo</span>
+huggingface-cli<span class="w"> </span>upload<span class="w"> </span>your-username/my-research-llm<span class="w"> </span>./my-model-folder<span class="w"> </span>.
+</pre></div>
+</div>
+</section>
+<section id="uploading-gguf-files-ollama-compatible-format">
+<h3><span class="section-number">6.4.6. </span>4.6 Uploading GGUF Files (Ollama-Compatible Format)<a class="headerlink" href="#uploading-gguf-files-ollama-compatible-format" title="Link to this heading">#</a></h3>
+<p>If you’ve quantized a model into GGUF format (used by Ollama and llama.cpp):</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">huggingface_hub</span> <span class="kn">import</span> <span class="n">HfApi</span>
+
+<span class="n">api</span> <span class="o">=</span> <span class="n">HfApi</span><span class="p">()</span>
+
+<span class="c1"># Create a repository</span>
+<span class="n">api</span><span class="o">.</span><span class="n">create_repo</span><span class="p">(</span><span class="s2">&quot;your-username/my-model-gguf&quot;</span><span class="p">,</span> <span class="n">repo_type</span><span class="o">=</span><span class="s2">&quot;model&quot;</span><span class="p">)</span>
+
+<span class="c1"># Upload the GGUF file</span>
+<span class="n">api</span><span class="o">.</span><span class="n">upload_file</span><span class="p">(</span>
+    <span class="n">path_or_fileobj</span><span class="o">=</span><span class="s2">&quot;./my-model.Q4_K_M.gguf&quot;</span><span class="p">,</span>
+    <span class="n">path_in_repo</span><span class="o">=</span><span class="s2">&quot;my-model.Q4_K_M.gguf&quot;</span><span class="p">,</span>
+    <span class="n">repo_id</span><span class="o">=</span><span class="s2">&quot;your-username/my-model-gguf&quot;</span><span class="p">,</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="writing-a-good-model-card">
+<h3><span class="section-number">6.4.7. </span>4.7 Writing a Good Model Card<a class="headerlink" href="#writing-a-good-model-card" title="Link to this heading">#</a></h3>
+<p>Every model on Hugging Face should have a <code class="docutils literal notranslate"><span class="pre">README.md</span></code> (Model Card). This is critical for discoverability and reproducibility:</p>
+<div class="highlight-markdown notranslate"><div class="highlight"><pre><span></span>---
+license: apache-2.0
+language:
+<span class="w">  </span><span class="k">-</span><span class="w"> </span>en
+tags:
+<span class="w">  </span><span class="k">-</span><span class="w"> </span>llama
+<span class="w">  </span><span class="k">-</span><span class="w"> </span>geospatial
+<span class="w">  </span><span class="k">-</span><span class="w"> </span>research
+base_model: meta-llama/Llama-3.1-8B
+datasets:
+<span class="gu">  - your-username/your-dataset</span>
+<span class="gu">---</span>
+
+<span class="gh"># My Research LLM</span>
+
+<span class="gu">## Model Description</span>
+A fine-tuned Llama 3.1 8B model specialized for geospatial research tasks
+including building extraction, land use classification, and map analysis.
+
+<span class="gu">## Training Details</span>
+<span class="k">-</span><span class="w"> </span><span class="gs">**Base Model**</span>: Llama 3.1 8B
+<span class="k">-</span><span class="w"> </span><span class="gs">**Fine-tuning Method**</span>: LoRA (rank=16, alpha=32)
+<span class="k">-</span><span class="w"> </span><span class="gs">**Training Data**</span>: 50,000 geospatial Q&amp;A pairs
+<span class="k">-</span><span class="w"> </span><span class="gs">**Hardware**</span>: 1x NVIDIA A100 80GB
+<span class="k">-</span><span class="w"> </span><span class="gs">**Training Time**</span>: ~8 hours
+
+<span class="gu">## Usage</span>
+```python
+from transformers import pipeline
+pipe = pipeline(&quot;text-generation&quot;, model=&quot;your-username/my-research-llm&quot;)
+result = pipe(&quot;Describe the land use pattern in this satellite image analysis...&quot;)
+</pre></div>
+</div>
+</section>
+</section>
+<section id="evaluation">
+<h2><span class="section-number">6.5. </span>Evaluation<a class="headerlink" href="#evaluation" title="Link to this heading">#</a></h2>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>Benchmark</p></th>
+<th class="head text-left"><p>Score</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>GeoQA Accuracy</p></td>
+<td class="text-left"><p>87.3%</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>MapReader F1</p></td>
+<td class="text-left"><p>0.92</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="limitations">
+<h2><span class="section-number">6.6. </span>Limitations<a class="headerlink" href="#limitations" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>Optimized for English-language geospatial tasks only.</p></li>
+<li><p>May hallucinate specific coordinate values.</p></li>
+</ul>
+</section>
+<section id="citation">
+<h2><span class="section-number">6.7. </span>Citation<a class="headerlink" href="#citation" title="Link to this heading">#</a></h2>
+<p>If you use this model, please cite:</p>
+<div class="highlight-bibtex notranslate"><div class="highlight"><pre><span></span><span class="nc">@misc</span><span class="p">{</span><span class="nl">yang2025geollm</span><span class="p">,</span>
+<span class="w">  </span><span class="na">title</span><span class="p">=</span><span class="s">{GeoLLM: A Specialized Language Model for Geospatial Research}</span><span class="p">,</span>
+<span class="w">  </span><span class="na">author</span><span class="p">=</span><span class="s">{Yang, Eric}</span><span class="p">,</span>
+<span class="w">  </span><span class="na">year</span><span class="p">=</span><span class="s">{2025}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="end-to-end-workflow-from-download-to-deployment">
+<h2><span class="section-number">6.8. </span>5. End-to-End Workflow: From Download to Deployment<a class="headerlink" href="#end-to-end-workflow-from-download-to-deployment" title="Link to this heading">#</a></h2>
+<p>Here is a complete workflow combining everything we’ve learned:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Step 1: Install Ollama
+         ↓
+Step 2: Pull a base model (e.g., llama3.1:8b)
+         ↓
+Step 3: Create a custom Modelfile with your system prompt
+         ↓
+Step 4: Build your custom model with `ollama create`
+         ↓
+Step 5: Install AnythingLLM
+         ↓
+Step 6: Connect AnythingLLM → Ollama (localhost:11434)
+         ↓
+Step 7: Upload your research papers into a Workspace
+         ↓
+Step 8: Chat with your documents using your custom model!
+         ↓
+(Optional) Step 9: Fine-tune the model on your domain data
+         ↓
+(Optional) Step 10: Publish to Hugging Face for the community
+</pre></div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="troubleshooting-common-issues">
+<h2><span class="section-number">6.9. </span>6. Troubleshooting Common Issues<a class="headerlink" href="#troubleshooting-common-issues" title="Link to this heading">#</a></h2>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>Problem</p></th>
+<th class="head text-left"><p>Solution</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">ollama:</span> <span class="pre">command</span> <span class="pre">not</span> <span class="pre">found</span></code></p></td>
+<td class="text-left"><p>Restart your terminal. On Linux, ensure <code class="docutils literal notranslate"><span class="pre">/usr/local/bin</span></code> is in your PATH.</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>Model download stuck</p></td>
+<td class="text-left"><p>Check disk space with <code class="docutils literal notranslate"><span class="pre">df</span> <span class="pre">-h</span></code>. Models can be 4–50 GB.</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>Slow responses (no GPU)</p></td>
+<td class="text-left"><p>Use smaller quantized models like <code class="docutils literal notranslate"><span class="pre">llama3.2</span></code> or <code class="docutils literal notranslate"><span class="pre">qwen2.5:1.5b</span></code>.</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>AnythingLLM can’t find Ollama</p></td>
+<td class="text-left"><p>Ensure <code class="docutils literal notranslate"><span class="pre">ollama</span> <span class="pre">serve</span></code> is running. Check the URL is <code class="docutils literal notranslate"><span class="pre">http://localhost:11434</span></code>.</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>Out of memory (OOM)</p></td>
+<td class="text-left"><p>Close other apps. Use a smaller model. Add <code class="docutils literal notranslate"><span class="pre">PARAMETER</span> <span class="pre">num_ctx</span> <span class="pre">2048</span></code> to reduce context.</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>CUDA/GPU not detected</p></td>
+<td class="text-left"><p>Install the <a class="reference external" href="https://developer.nvidia.com/cuda-downloads">NVIDIA CUDA Toolkit</a> and update GPU drivers.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<hr class="docutils" />
+<section id="curated-resources-further-reading">
+<h2><span class="section-number">6.10. </span>7. Curated Resources &amp; Further Reading<a class="headerlink" href="#curated-resources-further-reading" title="Link to this heading">#</a></h2>
+<section id="official-documentation">
+<h3><span class="section-number">6.10.1. </span>Official Documentation<a class="headerlink" href="#official-documentation" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/ollama/ollama/blob/main/README.md">Ollama Documentation</a> — Official README with full command reference and API docs.</p></li>
+<li><p><a class="reference external" href="https://ollama.com/library">Ollama Model Library</a> — Browse and search all available models.</p></li>
+<li><p><a class="reference external" href="https://docs.anythingllm.com/">AnythingLLM Docs</a> — Official documentation for setup, configuration, and API usage.</p></li>
+<li><p><a class="reference external" href="https://huggingface.co/docs/hub/en/index">Hugging Face Hub Documentation</a> — Complete guide to uploading, versioning, and sharing models.</p></li>
+</ul>
+</section>
+<section id="tutorials-guides">
+<h3><span class="section-number">6.10.2. </span>Tutorials &amp; Guides<a class="headerlink" href="#tutorials-guides" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><a class="reference external" href="https://www.freecodecamp.org/news/how-to-run-open-source-llms-locally-using-ollama/">freeCodeCamp: How to Run LLMs Locally with Ollama</a> — Beginner-friendly written tutorial.</p></li>
+<li><p><a class="reference external" href="https://www.sitepoint.com/local-llms-2025-ollama/">SitePoint: Local LLMs in Production (2025)</a> — Advanced guide on using Ollama in production environments.</p></li>
+<li><p><a class="reference external" href="https://huggingface.co/learn">Hugging Face Course</a> — Free course covering Transformers, fine-tuning, and model sharing.</p></li>
+<li><p><a class="reference external" href="https://huggingface.co/docs/hub/en/gguf">GGUF Format Explained</a> — Understanding the model format used by Ollama and llama.cpp.</p></li>
+</ul>
+</section>
+<section id="community-ecosystem">
+<h3><span class="section-number">6.10.3. </span>Community &amp; Ecosystem<a class="headerlink" href="#community-ecosystem" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/open-webui/open-webui">Open WebUI</a> — Beautiful, feature-rich web interface for Ollama (ChatGPT-like UI).</p></li>
+<li><p><a class="reference external" href="https://lmstudio.ai/">LM Studio</a> — GUI alternative to Ollama for running local models with a visual interface.</p></li>
+<li><p><a class="reference external" href="https://discord.gg/ollama">Ollama Discord Community</a> — Ask questions and share configurations with other local LLM enthusiasts.</p></li>
+</ul>
+</section>
+</section>
+<hr class="docutils" />
+<section id="knowledge-quiz">
+<h2><span class="section-number">6.11. </span>Knowledge Quiz<a class="headerlink" href="#knowledge-quiz" title="Link to this heading">#</a></h2>
+<p><strong>Q1: What is the single command to download and interactively chat with Meta’s Llama 3.1 model using Ollama?</strong></p>
+<details>
+<summary>Answer</summary>
+<p>First pull: <code class="docutils literal notranslate"><span class="pre">ollama</span> <span class="pre">pull</span> <span class="pre">llama3.1:8b</span></code>, then run: <code class="docutils literal notranslate"><span class="pre">ollama</span> <span class="pre">run</span> <span class="pre">llama3.1:8b</span></code>. Or simply <code class="docutils literal notranslate"><span class="pre">ollama</span> <span class="pre">run</span> <span class="pre">llama3.1:8b</span></code> which will auto-pull if not already downloaded.</p>
+</details>
+<p><strong>Q2: In AnythingLLM, what is the fundamental difference between “Chat” mode and “Query” mode?</strong></p>
+<details>
+<summary>Answer</summary>
+<p>“Chat” mode is conversational — the AI uses both its training knowledge and your documents to answer. “Query” mode is strict — the AI ONLY answers based on your uploaded documents. If the answer isn’t in your docs, it will say it doesn’t know rather than guessing.</p>
+</details>
+<p><strong>Q3: When publishing a model to Hugging Face, why is a Model Card (<a class="reference external" href="http://README.md">README.md</a>) important?</strong></p>
+<details>
+<summary>Answer</summary>
+<p>The Model Card describes the model’s training data, methodology, intended use, limitations, and evaluation metrics. It is essential for reproducibility, discoverability (search ranking on HF Hub), and ethical transparency. It helps other researchers decide whether the model is appropriate for their use case.</p>
+</details>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./docs\local-llm"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../research/01-ai-prompts-for-research.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title"><span class="section-number">5. </span>AI Prompts &amp; Skills for Academic Research</p>
+      </div>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#why-run-llms-locally">6.1. 1. Why Run LLMs Locally?</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#system-requirements-minimum-recommended">6.1.1. System Requirements (Minimum → Recommended)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ollama-your-local-model-engine">6.2. 2. Ollama: Your Local Model Engine</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#installation">6.2.1. 2.1 Installation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#downloading-your-first-model">6.2.2. 2.2 Downloading Your First Model</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#running-a-model-interactive-chat">6.2.3. 2.3 Running a Model (Interactive Chat)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#essential-ollama-cli-commands">6.2.4. 2.4 Essential Ollama CLI Commands</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#using-ollama-s-rest-api-programmatic-access">6.2.5. 2.5 Using Ollama’s REST API (Programmatic Access)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#creating-custom-models-with-modelfiles">6.2.6. 2.6 Creating Custom Models with Modelfiles</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#anythingllm-a-private-document-q-a-system-rag">6.3. 3. AnythingLLM: A Private Document Q&amp;A System (RAG)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#how-rag-works-for-beginners">6.3.1. 3.1 How RAG Works (For Beginners)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#installing-anythingllm">6.3.2. 3.2 Installing AnythingLLM</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#connecting-anythingllm-to-ollama">6.3.3. 3.3 Connecting AnythingLLM to Ollama</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#creating-a-workspace-uploading-documents">6.3.4. 3.4 Creating a Workspace &amp; Uploading Documents</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#chatting-with-your-documents">6.3.5. 3.5 Chatting With Your Documents</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#advanced-anythingllm-features">6.3.6. 3.6 Advanced AnythingLLM Features</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#publishing-models-to-hugging-face">6.4. 4. Publishing Models to Hugging Face</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#setting-up-your-hugging-face-account">6.4.1. 4.1 Setting Up Your Hugging Face Account</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#installing-the-hugging-face-cli">6.4.2. 4.2 Installing the Hugging Face CLI</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#authenticating">6.4.3. 4.3 Authenticating</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#uploading-a-model-python-api">6.4.4. 4.4 Uploading a Model (Python API)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#uploading-a-model-cli">6.4.5. 4.5 Uploading a Model (CLI)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#uploading-gguf-files-ollama-compatible-format">6.4.6. 4.6 Uploading GGUF Files (Ollama-Compatible Format)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#writing-a-good-model-card">6.4.7. 4.7 Writing a Good Model Card</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#evaluation">6.5. Evaluation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#limitations">6.6. Limitations</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#citation">6.7. Citation</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#end-to-end-workflow-from-download-to-deployment">6.8. 5. End-to-End Workflow: From Download to Deployment</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#troubleshooting-common-issues">6.9. 6. Troubleshooting Common Issues</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#curated-resources-further-reading">6.10. 7. Curated Resources &amp; Further Reading</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#official-documentation">6.10.1. Official Documentation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tutorials-guides">6.10.2. Tutorials &amp; Guides</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#community-ecosystem">6.10.3. Community &amp; Ecosystem</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#knowledge-quiz">6.11. Knowledge Quiz</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Yalin Yang
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2026.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
