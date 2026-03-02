@@ -1,0 +1,9 @@
+assets/~$graph.pptx
+_build/
+private/
+**/.ipynb_checkpoints/
+**/*.db
+**/*.csv
+**/*.parquet
+**/*.json
+**/*.geojson

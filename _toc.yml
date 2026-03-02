@@ -1,0 +1,32 @@
+# Table of contents
+# Learn more at https://jupyterbook.org/customize/toc.html
+
+format: jb-book
+root: index
+
+parts:
+  # Add your AI tools content here
+  # Example structure:
+  - caption: Vibe Coding
+    numbered: true
+    maxdepth: 2
+    chapters:
+      - file: docs/vibe-coding/01-environment-and-basics
+      - file: docs/vibe-coding/02-complex-tasks-and-terminal
+      - file: docs/vibe-coding/03-multimodal-and-context
+      - file: docs/vibe-coding/04-advanced-features
+  # - caption: RAG
+  #   numbered: true
+  #   maxdepth: 2
+  #   chapters:
+  #     - file: docs/rag/intro
+  # - caption: MCP
+  #   numbered: true
+  #   maxdepth: 2
+  #   chapters:
+  #     - file: docs/mcp/intro
+  # - caption: Skills
+  #   numbered: true
+  #   maxdepth: 2
+  #   chapters:
+  #     - file: docs/skills/intro
