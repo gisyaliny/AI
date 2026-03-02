@@ -1,0 +1,864 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>4. The Kriging Model &#8212; Yalin&#39;s Spatial Auto-autocorrelation Handbook</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b76e3c8a" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=384b581d" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
+  <script src="../../_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
+
+    <script src="../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../_static/design-tabs.js?v=36754332"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'docs/foundation/Kriging';</script>
+    <link rel="canonical" href="https://gisyaliny.github.io/sa/docs/foundation/Kriging.html" />
+    <link rel="icon" href="../../_static/fav.ico"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="5. SAR and CAR" href="SAR-CAR.html" />
+    <link rel="prev" title="3. Sample Size" href="Sample-Size-Determine.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/logo.png" class="logo__image only-light" alt="Yalin's Spatial Auto-autocorrelation Handbook - Home"/>
+    <script>document.write(`<img src="../../_static/logo.png" class="logo__image only-dark" alt="Yalin's Spatial Auto-autocorrelation Handbook - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Foundation</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="Covariance_and_CovMatrix.html">1. Covariance and Covariance Matrix</a></li>
+<li class="toctree-l1"><a class="reference internal" href="MLE.html">2. Maximum likelihood estimation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Sample-Size-Determine.html">3. Sample Size</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">4. The Kriging Model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="SAR-CAR.html">5. SAR and CAR</a></li>
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Statistic Learning (Luc Anselin)</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../st_learning_anselin/L1-Spatial-Analysis-Intro.html">7. Introduction of Spatial Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../st_learning_anselin/L2-Maps.html">8. Maps</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../st_learning_anselin/L3-Exploratory-Data-Analysis.html">9. Exploratory Data Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../st_learning_anselin/L4-Spatial-Autocorrelation.html">10. Spatial Autocorrelation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../st_learning_anselin/L5-Global-Spatial-Autocorrelation.html">11. Moran’s I and Geary’s C</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../st_learning_anselin/L6-Visualizing-Spatial-Autocorrelation.html">12. Visualizing Spatial Autocorrelation</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://mybinder.org/v2/gh/gisyaliny/sa/master?urlpath=tree/docs/foundation/Kriging.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch onBinder"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img src="../../_static/images/logo_binder.svg">
+  </span>
+<span class="btn__text-container">Binder</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://colab.research.google.com/github/gisyaliny/sa/blob/master/docs/foundation/Kriging.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch onColab"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img src="../../_static/images/logo_colab.png">
+  </span>
+<span class="btn__text-container">Colab</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/gisyaliny/sa" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/gisyaliny/sa/edit/main/docs/foundation/Kriging.ipynb" target="_blank"
+   class="btn btn-sm btn-source-edit-button dropdown-item"
+   title="Suggest edit"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-pencil-alt"></i>
+  </span>
+<span class="btn__text-container">Suggest edit</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/gisyaliny/sa/issues/new?title=Issue%20on%20page%20%2Fdocs/foundation/Kriging.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../_sources/docs/foundation/Kriging.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>The Kriging Model</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#definition">4.1. Definition</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#simple-kriging-sk">4.2. Simple Kriging (SK)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#weights-calculation">4.2.1. Weights Calculation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#python-sample-script">4.2.2. Python Sample Script</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ordinary-kriging-ok">4.3. Ordinary Kriging (OK)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">4.3.1. Python Sample Script</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#evolution-of-the-equations">4.3.2. Evolution of the Equations</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#universal-kriging">4.4. Universal Kriging</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#universal-kriging-model">4.4.1. Universal Kriging Model</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#trend-function">4.4.2. Trend function</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#kriging-estimator">4.4.3. Kriging Estimator</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">4.4.4. Python Sample Script</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="the-kriging-model">
+<h1><span class="section-number">4. </span>The Kriging Model<a class="headerlink" href="#the-kriging-model" title="Link to this heading">#</a></h1>
+<section id="definition">
+<h2><span class="section-number">4.1. </span>Definition<a class="headerlink" href="#definition" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>The <code class="docutils literal notranslate"><span class="pre">Kriging</span></code> Model is a <code class="docutils literal notranslate"><span class="pre">interpolation</span></code> model, basically, it analysis how to use <code class="docutils literal notranslate"><span class="pre">spatial</span> <span class="pre">neighbors</span></code> of location i to <strong>predict</strong> the value of <span class="math notranslate nohighlight">\(y_i\)</span></p></li>
+<li><p>It is named after the South African mining engineer<code class="docutils literal notranslate"> <span class="pre">Danie</span> <span class="pre">G.</span> <span class="pre">Krige</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Kriging</span></code> is widely used in fields such as <code class="docutils literal notranslate"><span class="pre">geology</span></code>, <code class="docutils literal notranslate"><span class="pre">hydrology</span></code>, and <code class="docutils literal notranslate"><span class="pre">environmental</span> <span class="pre">science</span></code>.</p></li>
+</ul>
+</section>
+<section id="simple-kriging-sk">
+<h2><span class="section-number">4.2. </span>Simple Kriging (SK)<a class="headerlink" href="#simple-kriging-sk" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Simple</span> <span class="pre">Kriging</span></code> assumes the mean of the underlying process is known and constant across the entire study area.</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[
+Z(x_0) = \mu + \sum_{i=1}^N \lambda_i(Z(x_i)-\mu)
+\]</div>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(Z(x_0)\)</span> is the estimated value at location <span class="math notranslate nohighlight">\(x_0\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(\mu\)</span> is the known mean of the process.</p></li>
+<li><p><span class="math notranslate nohighlight">\(\lambda_i\)</span> are the kriging weights</p></li>
+<li><p><span class="math notranslate nohighlight">\(Z(x_i)\)</span> are the known values at the sampled locations.</p></li>
+</ul>
+<section id="weights-calculation">
+<h3><span class="section-number">4.2.1. </span>Weights Calculation<a class="headerlink" href="#weights-calculation" title="Link to this heading">#</a></h3>
+<p>The weights <span class="math notranslate nohighlight">\(\lambda_i\)</span> are calculated by solving the kriging system:</p>
+<ol class="arabic">
+<li><p>We assume <span class="math notranslate nohighlight">\(y_i=w^T y_j+ε\)</span>, where <span class="math notranslate nohighlight">\(y_j\)</span> are spatial neighbors of <span class="math notranslate nohighlight">\(y_i\)</span>, <span class="math notranslate nohighlight">\(w\)</span> is weight matrix</p></li>
+<li><p><span class="math notranslate nohighlight">\(w\)</span> is evaluated by semivariogram <span class="math notranslate nohighlight">\(γ(x_i,x_j)\)</span></p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(A∗w=b\to w=A^{−1} b\)</span>, where <span class="math notranslate nohighlight">\(A\)</span> is a matrix of <span class="math notranslate nohighlight">\(γ(x_i,x_j)\)</span>, <span class="math notranslate nohighlight">\(b\)</span> is <span class="math notranslate nohighlight">\(γ(y_i,y_j)\)</span></p></li>
+</ul>
+<p><img alt="img" src="../../_images/01.jpg" /></p>
+</li>
+</ol>
+</section>
+<section id="python-sample-script">
+<h3><span class="section-number">4.2.2. </span>Python Sample Script<a class="headerlink" href="#python-sample-script" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="c1"># Sample data (x, y, z)</span>
+<span class="c1"># data: A 2D NumPy array where each row represents a point with coordinates (x,y) and a corresponding value z.</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span>
+    <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">],</span>
+    <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">],</span>
+    <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">],</span>
+    <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mf">2.5</span><span class="p">]</span>
+<span class="p">])</span>
+
+<span class="c1"># Known mean</span>
+<span class="c1"># This value is assumed to be known and constant across the entire study area for Simple Kriging.</span>
+<span class="n">mu</span> <span class="o">=</span> <span class="mf">1.75</span>
+
+<span class="c1"># Semivariogram function (spherical model for example)</span>
+<span class="k">def</span> <span class="nf">semivariance</span><span class="p">(</span><span class="n">h</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;A function that defines the semivariogram model, which describes how the spatial correlation between points changes with distance.</span>
+<span class="sd">    </span>
+<span class="sd">        a : The range parameter, beyond which points are no longer correlated.</span>
+<span class="sd">        c0: The nugget parameter, representing the semivariance at zero distance (accounting for measurement error or microscale variation).</span>
+<span class="sd">        c : The sill parameter, representing the value at which the semivariance levels off.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="mi">1</span>  <span class="c1"># range</span>
+    <span class="n">c0</span> <span class="o">=</span> <span class="mf">0.5</span>  <span class="c1"># nugget</span>
+    <span class="n">c</span> <span class="o">=</span> <span class="mf">1.5</span>  <span class="c1"># sill</span>
+    <span class="k">return</span> <span class="n">c0</span> <span class="o">+</span> <span class="n">c</span> <span class="o">*</span> <span class="p">((</span><span class="mi">3</span> <span class="o">*</span> <span class="n">h</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">a</span><span class="p">))</span> <span class="o">-</span> <span class="p">(</span><span class="n">h</span><span class="o">**</span><span class="mi">3</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">a</span><span class="o">**</span><span class="mi">3</span><span class="p">)))</span> <span class="k">if</span> <span class="n">h</span> <span class="o">&lt;</span> <span class="n">a</span> <span class="k">else</span> <span class="n">c0</span> <span class="o">+</span> <span class="n">c</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">np.linalg.norm</span></code> : A function to calculate the Euclidean distance between two points.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Distance matrix</span>
+<span class="c1"># A matrix where each element (i,j) dist_matrix: A matrix where each element i and j.</span>
+<span class="n">N</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">dist_matrix</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">N</span><span class="p">,</span> <span class="n">N</span><span class="p">))</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span><span class="p">):</span>
+        <span class="n">dist_matrix</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="p">:</span><span class="mi">2</span><span class="p">]</span> <span class="o">-</span> <span class="n">data</span><span class="p">[</span><span class="n">j</span><span class="p">,</span> <span class="p">:</span><span class="mi">2</span><span class="p">])</span>
+
+<span class="c1"># Semivariance matrix</span>
+<span class="c1"># A matrix where each element is the semivariance between points i and j, calculated using the semivariogram function.</span>
+<span class="n">gamma_matrix</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vectorize</span><span class="p">(</span><span class="n">semivariance</span><span class="p">)(</span><span class="n">dist_matrix</span><span class="p">)</span>
+
+<span class="c1"># Distance to the prediction location</span>
+<span class="n">x0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">])</span>
+
+<span class="c1"># An array containing the distances from each data point to the prediction location</span>
+<span class="n">dist_to_x0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="p">:</span><span class="mi">2</span><span class="p">]</span> <span class="o">-</span> <span class="n">x0</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span><span class="p">)])</span>
+
+<span class="c1"># An array containing the semivariances between each data point and the prediction location.</span>
+<span class="n">gamma_to_x0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vectorize</span><span class="p">(</span><span class="n">semivariance</span><span class="p">)(</span><span class="n">dist_to_x0</span><span class="p">)</span>
+
+<span class="c1"># Kriging weights</span>
+<span class="n">lambda_weights</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">gamma_matrix</span><span class="p">,</span> <span class="n">gamma_to_x0</span><span class="p">)</span>
+
+<span class="c1"># Simple kriging estimation</span>
+<span class="n">z0</span> <span class="o">=</span> <span class="n">mu</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">lambda_weights</span><span class="p">,</span> <span class="n">data</span><span class="p">[:,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">-</span> <span class="n">mu</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Simple Kriging estimate at </span><span class="si">{</span><span class="n">x0</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">z0</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Simple Kriging estimate at [0.5 0.5]: 1.75
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="ordinary-kriging-ok">
+<h2><span class="section-number">4.3. </span>Ordinary Kriging (OK)<a class="headerlink" href="#ordinary-kriging-ok" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Ordinary</span> <span class="pre">Kriging</span></code> assumes an <code class="docutils literal notranslate"><span class="pre">unknown</span></code> but <code class="docutils literal notranslate"><span class="pre">constant</span> <span class="pre">mean</span></code> within the neighborhood of the prediction location.</p></li>
+<li><p>The kriging estimator for a location <span class="math notranslate nohighlight">\(x_0\)</span> is given by</p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[
+Z(x_0) = \sum_{i=1}^N\lambda_iZ(x_i)
+\]</div>
+<p>subject to the constraint: <span class="math notranslate nohighlight">\(\sum_{i=1}^N\lambda_i = 1\)</span></p>
+<section id="id1">
+<h3><span class="section-number">4.3.1. </span>Python Sample Script<a class="headerlink" href="#id1" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Extended distance matrix (with ones for the Lagrange multiplier)</span>
+<span class="n">extended_dist_matrix</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="n">N</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">N</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span>
+<span class="n">extended_dist_matrix</span><span class="p">[:</span><span class="n">N</span><span class="p">,</span> <span class="p">:</span><span class="n">N</span><span class="p">]</span> <span class="o">=</span> <span class="n">gamma_matrix</span>
+<span class="c1"># Extended semivariance vector (with one for the Lagrange multiplier)</span>
+<span class="n">extended_gamma_to_x0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">gamma_to_x0</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="c1"># Kriging weights (including Lagrange multiplier)</span>
+<span class="n">extended_lambda_weights</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">extended_dist_matrix</span><span class="p">,</span> <span class="n">extended_gamma_to_x0</span><span class="p">)</span>
+<span class="c1"># Ordinary kriging estimation</span>
+<span class="n">z0_ok</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">extended_lambda_weights</span><span class="p">[:</span><span class="n">N</span><span class="p">],</span> <span class="n">data</span><span class="p">[:,</span> <span class="mi">2</span><span class="p">])</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Ordinary Kriging estimate at </span><span class="si">{</span><span class="n">x0</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">z0_ok</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Ordinary Kriging estimate at [0.5 0.5]: 2.312310601229375
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="evolution-of-the-equations">
+<h3><span class="section-number">4.3.2. </span>Evolution of the Equations<a class="headerlink" href="#evolution-of-the-equations" title="Link to this heading">#</a></h3>
+<p>The kriging equations evolve from the general need to minimize the estimation variance while keeping the estimator unbiased. This involves:</p>
+<ol class="arabic simple">
+<li><p>Defining a linear estimator based on spatially correlated data.</p></li>
+<li><p>Using the <code class="docutils literal notranslate"><span class="pre">semivariogram</span></code> to model <code class="docutils literal notranslate"><span class="pre">spatial</span> <span class="pre">correlation</span></code>.</p></li>
+<li><p>Solving a system of linear equations to obtain weights that minimize variance and ensure unbiasedness.</p></li>
+</ol>
+</section>
+</section>
+<section id="universal-kriging">
+<h2><span class="section-number">4.4. </span>Universal Kriging<a class="headerlink" href="#universal-kriging" title="Link to this heading">#</a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">Universal</span> <span class="pre">Kriging</span> <span class="pre">(UK)</span></code>, also known as <code class="docutils literal notranslate"><span class="pre">Kriging</span> <span class="pre">with</span> <span class="pre">a</span> <span class="pre">Trend</span></code>, is an extension of <code class="docutils literal notranslate"><span class="pre">Ordinary</span> <span class="pre">Kriging</span></code>.</p>
+<p>It is used when the data exhibits a trend or deterministic function that can be modeled.</p>
+<p>Unlike <code class="docutils literal notranslate"><span class="pre">Ordinary</span> <span class="pre">Kriging</span></code>, which assumes a constant <code class="docutils literal notranslate"><span class="pre">mean</span></code> within a local neighborhood, <code class="docutils literal notranslate"><span class="pre">Universal</span> <span class="pre">Kriging</span></code> accounts for a <strong>non-stationary <code class="docutils literal notranslate"><span class="pre">mean</span></code></strong> that changes over the study area.</p>
+<section id="universal-kriging-model">
+<h3><span class="section-number">4.4.1. </span>Universal Kriging Model<a class="headerlink" href="#universal-kriging-model" title="Link to this heading">#</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">Universal</span> <span class="pre">Kriging</span></code> assumes that the underlying process can be decomposed into a <code class="docutils literal notranslate"><span class="pre">deterministic</span> <span class="pre">trend</span> <span class="pre">component</span></code> and a <code class="docutils literal notranslate"><span class="pre">stochastic</span> <span class="pre">residual</span> <span class="pre">component</span></code>.</p>
+<div class="math notranslate nohighlight">
+\[
+Z(x) = m(x) + e(x)
+\]</div>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(Z(x)\)</span> is the value at location <span class="math notranslate nohighlight">\(x\)</span></p></li>
+<li><p><span class="math notranslate nohighlight">\(m(x)\)</span> is the deterministic trend function.</p></li>
+<li><p><span class="math notranslate nohighlight">\(e(x)\)</span> is the stochastic residual with mean zero and spatial correlation.</p></li>
+</ul>
+</section>
+<section id="trend-function">
+<h3><span class="section-number">4.4.2. </span>Trend function<a class="headerlink" href="#trend-function" title="Link to this heading">#</a></h3>
+<p>The trend <span class="math notranslate nohighlight">\(m(x)\)</span> can be modeled as a linear combination of known functions <span class="math notranslate nohighlight">\(f_k(x)\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[
+m(x) = \sum_{k=1}^p\beta_kf_k(x)
+\]</div>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(f_k(x)\)</span> are the basis functions (e.g., <code class="docutils literal notranslate"><span class="pre">polynomials</span></code>, <code class="docutils literal notranslate"><span class="pre">harmonics</span></code>).</p></li>
+<li><p><span class="math notranslate nohighlight">\(\beta_k\)</span> are the coefficients to be estimated.</p></li>
+</ul>
+</section>
+<section id="kriging-estimator">
+<h3><span class="section-number">4.4.3. </span>Kriging Estimator<a class="headerlink" href="#kriging-estimator" title="Link to this heading">#</a></h3>
+<p>The Universal Kriging estimator for a location <span class="math notranslate nohighlight">\(x_0\)</span> is given by:</p>
+<div class="math notranslate nohighlight">
+\[
+Z(x_0) = \sum_{i=1}^NZ(x_i) + \sum_{k=1}^p\mu_kf_k(x_0)
+\]</div>
+<p>subject to <span class="math notranslate nohighlight">\(\sum_{i=1}^N\lambda_if_k(x_i) = f_k(x_0)\)</span> for <span class="math notranslate nohighlight">\(k=1,2,...,p\)</span></p>
+</section>
+<section id="id2">
+<h3><span class="section-number">4.4.4. </span>Python Sample Script<a class="headerlink" href="#id2" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">basis_functions</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]])</span>
+<span class="c1"># Distance matrix</span>
+<span class="n">N</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="n">dist_matrix</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">N</span><span class="p">,</span> <span class="n">N</span><span class="p">))</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span><span class="p">):</span>
+        <span class="n">dist_matrix</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="p">:</span><span class="mi">2</span><span class="p">]</span> <span class="o">-</span> <span class="n">data</span><span class="p">[</span><span class="n">j</span><span class="p">,</span> <span class="p">:</span><span class="mi">2</span><span class="p">])</span>
+        
+<span class="c1"># Semivariance matrix</span>
+<span class="n">gamma_matrix</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vectorize</span><span class="p">(</span><span class="n">semivariance</span><span class="p">)(</span><span class="n">dist_matrix</span><span class="p">)</span>
+
+<span class="c1"># Distance to the prediction location</span>
+<span class="n">x0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">])</span>
+<span class="n">dist_to_x0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">norm</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="p">:</span><span class="mi">2</span><span class="p">]</span> <span class="o">-</span> <span class="n">x0</span><span class="p">)</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span><span class="p">)])</span>
+<span class="n">gamma_to_x0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vectorize</span><span class="p">(</span><span class="n">semivariance</span><span class="p">)(</span><span class="n">dist_to_x0</span><span class="p">)</span>
+<span class="c1"># Basis function matrix</span>
+<span class="n">F</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vstack</span><span class="p">([</span><span class="n">basis_functions</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="p">:</span><span class="mi">2</span><span class="p">])</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span><span class="p">)])</span>
+<span class="n">f0</span> <span class="o">=</span> <span class="n">basis_functions</span><span class="p">(</span><span class="n">x0</span><span class="p">)</span>
+<span class="c1"># Extended distance matrix (with basis functions for Lagrange multipliers)</span>
+<span class="n">extended_dist_matrix</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">N</span> <span class="o">+</span> <span class="n">F</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">N</span> <span class="o">+</span> <span class="n">F</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]))</span>
+<span class="n">extended_dist_matrix</span><span class="p">[:</span><span class="n">N</span><span class="p">,</span> <span class="p">:</span><span class="n">N</span><span class="p">]</span> <span class="o">=</span> <span class="n">gamma_matrix</span>
+<span class="n">extended_dist_matrix</span><span class="p">[:</span><span class="n">N</span><span class="p">,</span> <span class="n">N</span><span class="p">:]</span> <span class="o">=</span> <span class="n">F</span>
+<span class="n">extended_dist_matrix</span><span class="p">[</span><span class="n">N</span><span class="p">:,</span> <span class="p">:</span><span class="n">N</span><span class="p">]</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">T</span>
+<span class="c1"># Extended semivariance vector (with basis function values)</span>
+<span class="n">extended_gamma_to_x0</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">([</span><span class="n">gamma_to_x0</span><span class="p">,</span> <span class="n">f0</span><span class="p">])</span>
+<span class="c1"># Kriging weights (including Lagrange multipliers)</span>
+<span class="n">extended_lambda_weights</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">solve</span><span class="p">(</span><span class="n">extended_dist_matrix</span><span class="p">,</span> <span class="n">extended_gamma_to_x0</span><span class="p">)</span>
+<span class="c1"># Universal kriging estimation</span>
+<span class="n">z0_uk</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">extended_lambda_weights</span><span class="p">[:</span><span class="n">N</span><span class="p">],</span> <span class="n">data</span><span class="p">[:,</span> <span class="mi">2</span><span class="p">])</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">extended_lambda_weights</span><span class="p">[</span><span class="n">N</span><span class="p">:],</span> <span class="n">f0</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Universal Kriging estimate at </span><span class="si">{</span><span class="n">x0</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">z0_uk</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Universal Kriging estimate at [0.5 0.5]: 1.9508252147247764
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./docs\foundation"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="Sample-Size-Determine.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title"><span class="section-number">3. </span>Sample Size</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="SAR-CAR.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title"><span class="section-number">5. </span>SAR and CAR</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#definition">4.1. Definition</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#simple-kriging-sk">4.2. Simple Kriging (SK)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#weights-calculation">4.2.1. Weights Calculation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#python-sample-script">4.2.2. Python Sample Script</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#ordinary-kriging-ok">4.3. Ordinary Kriging (OK)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">4.3.1. Python Sample Script</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#evolution-of-the-equations">4.3.2. Evolution of the Equations</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#universal-kriging">4.4. Universal Kriging</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#universal-kriging-model">4.4.1. Universal Kriging Model</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#trend-function">4.4.2. Trend function</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#kriging-estimator">4.4.3. Kriging Estimator</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">4.4.4. Python Sample Script</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Yalin Yang
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2024.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

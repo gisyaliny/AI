@@ -1,0 +1,786 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>12. Visualizing Spatial Autocorrelation &#8212; Yalin&#39;s Spatial Auto-autocorrelation Handbook</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.5.1/css/all.min.css?digest=8d27b9dea8ad943066ae" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.1/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.1/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.1/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b76e3c8a" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=384b581d" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../../_static/design-style.1e8bd061cd6da7fc9cf755528e8ffc24.min.css?v=0a3b3ea7" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae" />
+  <script src="../../_static/vendor/fontawesome/6.5.1/js/all.min.js?digest=8d27b9dea8ad943066ae"></script>
+
+    <script src="../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../_static/doctools.js?v=888ff710"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?v=efea14e4"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../_static/design-tabs.js?v=36754332"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'docs/st_learning_anselin/L6-Visualizing-Spatial-Autocorrelation';</script>
+    <link rel="canonical" href="https://gisyaliny.github.io/sa/docs/st_learning_anselin/L6-Visualizing-Spatial-Autocorrelation.html" />
+    <link rel="icon" href="../../_static/fav.ico"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="prev" title="11. Moran’s I and Geary’s C" href="L5-Global-Spatial-Autocorrelation.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a id="pst-skip-link" class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/logo.png" class="logo__image only-light" alt="Yalin's Spatial Auto-autocorrelation Handbook - Home"/>
+    <script>document.write(`<img src="../../_static/logo.png" class="logo__image only-dark" alt="Yalin's Spatial Auto-autocorrelation Handbook - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn navbar-btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Foundation</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../foundation/Covariance_and_CovMatrix.html">1. Covariance and Covariance Matrix</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../foundation/MLE.html">2. Maximum likelihood estimation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../foundation/Sample-Size-Determine.html">3. Sample Size</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../foundation/Kriging.html">4. The Kriging Model</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../foundation/SAR-CAR.html">5. SAR and CAR</a></li>
+
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Statistic Learning (Luc Anselin)</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="L1-Spatial-Analysis-Intro.html">7. Introduction of Spatial Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="L2-Maps.html">8. Maps</a></li>
+<li class="toctree-l1"><a class="reference internal" href="L3-Exploratory-Data-Analysis.html">9. Exploratory Data Analysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="L4-Spatial-Autocorrelation.html">10. Spatial Autocorrelation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="L5-Global-Spatial-Autocorrelation.html">11. Moran’s I and Geary’s C</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">12. Visualizing Spatial Autocorrelation</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://mybinder.org/v2/gh/gisyaliny/sa/master?urlpath=tree/docs/st_learning_anselin/L6-Visualizing-Spatial-Autocorrelation.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch onBinder"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img src="../../_static/images/logo_binder.svg">
+  </span>
+<span class="btn__text-container">Binder</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://colab.research.google.com/github/gisyaliny/sa/blob/master/docs/st_learning_anselin/L6-Visualizing-Spatial-Autocorrelation.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch onColab"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img src="../../_static/images/logo_colab.png">
+  </span>
+<span class="btn__text-container">Colab</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/gisyaliny/sa" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/gisyaliny/sa/edit/main/docs/st_learning_anselin/L6-Visualizing-Spatial-Autocorrelation.ipynb" target="_blank"
+   class="btn btn-sm btn-source-edit-button dropdown-item"
+   title="Suggest edit"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-pencil-alt"></i>
+  </span>
+<span class="btn__text-container">Suggest edit</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/gisyaliny/sa/issues/new?title=Issue%20on%20page%20%2Fdocs/st_learning_anselin/L6-Visualizing-Spatial-Autocorrelation.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../_sources/docs/st_learning_anselin/L6-Visualizing-Spatial-Autocorrelation.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Visualizing Spatial Autocorrelation</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#moran-scatter-plot-anselin-1996">12.1. Moran Scatter Plot (Anselin 1996)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#interpretation">12.1.1. Interpretation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#categories-of-local-spatial-autocorrelation">12.1.2. Categories of Local Spatial Autocorrelation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#smoothing-the-moran-scatter-plot">12.1.3. Smoothing the Moran Scatter Plot</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#correlogram">12.2. Correlogram</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">12.2.1. Interpretation</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#smoothed-distance-scatter-plot-anselin-and-li-2020">12.3. Smoothed Distance Scatter Plot (Anselin and Li, 2020)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#concern">12.3.1. Concern</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#semi-variogram-matheron-1963">12.4. Semi-variogram (Matheron, 1963)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#definition">12.4.1. Definition</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">12.4.2. Interpretation</a></li>
+</ul>
+</li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="visualizing-spatial-autocorrelation">
+<h1><span class="section-number">12. </span>Visualizing Spatial Autocorrelation<a class="headerlink" href="#visualizing-spatial-autocorrelation" title="Link to this heading">#</a></h1>
+<section id="moran-scatter-plot-anselin-1996">
+<h2><span class="section-number">12.1. </span>Moran Scatter Plot (Anselin 1996)<a class="headerlink" href="#moran-scatter-plot-anselin-1996" title="Link to this heading">#</a></h2>
+<p><img alt="image.png" src="../../_images/26.png" /></p>
+<section id="interpretation">
+<h3><span class="section-number">12.1.1. </span>Interpretation<a class="headerlink" href="#interpretation" title="Link to this heading">#</a></h3>
+<p><code class="docutils literal notranslate"><span class="pre">Moran's</span> <span class="pre">I</span></code> is <code class="docutils literal notranslate"><span class="pre">slope</span></code> in a regression of <span class="math notranslate nohighlight">\(\sum_jw_{ij} z_j\)</span> on <span class="math notranslate nohighlight">\(z_i\)</span></p>
+<ol class="arabic simple">
+<li><p><span class="math notranslate nohighlight">\(\sum_jw_{ij}z_j\)</span> is the independent variable in this regression, called <code class="docutils literal notranslate"><span class="pre">spatial</span> <span class="pre">lag</span></code></p></li>
+<li><p>The x-axis is value at each location, the y axis is <code class="docutils literal notranslate"><span class="pre">spatial</span> <span class="pre">lag</span></code> (<strong>weighted average of neighboring values</strong>)</p></li>
+</ol>
+</section>
+<section id="categories-of-local-spatial-autocorrelation">
+<h3><span class="section-number">12.1.2. </span>Categories of Local Spatial Autocorrelation<a class="headerlink" href="#categories-of-local-spatial-autocorrelation" title="Link to this heading">#</a></h3>
+<ul>
+<li><p>Based on 4 quadrants / Relative to mean</p></li>
+<li><p>Upper right and lower left are <code class="docutils literal notranslate"><span class="pre">positive</span> <span class="pre">spatial</span> <span class="pre">autocorrelation</span></code></p>
+<ul class="simple">
+<li><p>Clusters of like values</p></li>
+<li><p>Locations are similar to their neighbors</p></li>
+</ul>
+</li>
+<li><p>Lower right and upper left are <code class="docutils literal notranslate"><span class="pre">negative</span> <span class="pre">spatial</span> <span class="pre">autocorrelation</span></code></p>
+<ul class="simple">
+<li><p>Spatial outliers</p></li>
+<li><p>Locations are different from their neighbors</p></li>
+</ul>
+<p><img alt="img" src="../../_images/27.png" /></p>
+</li>
+</ul>
+</section>
+<section id="smoothing-the-moran-scatter-plot">
+<h3><span class="section-number">12.1.3. </span>Smoothing the Moran Scatter Plot<a class="headerlink" href="#smoothing-the-moran-scatter-plot" title="Link to this heading">#</a></h3>
+<ol class="arabic">
+<li><p>Use local regression (<code class="docutils literal notranslate"><span class="pre">LOWESS</span></code>) as a nonlinear smoother</p></li>
+<li><p>Discover structural breaks in <code class="docutils literal notranslate"><span class="pre">global</span> <span class="pre">spatial</span> <span class="pre">autocorrelation</span></code></p>
+<ul class="simple">
+<li><p>Areas of high and low (or no) spatial autocorrelation</p></li>
+<li><p>A form of <code class="docutils literal notranslate"><span class="pre">spatial</span> <span class="pre">heterogeneity</span></code></p></li>
+</ul>
+<p><img alt="img" src="../../_images/28.png" /></p>
+</li>
+</ol>
+</section>
+</section>
+<section id="correlogram">
+<h2><span class="section-number">12.2. </span>Correlogram<a class="headerlink" href="#correlogram" title="Link to this heading">#</a></h2>
+<section id="id1">
+<h3><span class="section-number">12.2.1. </span>Interpretation<a class="headerlink" href="#id1" title="Link to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p>Range of <code class="docutils literal notranslate"><span class="pre">spatial</span> <span class="pre">autocorrelation</span></code> (first hit the 0)</p></li>
+<li><p>Alternative to specifying <code class="docutils literal notranslate"><span class="pre">spatial</span> <span class="pre">weights</span></code> (data-driven)</p></li>
+<li><p>Sensitive to kernel fit (choose <code class="docutils literal notranslate"><span class="pre">bandwidth</span></code> and <code class="docutils literal notranslate"><span class="pre">kernel</span> <span class="pre">function</span></code>)</p></li>
+<li><p>May violate <code class="docutils literal notranslate"><span class="pre">Tobler's</span> <span class="pre">law</span></code></p></li>
+</ol>
+<p><img alt="img" src="../../_images/29.png" /></p>
+<p><code class="docutils literal notranslate"><span class="pre">Moran's</span> <span class="pre">I</span> <span class="pre">plot</span></code> is about <code class="docutils literal notranslate"><span class="pre">Cross-product</span> <span class="pre">statistics</span></code> of pair of observations, now we consider about <code class="docutils literal notranslate"><span class="pre">non-parametric</span> <span class="pre">approach</span></code>.</p>
+<ol class="arabic simple">
+<li><p>Calculate the cross-product (covariance / auto-covariance) of each pair, and plot it across the distance</p></li>
+</ol>
+<div class="math notranslate nohighlight">
+\[
+    \rho_{ij} = \rho(z_i, z_j) = \frac{\hat{z_i} * \hat{z_j}}{\frac{1}{n}\sum_n (z_n - z_m)^2}
+\]</div>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(\hat{Z_i}\)</span>: deviations from the mean</p></li>
+<li><p><span class="math notranslate nohighlight">\(\frac{n(n-1)}{2}\)</span> individual values of <span class="math notranslate nohighlight">\(\rho_{ij}\)</span> (unique pair from <span class="math notranslate nohighlight">\(n\)</span> elements)</p></li>
+</ul>
+<ol class="arabic" start="2">
+<li><p>Fit the function of <span class="math notranslate nohighlight">\(\rho*{ij} = g(d*{ij})\)</span></p>
+<ul class="simple">
+<li><p>Use <code class="docutils literal notranslate"><span class="pre">kernel</span> <span class="pre">estimator</span></code> / <code class="docutils literal notranslate"><span class="pre">local</span> <span class="pre">regression</span></code></p>
+<ul>
+<li><p>Depends on choice of <code class="docutils literal notranslate"><span class="pre">kernel</span> <span class="pre">function</span></code> and <code class="docutils literal notranslate"><span class="pre">bandwidth</span></code></p></li>
+<li><p>Values of the estimated <span class="math notranslate nohighlight">\(g(d\_{ij})\)</span> do not necessarily result in a valid <code class="docutils literal notranslate"><span class="pre">variance-covariance</span> <span class="pre">matrix</span></code></p></li>
+</ul>
+</li>
+<li><p><strong>When first hit 0, means how far the <code class="docutils literal notranslate"><span class="pre">spatial</span> <span class="pre">interaction</span></code> goes</strong>, the following is waving around 0, basically the noise</p></li>
+</ul>
+</li>
+<li><p>Problems</p>
+<ul class="simple">
+<li><p>When distance goes larger, the pair of observations decrease rapidly.</p></li>
+<li><p>These “high-leverage” points may distort the whole pattern</p></li>
+<li><p><strong>Solution</strong>: Cut-off the distance by certain point</p></li>
+</ul>
+<p><img alt="img" src="../../_images/30.png" /></p>
+</li>
+</ol>
+</section>
+</section>
+<section id="smoothed-distance-scatter-plot-anselin-and-li-2020">
+<h2><span class="section-number">12.3. </span>Smoothed Distance Scatter Plot (Anselin and Li, 2020)<a class="headerlink" href="#smoothed-distance-scatter-plot-anselin-and-li-2020" title="Link to this heading">#</a></h2>
+<p>Plot geographical distance on the x-axis, and attribute distance on the y-axis</p>
+<ul class="simple">
+<li><p><strong>Euclidean geographical distance</strong></p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[
+d_{ij} = \left[ (x_i - x_j)^2 + (y_i - y_j)^2 \right]^{1/2}
+\]</div>
+<ul class="simple">
+<li><p><strong>Euclidean distance in attribute space</strong></p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[
+v_{ij} = \left[ \sum_k (z_{ki} - z_{kj})^2 \right]^{1/2}
+\]</div>
+<section id="concern">
+<h3><span class="section-number">12.3.1. </span>Concern<a class="headerlink" href="#concern" title="Link to this heading">#</a></h3>
+<ol class="arabic">
+<li><p>Too many points <span class="math notranslate nohighlight">\(\left( \frac{n(n-1)}{2} \right)\)</span></p>
+<ul class="simple">
+<li><p>Smooth the scatter plot</p></li>
+</ul>
+</li>
+<li><p>Tobler’s law
+i. <code class="docutils literal notranslate"><span class="pre">Attribute</span> <span class="pre">distance</span></code> should increase with <code class="docutils literal notranslate"><span class="pre">geographical</span> <span class="pre">distance</span></code></p></li>
+<li><p>We can also calculate the <code class="docutils literal notranslate"><span class="pre">attribute</span> <span class="pre">distance</span></code> of <strong>multiple variables</strong></p>
+<p><img alt="img" src="../../_images/31.png" /></p>
+</li>
+</ol>
+</section>
+</section>
+<section id="semi-variogram-matheron-1963">
+<h2><span class="section-number">12.4. </span>Semi-variogram (Matheron, 1963)<a class="headerlink" href="#semi-variogram-matheron-1963" title="Link to this heading">#</a></h2>
+<section id="definition">
+<h3><span class="section-number">12.4.1. </span>Definition<a class="headerlink" href="#definition" title="Link to this heading">#</a></h3>
+<ol class="arabic simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Semi-variance</span></code> <span class="math notranslate nohighlight">\(\gamma(s_1, s_2)\)</span> is half the average squared difference between the value at points <span class="math notranslate nohighlight">\(s_1\)</span> and <span class="math notranslate nohighlight">\(s_2\)</span>, it’s defined as</p></li>
+</ol>
+<div class="math notranslate nohighlight">
+\[
+   \gamma(s_1, s_2) = \frac{\sum_v (s_1 - s_2)^2}{2V}
+\]</div>
+<ol class="arabic simple" start="2">
+<li><p>Fit the function <span class="math notranslate nohighlight">\(\rho(s*1, s_2) = g(h)\)</span></p>
+<ul class="simple">
+<li><p><span class="math notranslate nohighlight">\(h\)</span> represents the geographical distance</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">exponential</span> <span class="pre">variogram</span> <span class="pre">model</span></code></p></li>
+</ul>
+</li>
+</ol>
+<div class="math notranslate nohighlight">
+\[
+     \gamma(h) = (s - n)(1 - \exp(-h/(ra))) + n1*{(0, \infty)}(h)
+\]</div>
+<ul class="simple">
+<li><p>The <code class="docutils literal notranslate"><span class="pre">spherical</span> <span class="pre">variogram</span> <span class="pre">model</span></code></p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[
+     \gamma(h) = (s - n)\left(\left(\frac{3h}{2r} - \frac{h^3}{2r^3}\right)1*{(0, r)}(h) + 1*{[r, \infty)}(h)\right) + n1*{(0, \infty)}(h)
+\]</div>
+<ul class="simple">
+<li><p>The <code class="docutils literal notranslate"><span class="pre">Gaussian</span> <span class="pre">variogram</span> <span class="pre">model</span></code></p></li>
+</ul>
+<div class="math notranslate nohighlight">
+\[
+ \gamma(h) = (s - n)\left(1 - \exp\left(-\frac{h^2}{r^2a}\right)\right) + n1_{(0, \infty)}(h)
+\]</div>
+</section>
+<section id="id2">
+<h3><span class="section-number">12.4.2. </span>Interpretation<a class="headerlink" href="#id2" title="Link to this heading">#</a></h3>
+<ul>
+<li><p><strong>Nugget <span class="math notranslate nohighlight">\(n\)</span></strong>: Due to the <code class="docutils literal notranslate"><span class="pre">measurement</span> <span class="pre">error</span></code> or spatial source variation of smaller distance than sample unit, the value at the same location might have a different value as well.</p></li>
+<li><p><strong>Sill <span class="math notranslate nohighlight">\(s\)</span></strong>: Limit of the variogram tending to infinity lag distances.</p></li>
+<li><p><strong>Range <span class="math notranslate nohighlight">\(r\)</span></strong>: The distance in which the difference of the variogram from the sill becomes negligible. indicates the range of <code class="docutils literal notranslate"><span class="pre">spatial</span> <span class="pre">autocorrelation</span></code></p>
+<p><img alt="img" src="../../_images/011.jpg" /></p>
+</li>
+</ul>
+</section>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./docs\st_learning_anselin"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="L5-Global-Spatial-Autocorrelation.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title"><span class="section-number">11. </span>Moran’s I and Geary’s C</p>
+      </div>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#moran-scatter-plot-anselin-1996">12.1. Moran Scatter Plot (Anselin 1996)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#interpretation">12.1.1. Interpretation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#categories-of-local-spatial-autocorrelation">12.1.2. Categories of Local Spatial Autocorrelation</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#smoothing-the-moran-scatter-plot">12.1.3. Smoothing the Moran Scatter Plot</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#correlogram">12.2. Correlogram</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id1">12.2.1. Interpretation</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#smoothed-distance-scatter-plot-anselin-and-li-2020">12.3. Smoothed Distance Scatter Plot (Anselin and Li, 2020)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#concern">12.3.1. Concern</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#semi-variogram-matheron-1963">12.4. Semi-variogram (Matheron, 1963)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#definition">12.4.1. Definition</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">12.4.2. Interpretation</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Yalin Yang
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2024.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=8d27b9dea8ad943066ae"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=8d27b9dea8ad943066ae"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

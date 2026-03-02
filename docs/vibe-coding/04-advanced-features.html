@@ -1,0 +1,622 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>4. 04 - Advanced Features &amp; Customization &#8212; AI Tools Learning Handbook</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b76e3c8a" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../_static/design-tabs.js?v=36754332"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'docs/vibe-coding/04-advanced-features';</script>
+    <link rel="canonical" href="https://gisyaliny.github.io/AI/docs/vibe-coding/04-advanced-features.html" />
+    <link rel="icon" href="../../_static/fav.ico"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="prev" title="3. 03 - Multimodal &amp; Context Management" href="03-multimodal-and-context.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/logo.png" class="logo__image only-light" alt="AI Tools Learning Handbook - Home"/>
+    <script>document.write(`<img src="../../_static/logo.png" class="logo__image only-dark" alt="AI Tools Learning Handbook - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Vibe Coding</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="01-environment-and-basics.html">1. 01 - Environment Setup &amp; Basic Interaction (Environment Setup &amp; Basic Interaction)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="02-complex-tasks-and-terminal.html">2. 02 - Complex Tasks &amp; Terminal Control</a></li>
+<li class="toctree-l1"><a class="reference internal" href="03-multimodal-and-context.html">3. 03 - Multimodal &amp; Context Management</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">4. 04 - Advanced Features &amp; Customization</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/gisyaliny/AI" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/gisyaliny/AI/edit/main/docs/vibe-coding/04-advanced-features.md" target="_blank"
+   class="btn btn-sm btn-source-edit-button dropdown-item"
+   title="Suggest edit"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-pencil-alt"></i>
+  </span>
+<span class="btn__text-container">Suggest edit</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/gisyaliny/AI/issues/new?title=Issue%20on%20page%20%2Fdocs/vibe-coding/04-advanced-features.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../_sources/docs/vibe-coding/04-advanced-features.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>04 - Advanced Features & Customization</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#automated-formatting-hooks">4.1. 1. Automated Formatting (Hooks)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dynamic-prompts-agent-skills">4.2. 2. Dynamic Prompts (Agent Skills)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sandboxed-work-subagents">4.3. 3. Sandboxed Work (SubAgents)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#nuances-skill-vs-subagent">4.4. 4. Nuances: Skill vs. SubAgent</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-all-in-one-capsule-plugins">4.5. 5. The All-in-One Capsule: Plugins</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#knowledge-quiz">4.6. Knowledge Quiz</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="advanced-features-customization">
+<h1><span class="section-number">4. </span>04 - Advanced Features &amp; Customization<a class="headerlink" href="#advanced-features-customization" title="Link to this heading">#</a></h1>
+<p>This chapter explores the most hardcore aspects of Claude Code as a productivity tool, ranging from event hijacking hooks to private knowledge loading and multi-agent collaborative systems.</p>
+<section id="automated-formatting-hooks">
+<h2><span class="section-number">4.1. </span>1. Automated Formatting (Hooks)<a class="headerlink" href="#automated-formatting-hooks" title="Link to this heading">#</a></h2>
+<p>The Hooks feature allows you to trigger custom scripts upon specific events (like before/after a tool is used). This enables magical functionalities like auto-formatting on save.</p>
+<ol class="arabic simple">
+<li><p>Use the <code class="docutils literal notranslate"><span class="pre">/hooks</span></code> command.</p></li>
+<li><p>Select the trigger phase: <code class="docutils literal notranslate"><span class="pre">post_tool_use</span></code>.</p></li>
+<li><p>Select the matcher: specify tool names like <code class="docutils literal notranslate"><span class="pre">write</span></code> or <code class="docutils literal notranslate"><span class="pre">edit</span></code>.</p></li>
+<li><p>Mount the specific execution script, for example:
+A script to extract <code class="docutils literal notranslate"><span class="pre">file_path</span></code> from a json parameter and forward it to <code class="docutils literal notranslate"><span class="pre">prettier</span></code> for formatting.
+<em>(e.g., <code class="docutils literal notranslate"><span class="pre">jq</span> <span class="pre">-r</span> <span class="pre">.file_path</span> <span class="pre">|</span> <span class="pre">xargs</span> <span class="pre">prettier</span> <span class="pre">--write</span></code>)</em></p></li>
+</ol>
+<p>Following this, the resulting configurations can be stored in <code class="docutils literal notranslate"><span class="pre">settings.local.json</span></code> (exclusive to the local project), distributed with your Git repository, or saved in your global user configurations.</p>
+<div class="highlight-mermaid notranslate"><div class="highlight"><pre><span></span>graph LR
+    A[Claude Code Finishes Editing] --&gt; B(Trigger Hook: post_tool_use)
+    B --&gt; C{Check if tool is write or edit}
+    C -- Yes --&gt; D[Extract the path of the edited file]
+    D --&gt; E[Pass path to Prettier for formatting]
+    E --&gt; F[User receives perfectly formatted code]
+</pre></div>
+</div>
+</section>
+<section id="dynamic-prompts-agent-skills">
+<h2><span class="section-number">4.2. </span>2. Dynamic Prompts (Agent Skills)<a class="headerlink" href="#dynamic-prompts-agent-skills" title="Link to this heading">#</a></h2>
+<p>Are you tired of manually pasting prompts for files that require fixed formats (like daily development log summaries)?
+<strong>Think of an Agent Skill as a “user manual” or a dynamic Prompt template for Large Language Models inside your current context.</strong></p>
+<ul class="simple">
+<li><p><strong>Creation</strong>: Create a <code class="docutils literal notranslate"><span class="pre">xxxx/skill.md</span></code> file in the system user directory (or a specified directory). It must contain top-level Yaml metadata like <code class="docutils literal notranslate"><span class="pre">name</span></code> and <code class="docutils literal notranslate"><span class="pre">description</span></code>, followed by the exact content format you demand.</p></li>
+<li><p>When Claude boots or confirms loading via <code class="docutils literal notranslate"><span class="pre">/skills</span></code>, the AI can auto-match your question to these Skills. Alternatively, you can actively invoke the skill by typing <code class="docutils literal notranslate"><span class="pre">/your-skill-name</span></code> appended to your request.</p></li>
+<li><p><strong>Key Trait</strong>: Agent Skills <em>share</em> the primary session context. This means that all execution steps, logged items, and Token expenditures are compounded within your main chat window.</p></li>
+</ul>
+</section>
+<section id="sandboxed-work-subagents">
+<h2><span class="section-number">4.3. </span>3. Sandboxed Work (SubAgents)<a class="headerlink" href="#sandboxed-work-subagents" title="Link to this heading">#</a></h2>
+<p>For tasks involving massive data scopes—such as “full repository Code Review”—running them directly in the main Agent will explode your context size, rendering the model sluggish and forgetful.</p>
+<ul class="simple">
+<li><p><strong>Create and Invoke SubAgent</strong>: Type <code class="docutils literal notranslate"><span class="pre">/agent</span></code> -&gt; <code class="docutils literal notranslate"><span class="pre">create</span> <span class="pre">new</span> <span class="pre">agent</span></code> -&gt; select scope and name. You can, for instance, assign it <em>Read-Only</em> tool permissions and flag its output in a specific color (like Green).</p></li>
+<li><p><strong>Configure Prompt</strong>: Specify in the SubAgent instructions: “Audit JavaScript and CSS according to…”</p></li>
+<li><p><strong>Run</strong>: Prompt “Help me perform a code review.” Claude will automatically dispatch the task to the green SubAgent.</p></li>
+</ul>
+</section>
+<section id="nuances-skill-vs-subagent">
+<h2><span class="section-number">4.4. </span>4. Nuances: Skill vs. SubAgent<a class="headerlink" href="#nuances-skill-vs-subagent" title="Link to this heading">#</a></h2>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>Feature</p></th>
+<th class="head text-left"><p>Agent Skill</p></th>
+<th class="head text-left"><p>SubAgent</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p><strong>Context</strong></p></td>
+<td class="text-left"><p><strong>Fully shares</strong> the current primary dialogue context, increasing token load entirely</p></td>
+<td class="text-left"><p><strong>Completely independent</strong>, carving out a fresh thinking sandbox space</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><strong>Best Scenario</strong></p></td>
+<td class="text-left"><p>Creating standardized articles, fulfilling quick, singular tasks (which require the main chat’s context)</p></td>
+<td class="text-left"><p>Massive bulk processing tasks, full repo code audits (to prevent intermediate reasoning from bloat)</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><strong>Return State</strong></p></td>
+<td class="text-left"><p>Exposes step-by-step thinking calculations</p></td>
+<td class="text-left"><p>Operates silently/separately in the background, only rendering the finalized investigative conclusion on your primary screen</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="the-all-in-one-capsule-plugins">
+<h2><span class="section-number">4.5. </span>5. The All-in-One Capsule: Plugins<a class="headerlink" href="#the-all-in-one-capsule-plugins" title="Link to this heading">#</a></h2>
+<p>A Plugin functions like an ultimate bundle, wrapping up everything we previously discussed (Agent Skills, Hooks, SubAgents, and MCP Server setups) into a single, distributable package.</p>
+<ul class="simple">
+<li><p><strong>Usage</strong>: Type <code class="docutils literal notranslate"><span class="pre">/plugin</span></code> to open the Plugin Marketplace manager.</p></li>
+<li><p>You can discover numerous Frontend UI standardization plugins or Syntax Checking LSP plugins directly in the “Discover” tab.</p></li>
+<li><p>After installing a plugin like <strong>Frontend Design</strong>, simply instruct the AI to “Follow Frontend Design standards” before writing code. The LLM will automatically extract Anthropic’s official UI design guidelines from the plugin’s Agent Skills, handling color schemes, padding, and UI architectures. Instantly, your webpage will look professionally tailored.</p></li>
+</ul>
+<blockquote>
+<div><p><strong>Image Suggestion (Nanobanana Prompt)</strong>: A macro shot of a shiny, glowing, metallic sci-fi “Plugin Cartridge” being smoothly slotted into the exposed, glowing back port of a sophisticated android robot. The cartridge has prominent futuristic text reading “PLUGIN INSTALLED”. Surrounding the port are intricate, glowing holographic digital interfaces linking up in blue and orange energy. Cinematic lighting, photorealistic textures, cyberpunk aesthetic, 8k ultra detailed masterpiece.</p>
+</div></blockquote>
+</section>
+<hr class="docutils" />
+<section id="knowledge-quiz">
+<h2><span class="section-number">4.6. </span>Knowledge Quiz<a class="headerlink" href="#knowledge-quiz" title="Link to this heading">#</a></h2>
+<p><strong>Q1: Why is it highly recommended to use a SubAgent rather than configuring an Agent Skill for large-scale code review tasks?</strong></p>
+<details>
+<summary>Answer</summary>
+Because Agent Skills share the context flow and memory of the primary chat session. The extensive intermediate reasoning logs generated during massive code reviews will quickly bloat and pollute the main context, causing the model to become sluggish and expensive. A SubAgent operates in an entirely independent context sandbox, only reporting the final resulting conclusions back to the primary session.
+</details>
+<p><strong>Q2: How can you use Claude Code to automatically beautify a messy single-line HTML file it just created?</strong></p>
+<details>
+<summary>Answer</summary>
+Use the `/hooks` command to mount a script action triggered during the `post_tool_use` event for the `write`/`edit` tools. You can chain this with a code formatter like Prettier to automatically reformat the output syntax.
+</details>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./docs\vibe-coding"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="03-multimodal-and-context.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title"><span class="section-number">3. </span>03 - Multimodal &amp; Context Management</p>
+      </div>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#automated-formatting-hooks">4.1. 1. Automated Formatting (Hooks)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#dynamic-prompts-agent-skills">4.2. 2. Dynamic Prompts (Agent Skills)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sandboxed-work-subagents">4.3. 3. Sandboxed Work (SubAgents)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#nuances-skill-vs-subagent">4.4. 4. Nuances: Skill vs. SubAgent</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-all-in-one-capsule-plugins">4.5. 5. The All-in-One Capsule: Plugins</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#knowledge-quiz">4.6. Knowledge Quiz</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Yalin Yang
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2026.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

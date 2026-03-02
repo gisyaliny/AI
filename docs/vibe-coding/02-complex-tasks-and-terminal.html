@@ -1,0 +1,610 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>2. 02 - Complex Tasks &amp; Terminal Control &#8212; AI Tools Learning Handbook</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b76e3c8a" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../_static/design-tabs.js?v=36754332"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'docs/vibe-coding/02-complex-tasks-and-terminal';</script>
+    <link rel="canonical" href="https://gisyaliny.github.io/AI/docs/vibe-coding/02-complex-tasks-and-terminal.html" />
+    <link rel="icon" href="../../_static/fav.ico"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="3. 03 - Multimodal &amp; Context Management" href="03-multimodal-and-context.html" />
+    <link rel="prev" title="1. 01 - Environment Setup &amp; Basic Interaction (Environment Setup &amp; Basic Interaction)" href="01-environment-and-basics.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/logo.png" class="logo__image only-light" alt="AI Tools Learning Handbook - Home"/>
+    <script>document.write(`<img src="../../_static/logo.png" class="logo__image only-dark" alt="AI Tools Learning Handbook - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Vibe Coding</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="01-environment-and-basics.html">1. 01 - Environment Setup &amp; Basic Interaction (Environment Setup &amp; Basic Interaction)</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">2. 02 - Complex Tasks &amp; Terminal Control</a></li>
+<li class="toctree-l1"><a class="reference internal" href="03-multimodal-and-context.html">3. 03 - Multimodal &amp; Context Management</a></li>
+<li class="toctree-l1"><a class="reference internal" href="04-advanced-features.html">4. 04 - Advanced Features &amp; Customization</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/gisyaliny/AI" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/gisyaliny/AI/edit/main/docs/vibe-coding/02-complex-tasks-and-terminal.md" target="_blank"
+   class="btn btn-sm btn-source-edit-button dropdown-item"
+   title="Suggest edit"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-pencil-alt"></i>
+  </span>
+<span class="btn__text-container">Suggest edit</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/gisyaliny/AI/issues/new?title=Issue%20on%20page%20%2Fdocs/vibe-coding/02-complex-tasks-and-terminal.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../_sources/docs/vibe-coding/02-complex-tasks-and-terminal.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>02 - Complex Tasks & Terminal Control</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#executing-terminal-commands-bash">2.1. 1. Executing Terminal Commands (Bash)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#refactoring-projects-using-plan-mode">2.2. 2. Refactoring Projects using Plan Mode</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#disabling-all-permission-checks-dangerously-skip-permissions">2.3. 3. Disabling All Permission Checks (dangerously-skip-permissions)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#background-task-management">2.4. 4. Background Task Management</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#knowledge-quiz">2.5. Knowledge Quiz</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="complex-tasks-terminal-control">
+<h1><span class="section-number">2. </span>02 - Complex Tasks &amp; Terminal Control<a class="headerlink" href="#complex-tasks-terminal-control" title="Link to this heading">#</a></h1>
+<p>After mastering basic interactions, we will learn how to let Claude Code execute terminal commands, manage long-running background tasks, and explore more complex architectural refactoring.</p>
+<section id="executing-terminal-commands-bash">
+<h2><span class="section-number">2.1. </span>1. Executing Terminal Commands (Bash)<a class="headerlink" href="#executing-terminal-commands-bash" title="Link to this heading">#</a></h2>
+<p>Besides conversing with the model, you can directly execute Bash commands within the Claude Code interface.</p>
+<ul class="simple">
+<li><p>Type <code class="docutils literal notranslate"><span class="pre">!</span></code> to enter Bash mode. Start with an exclamation mark followed by the terminal command, for instance:
+<code class="docutils literal notranslate"><span class="pre">!</span> <span class="pre">open</span> <span class="pre">index.html</span></code></p></li>
+<li><p>Although you can have the large language model write all the code for you, directly calling system commands is a highly efficient aspect of testing and previewing.</p></li>
+</ul>
+</section>
+<section id="refactoring-projects-using-plan-mode">
+<h2><span class="section-number">2.2. </span>2. Refactoring Projects using Plan Mode<a class="headerlink" href="#refactoring-projects-using-plan-mode" title="Link to this heading">#</a></h2>
+<p>When we need to refactor a single HTML file project into a modern <code class="docutils literal notranslate"><span class="pre">React</span> <span class="pre">+</span> <span class="pre">TypeScript</span> <span class="pre">+</span> <span class="pre">Vite</span></code> architecture, letting the model modify things directly can get chaotic. This is where <code class="docutils literal notranslate"><span class="pre">Plan</span> <span class="pre">Mode</span></code> comes in handy:</p>
+<ol class="arabic simple">
+<li><p>Press <code class="docutils literal notranslate"><span class="pre">Shift</span> <span class="pre">+</span> <span class="pre">Tab</span></code> to toggle to <strong>Plan Mode</strong>.</p></li>
+<li><p>Type your complete refactor prompt. If it involves multiple lines, press <code class="docutils literal notranslate"><span class="pre">Shift</span> <span class="pre">+</span> <span class="pre">Enter</span></code> to start a new line. Alternatively, press <code class="docutils literal notranslate"><span class="pre">Ctrl</span> <span class="pre">+</span> <span class="pre">G</span></code> to quickly edit long text prompts in a pop-up VSCode window.
+<em>Example: <code class="docutils literal notranslate"><span class="pre">Refactor</span> <span class="pre">the</span> <span class="pre">current</span> <span class="pre">ToDo</span> <span class="pre">application</span> <span class="pre">to</span> <span class="pre">use</span> <span class="pre">a</span> <span class="pre">React+TypeScript+Vite</span> <span class="pre">project</span> <span class="pre">structure.</span> <span class="pre">Retain</span> <span class="pre">all</span> <span class="pre">functionality,</span> <span class="pre">including</span> <span class="pre">the</span> <span class="pre">high,</span> <span class="pre">medium,</span> <span class="pre">and</span> <span class="pre">low</span> <span class="pre">priority</span> <span class="pre">markers.</span></code></em></p></li>
+<li><p>Claude Code will output a detailed plan including the directory structure and a modification checklist. If you are unsatisfied, you can continue modifying it; if satisfied, you can choose to execute the plan and enter the Auto-Accept mode.</p></li>
+</ol>
+</section>
+<section id="disabling-all-permission-checks-dangerously-skip-permissions">
+<h2><span class="section-number">2.3. </span>3. Disabling All Permission Checks (dangerously-skip-permissions)<a class="headerlink" href="#disabling-all-permission-checks-dangerously-skip-permissions" title="Link to this heading">#</a></h2>
+<p>Even in Auto mode, Claude Code will still ask your permission when executing <strong>terminal commands</strong> like <code class="docutils literal notranslate"><span class="pre">npm</span> <span class="pre">install</span></code>. If you want to delegate complete authority:</p>
+<ul class="simple">
+<li><p>Add a parameter when starting: <code class="docutils literal notranslate"><span class="pre">claude</span> <span class="pre">dangerously-skip-permissions</span></code></p></li>
+<li><p>This will enter the <strong>Bypass Permissions</strong> mode. It will no longer ask whether it’s installing dependencies, creating directories, or deleting files.
+<em>⚠️ Warning: This grants the AI the exact same system-level terminal execution permissions as you have. It is a double-edged sword offering high efficiency but high risk. Use with extreme caution!</em></p></li>
+</ul>
+<blockquote>
+<div><p><strong>Image Suggestion (Nanobanana Prompt)</strong>: A hyper-realistic, dramatic shot of a glowing red futuristic terminal screen displaying a massive hazard warning sign with the text “Bypass Permissions Mode Active” in bold, dripping digital font. The console interface is surrounded by complex holographic code streams floating in the air. The physical terminal has metallic edges, yellow caution tape detailing around the screen, set in a dark, atmospheric sci-fi server room with faint neon red and orange lighting. 8k resolution, cinematic composition.</p>
+</div></blockquote>
+</section>
+<section id="background-task-management">
+<h2><span class="section-number">2.4. </span>4. Background Task Management<a class="headerlink" href="#background-task-management" title="Link to this heading">#</a></h2>
+<p>When you execute a command through Claude Code that blocks the terminal, such as a local server <code class="docutils literal notranslate"><span class="pre">npm</span> <span class="pre">run</span> <span class="pre">dev</span></code>, the model can no longer respond to your text inputs.</p>
+<ul class="simple">
+<li><p><strong>Suspend to Background</strong>: Press <code class="docutils literal notranslate"><span class="pre">Ctrl</span> <span class="pre">+</span> <span class="pre">B</span></code> to push the currently running service to the background.</p></li>
+<li><p><strong>View Tasks</strong>: Type the <code class="docutils literal notranslate"><span class="pre">/tasks</span></code> command to view the list of commands currently running in the background.</p></li>
+<li><p><strong>Terminate Task</strong>: In the task list interface, select the target task and press the <code class="docutils literal notranslate"><span class="pre">K</span></code> key to kill the background service process.</p></li>
+</ul>
+<div class="highlight-mermaid notranslate"><div class="highlight"><pre><span></span>sequenceDiagram
+    participant User
+    participant ClaudeCode
+    participant DevServer
+    
+    User-&gt;&gt;ClaudeCode: ! npm run dev
+    ClaudeCode-&gt;&gt;DevServer: Start Server (Blocking)
+    User-&gt;&gt;ClaudeCode: (Typing a new prompt)
+    ClaudeCode--xUser: No response (Blocked)
+    User-&gt;&gt;ClaudeCode: Press Ctrl + B
+    ClaudeCode-&gt;&gt;DevServer: Move to Background
+    ClaudeCode-&gt;&gt;User: Ready for prompts
+    User-&gt;&gt;ClaudeCode: /tasks
+    ClaudeCode-&gt;&gt;User: Show running tasks
+    User-&gt;&gt;ClaudeCode: Press K
+    ClaudeCode-&gt;&gt;DevServer: Kill Server
+</pre></div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="knowledge-quiz">
+<h2><span class="section-number">2.5. </span>Knowledge Quiz<a class="headerlink" href="#knowledge-quiz" title="Link to this heading">#</a></h2>
+<p><strong>Q1: How can you edit a long prompt in VSCode without exiting the Claude Code dialog box?</strong></p>
+<details>
+<summary>Answer</summary>
+Press `Ctrl + G`. This will pop up a VSCode tab. After editing, save and close it, and the content will be back-filled into Claude Code's input box.
+</details>
+<p><strong>Q2: How do you place a terminal-blocking local development server into the background?</strong></p>
+<details>
+<summary>Answer</summary>
+Press `Ctrl + B` to send it to the background. Subsequently, you can use `/tasks` to view it and press `K` to close it.
+</details>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./docs\vibe-coding"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="01-environment-and-basics.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title"><span class="section-number">1. </span>01 - Environment Setup &amp; Basic Interaction (Environment Setup &amp; Basic Interaction)</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="03-multimodal-and-context.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title"><span class="section-number">3. </span>03 - Multimodal &amp; Context Management</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#executing-terminal-commands-bash">2.1. 1. Executing Terminal Commands (Bash)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#refactoring-projects-using-plan-mode">2.2. 2. Refactoring Projects using Plan Mode</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#disabling-all-permission-checks-dangerously-skip-permissions">2.3. 3. Disabling All Permission Checks (dangerously-skip-permissions)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#background-task-management">2.4. 4. Background Task Management</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#knowledge-quiz">2.5. Knowledge Quiz</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Yalin Yang
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2026.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
