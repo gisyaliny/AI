@@ -1,4 +1,4 @@
-# 01 - Environment Setup & Basic Interaction (Environment Setup & Basic Interaction)
+# Environment Setup & Basic Interaction (Environment Setup & Basic Interaction)
 
 This chapter will guide you from scratch to set up the runtime environment for Claude Code and complete your first basic interaction. As a highly popular AI programming Agent, Claude Code can significantly boost your development efficiency.
 
@@ -41,14 +41,7 @@ When Claude Code wants to perform file operations (like creating a file), you fa
 2. **Auto Mode ("Accept edits on")**: The most convenient mode. It automatically agrees to all file read/write operations during the current conversation, stopping repeated prompts.
 3. **Plan Mode ("Plan mode on")**: Dedicated to discussing solutions and making plans without directly modifying project files. Ideal for brainstorming complex architectural changes.
 
-```mermaid
-graph TD
-    A[Start Claude Code] --> B{"Choose Mode (Shift + Tab)"}
-    B -->|Default| C["Authorization needed for every read/write"]
-    B -->|Auto| D["Automatically execute all file read/writes"]
-    B -->|Plan| E["Only output task steps and code snippets, no direct modification"]
-```
-
+    ![calude code modes](./img/001.png)
 ---
 
 ## Knowledge Quiz

@@ -1,4 +1,4 @@
-# 02 - Complex Tasks & Terminal Control
+# Complex Tasks & Terminal Control
 
 After mastering basic interactions, we will learn how to let Claude Code execute terminal commands, manage long-running background tasks, and explore more complex architectural refactoring.
 
@@ -34,24 +34,7 @@ When you execute a command through Claude Code that blocks the terminal, such as
 - **View Tasks**: Type the `/tasks` command to view the list of commands currently running in the background.
 - **Terminate Task**: In the task list interface, select the target task and press the `K` key to kill the background service process.
 
-```mermaid
-sequenceDiagram
-    participant User
-    participant ClaudeCode
-    participant DevServer
-    
-    User->>ClaudeCode: ! npm run dev
-    ClaudeCode->>DevServer: Start Server (Blocking)
-    User->>ClaudeCode: (Typing a new prompt)
-    ClaudeCode--xUser: No response (Blocked)
-    User->>ClaudeCode: Press Ctrl + B
-    ClaudeCode->>DevServer: Move to Background
-    ClaudeCode->>User: Ready for prompts
-    User->>ClaudeCode: /tasks
-    ClaudeCode->>User: Show running tasks
-    User->>ClaudeCode: Press K
-    ClaudeCode->>DevServer: Kill Server
-```
+![calude code tasks](./img/002.png)
 
 ---
 
