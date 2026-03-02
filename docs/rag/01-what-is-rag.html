@@ -1,0 +1,996 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>7. What is RAG? (Retrieval-Augmented Generation) &#8212; AI Tools Learning Handbook</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b76e3c8a" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'docs/rag/01-what-is-rag';</script>
+    <link rel="canonical" href="https://gisyaliny.github.io/AI/docs/rag/01-what-is-rag.html" />
+    <link rel="icon" href="../../_static/fav.ico"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="8. Implementing RAG with Python" href="02-implementing-rag.html" />
+    <link rel="prev" title="6. Deploy Open-Source LLMs Locally with Ollama &amp; AnythingLLM" href="../local-llm/01-deploy-local-llm.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/logo.png" class="logo__image only-light" alt="AI Tools Learning Handbook - Home"/>
+    <script>document.write(`<img src="../../_static/logo.png" class="logo__image only-dark" alt="AI Tools Learning Handbook - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Vibe Coding</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../vibe-coding/01-environment-and-basics.html">1. Environment Setup &amp; Basic Interaction (Environment Setup &amp; Basic Interaction)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../vibe-coding/02-complex-tasks-and-terminal.html">2. Complex Tasks &amp; Terminal Control</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../vibe-coding/03-multimodal-and-context.html">3. Multimodal &amp; Context Management</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../vibe-coding/04-advanced-features.html">4. Advanced Features &amp; Customization</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Research</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../research/01-ai-prompts-for-research.html">5. AI Prompts &amp; Skills for Academic Research</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Local LLM</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../local-llm/01-deploy-local-llm.html">6. Deploy Open-Source LLMs Locally with Ollama &amp; AnythingLLM</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">RAG</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">7. What is RAG? (Retrieval-Augmented Generation)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="02-implementing-rag.html">8. Implementing RAG with Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="03-graph-rag.html">9. Graph RAG: Knowledge Graphs Meet Retrieval</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/gisyaliny/AI" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/gisyaliny/AI/edit/main/docs/rag/01-what-is-rag.md" target="_blank"
+   class="btn btn-sm btn-source-edit-button dropdown-item"
+   title="Suggest edit"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-pencil-alt"></i>
+  </span>
+<span class="btn__text-container">Suggest edit</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/gisyaliny/AI/issues/new?title=Issue%20on%20page%20%2Fdocs/rag/01-what-is-rag.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../_sources/docs/rag/01-what-is-rag.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>What is RAG? (Retrieval-Augmented Generation)</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-problem-rag-solves">7.1. 1. The Problem RAG Solves</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-two-phases-of-rag">7.2. 2. The Two Phases of RAG</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#chunking-splitting-documents">7.3. 3. Chunking: Splitting Documents</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#common-chunking-strategies">7.3.1. Common Chunking Strategies</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-overlap-trick">7.3.2. The Overlap Trick</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#embedding-turning-text-into-vectors">7.4. 4. Embedding: Turning Text into Vectors</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-a-vector">7.4.1. What is a Vector?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-embedding">7.4.2. What is Embedding?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#popular-embedding-models">7.4.3. Popular Embedding Models</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#vector-databases">7.5. 5. Vector Databases</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#how-it-works">7.5.1. How It Works</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#popular-vector-databases">7.5.2. Popular Vector Databases</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#vector-similarity-how-closeness-is-measured">7.6. 6. Vector Similarity: How “Closeness” is Measured</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#retrieval-finding-relevant-chunks">7.7. 7. Retrieval: Finding Relevant Chunks</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reranking-precision-filtering">7.8. 8. Reranking: Precision Filtering</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#how-is-reranking-different-from-retrieval">7.8.1. How is Reranking Different from Retrieval?</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#generation-producing-the-final-answer">7.9. 9. Generation: Producing the Final Answer</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#known-limitations-of-rag">7.10. 10. Known Limitations of RAG</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#read-more">7.11. Read More</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#knowledge-quiz">7.12. Knowledge Quiz</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="what-is-rag-retrieval-augmented-generation">
+<h1><span class="section-number">7. </span>What is RAG? (Retrieval-Augmented Generation)<a class="headerlink" href="#what-is-rag-retrieval-augmented-generation" title="Link to this heading">#</a></h1>
+<p>This chapter explains the <strong>core concepts</strong> behind Retrieval-Augmented Generation from the ground up. By the end, you will understand why RAG exists, how every component works, and when to use it.</p>
+<hr class="docutils" />
+<section id="the-problem-rag-solves">
+<h2><span class="section-number">7.1. </span>1. The Problem RAG Solves<a class="headerlink" href="#the-problem-rag-solves" title="Link to this heading">#</a></h2>
+<p>Imagine you are building a customer support chatbot for your company. Your product manual is 500 pages long. You have a powerful LLM like GPT-4o or DeepSeek, but:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>Approach</p></th>
+<th class="head text-left"><p>Problem</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>Ask the LLM directly</p></td>
+<td class="text-left"><p>It has never seen your internal docs → <strong>hallucination</strong></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>Paste the entire manual into the prompt</p></td>
+<td class="text-left"><p>Too long → exceeds context window, slow, expensive, loses focus</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>Paste only relevant paragraphs</p></td>
+<td class="text-left"><p>✅ Perfect — but how do you find the “relevant” parts automatically?</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>RAG is the answer to that third question.</strong> It retrieves the most relevant pieces of your documents, then feeds them — alongside the user’s question — to the LLM for generation.</p>
+<blockquote>
+<div><p><strong>RAG = Retrieve first, then Generate.</strong></p>
+</div></blockquote>
+</section>
+<hr class="docutils" />
+<section id="the-two-phases-of-rag">
+<h2><span class="section-number">7.2. </span>2. The Two Phases of RAG<a class="headerlink" href="#the-two-phases-of-rag" title="Link to this heading">#</a></h2>
+<p>The entire RAG pipeline splits cleanly into two phases:</p>
+<p><strong>Phase A — Data Preparation (Before the user asks)</strong></p>
+<ol class="arabic simple">
+<li><p><strong>Chunking</strong>: Split documents into small pieces.</p></li>
+<li><p><strong>Indexing</strong>: Convert each chunk into a vector and store it in a vector database.</p></li>
+</ol>
+<p><strong>Phase B — Answering (After the user asks)</strong>
+3. <strong>Retrieval</strong>: Find the top-N most relevant chunks.
+4. <strong>Reranking</strong>: Refine the ranking for higher accuracy.
+5. <strong>Generation</strong>: Feed the top chunks + question to the LLM for a final answer.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>┌──────────────────────── Phase A: Preparation ────────────────────────┐
+│                                                                      │
+│   Documents  →  Chunking  →  Embedding Model  →  Vector Database     │
+│                                                                      │
+└──────────────────────────────────────────────────────────────────────┘
+
+┌──────────────────────── Phase B: Answering ──────────────────────────┐
+│                                                                      │
+│   User Question  →  Embedding  →  Vector DB Search  →  Top-10 Chunks │
+│                                      ↓                               │
+│                              Cross-Encoder Reranking  →  Top-3 Chunks│
+│                                      ↓                               │
+│                          Top-3 Chunks + Question  →  LLM  →  Answer  │
+│                                                                      │
+└──────────────────────────────────────────────────────────────────────┘
+</pre></div>
+</div>
+</section>
+<hr class="docutils" />
+<section id="chunking-splitting-documents">
+<h2><span class="section-number">7.3. </span>3. Chunking: Splitting Documents<a class="headerlink" href="#chunking-splitting-documents" title="Link to this heading">#</a></h2>
+<p>Chunking is the process of breaking a large document into smaller, manageable pieces. The quality of your chunks directly impacts the quality of your answers.</p>
+<section id="common-chunking-strategies">
+<h3><span class="section-number">7.3.1. </span>Common Chunking Strategies<a class="headerlink" href="#common-chunking-strategies" title="Link to this heading">#</a></h3>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>Strategy</p></th>
+<th class="head text-left"><p>Description</p></th>
+<th class="head text-left"><p>Pros</p></th>
+<th class="head text-left"><p>Cons</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p><strong>Fixed-size</strong></p></td>
+<td class="text-left"><p>Split every N characters (e.g., 1000 chars)</p></td>
+<td class="text-left"><p>Simple, predictable</p></td>
+<td class="text-left"><p>May cut mid-sentence</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><strong>Sentence-based</strong></p></td>
+<td class="text-left"><p>Split by sentence boundaries</p></td>
+<td class="text-left"><p>Preserves meaning</p></td>
+<td class="text-left"><p>Some sentences are too short</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><strong>Paragraph-based</strong></p></td>
+<td class="text-left"><p>Split by paragraph (<code class="docutils literal notranslate"><span class="pre">\n\n</span></code>)</p></td>
+<td class="text-left"><p>Natural text units</p></td>
+<td class="text-left"><p>Paragraphs vary wildly in size</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><strong>Recursive</strong></p></td>
+<td class="text-left"><p>Try paragraph → sentence → character</p></td>
+<td class="text-left"><p>Best general approach</p></td>
+<td class="text-left"><p>More complex to implement</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><strong>Semantic</strong></p></td>
+<td class="text-left"><p>Use an LLM to determine natural break points</p></td>
+<td class="text-left"><p>Highest quality</p></td>
+<td class="text-left"><p>Slow and expensive</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<section id="the-overlap-trick">
+<h3><span class="section-number">7.3.2. </span>The Overlap Trick<a class="headerlink" href="#the-overlap-trick" title="Link to this heading">#</a></h3>
+<p>When chunks are split at a boundary, context can be lost. For example:</p>
+<blockquote>
+<div><p><em>“<strong>Dr. Wang</strong> is a leading researcher in urban computing. <strong>He</strong> developed a novel algorithm…”</em></p>
+</div></blockquote>
+<p>If “Dr. Wang” is in Chunk 1 and “He” starts Chunk 2, the pronoun loses its reference. The solution is <strong>overlapping chunks</strong> — each chunk includes the last few sentences of the previous one:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Chunk 1: [sentences 1-10]
+Chunk 2: [sentences 8-17]   ← overlaps with Chunk 1
+Chunk 3: [sentences 15-24]  ← overlaps with Chunk 2
+</pre></div>
+</div>
+</section>
+</section>
+<hr class="docutils" />
+<section id="embedding-turning-text-into-vectors">
+<h2><span class="section-number">7.4. </span>4. Embedding: Turning Text into Vectors<a class="headerlink" href="#embedding-turning-text-into-vectors" title="Link to this heading">#</a></h2>
+<section id="what-is-a-vector">
+<h3><span class="section-number">7.4.1. </span>What is a Vector?<a class="headerlink" href="#what-is-a-vector" title="Link to this heading">#</a></h3>
+<p>A vector is simply an array of numbers. In the context of RAG:</p>
+<ul class="simple">
+<li><p>A <strong>1-dimensional</strong> vector: <code class="docutils literal notranslate"><span class="pre">[3.0]</span></code></p></li>
+<li><p>A <strong>2-dimensional</strong> vector: <code class="docutils literal notranslate"><span class="pre">[1.0,</span> <span class="pre">-2.0]</span></code></p></li>
+<li><p>A <strong>768-dimensional</strong> vector: <code class="docutils literal notranslate"><span class="pre">[0.12,</span> <span class="pre">-0.45,</span> <span class="pre">0.78,</span> <span class="pre">...,</span> <span class="pre">0.33]</span></code> (768 numbers!)</p></li>
+</ul>
+<p>Real embedding models produce vectors with <strong>hundreds to thousands of dimensions</strong> (e.g., 768 or 1536). More dimensions = richer semantic representation.</p>
+</section>
+<section id="what-is-embedding">
+<h3><span class="section-number">7.4.2. </span>What is Embedding?<a class="headerlink" href="#what-is-embedding" title="Link to this heading">#</a></h3>
+<p>Embedding is the process of converting text into a fixed-length vector using a specialized <strong>Embedding Model</strong>. The key property is:</p>
+<blockquote>
+<div><p><strong>Semantically similar text produces vectors that are close together in vector space.</strong></p>
+</div></blockquote>
+<p>For example (simplified to 2D for visualization):</p>
+<ul class="simple">
+<li><p>“Mark likes to eat fruit” → <code class="docutils literal notranslate"><span class="pre">[1.0,</span> <span class="pre">-2.0]</span></code></p></li>
+<li><p>“Mark loves eating fruit” → <code class="docutils literal notranslate"><span class="pre">[1.1,</span> <span class="pre">-1.8]</span></code> ← very close!</p></li>
+<li><p>“The weather is nice today” → <code class="docutils literal notranslate"><span class="pre">[-3.0,</span> <span class="pre">-1.0]</span></code> ← very far away</p></li>
+</ul>
+</section>
+<section id="popular-embedding-models">
+<h3><span class="section-number">7.4.3. </span>Popular Embedding Models<a class="headerlink" href="#popular-embedding-models" title="Link to this heading">#</a></h3>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>Model</p></th>
+<th class="head text-left"><p>Dimensions</p></th>
+<th class="head text-left"><p>Provider</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">text-embedding-3-small</span></code></p></td>
+<td class="text-left"><p>1536</p></td>
+<td class="text-left"><p>OpenAI</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">text-embedding-3-large</span></code></p></td>
+<td class="text-left"><p>3072</p></td>
+<td class="text-left"><p>OpenAI</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">all-MiniLM-L6-v2</span></code></p></td>
+<td class="text-left"><p>384</p></td>
+<td class="text-left"><p>Sentence Transformers (free)</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">nomic-embed-text</span></code></p></td>
+<td class="text-left"><p>768</p></td>
+<td class="text-left"><p>Nomic / Ollama (free, local)</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">bge-large-en-v1.5</span></code></p></td>
+<td class="text-left"><p>1024</p></td>
+<td class="text-left"><p>BAAI (free)</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<blockquote>
+<div><p>💡 <strong>Tip</strong>: Check the <a class="reference external" href="https://huggingface.co/spaces/mteb/leaderboard">MTEB Leaderboard</a> to compare embedding model quality.</p>
+</div></blockquote>
+</section>
+</section>
+<hr class="docutils" />
+<section id="vector-databases">
+<h2><span class="section-number">7.5. </span>5. Vector Databases<a class="headerlink" href="#vector-databases" title="Link to this heading">#</a></h2>
+<p>A vector database is a specialized storage system optimized for storing, indexing, and querying vectors.</p>
+<section id="how-it-works">
+<h3><span class="section-number">7.5.1. </span>How It Works<a class="headerlink" href="#how-it-works" title="Link to this heading">#</a></h3>
+<p>Each record in a vector database typically stores:</p>
+<ol class="arabic simple">
+<li><p>An <strong>ID</strong> (unique identifier)</p></li>
+<li><p>The <strong>original text</strong> (the chunk)</p></li>
+<li><p>The <strong>vector</strong> (embedding of the chunk)</p></li>
+</ol>
+<p>When you query with a new vector, the database calculates the <strong>distance</strong> between your query vector and every stored vector, then returns the closest matches.</p>
+</section>
+<section id="popular-vector-databases">
+<h3><span class="section-number">7.5.2. </span>Popular Vector Databases<a class="headerlink" href="#popular-vector-databases" title="Link to this heading">#</a></h3>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>Database</p></th>
+<th class="head text-left"><p>Type</p></th>
+<th class="head text-left"><p>Best For</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p><strong>ChromaDB</strong></p></td>
+<td class="text-left"><p>In-memory / persistent</p></td>
+<td class="text-left"><p>Prototyping, small projects</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><strong>Pinecone</strong></p></td>
+<td class="text-left"><p>Managed cloud service</p></td>
+<td class="text-left"><p>Production, zero-ops</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><strong>Weaviate</strong></p></td>
+<td class="text-left"><p>Self-hosted / cloud</p></td>
+<td class="text-left"><p>Full-text + vector hybrid search</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><strong>Qdrant</strong></p></td>
+<td class="text-left"><p>Self-hosted / cloud</p></td>
+<td class="text-left"><p>High-performance filtering</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><strong>pgvector</strong></p></td>
+<td class="text-left"><p>PostgreSQL extension</p></td>
+<td class="text-left"><p>Teams already using PostgreSQL</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><strong>FAISS</strong></p></td>
+<td class="text-left"><p>Library (Meta)</p></td>
+<td class="text-left"><p>Research, large-scale similarity</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><strong>LanceDB</strong></p></td>
+<td class="text-left"><p>Embedded (AnythingLLM default)</p></td>
+<td class="text-left"><p>Desktop apps, serverless</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</section>
+<hr class="docutils" />
+<section id="vector-similarity-how-closeness-is-measured">
+<h2><span class="section-number">7.6. </span>6. Vector Similarity: How “Closeness” is Measured<a class="headerlink" href="#vector-similarity-how-closeness-is-measured" title="Link to this heading">#</a></h2>
+<p>When the vector database searches for the chunks most similar to the user’s question, it uses a <strong>similarity metric</strong>:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>Metric</p></th>
+<th class="head text-left"><p>What It Measures</p></th>
+<th class="head text-left"><p>Intuition</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p><strong>Cosine Similarity</strong></p></td>
+<td class="text-left"><p>Angle between two vectors</p></td>
+<td class="text-left"><p>Smaller angle = more similar</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><strong>Euclidean Distance</strong></p></td>
+<td class="text-left"><p>Straight-line distance</p></td>
+<td class="text-left"><p>Shorter distance = more similar</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><strong>Dot Product</strong></p></td>
+<td class="text-left"><p>Combines direction + magnitude</p></td>
+<td class="text-left"><p>Higher value = more similar</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>For most RAG applications, <strong>cosine similarity</strong> is the default and most reliable choice.</p>
+</section>
+<hr class="docutils" />
+<section id="retrieval-finding-relevant-chunks">
+<h2><span class="section-number">7.7. </span>7. Retrieval: Finding Relevant Chunks<a class="headerlink" href="#retrieval-finding-relevant-chunks" title="Link to this heading">#</a></h2>
+<p>When a user asks a question:</p>
+<ol class="arabic simple">
+<li><p>The question is embedded into a vector using the <strong>same embedding model</strong>.</p></li>
+<li><p>This vector is sent to the vector database.</p></li>
+<li><p>The database returns the <strong>Top-K</strong> most similar chunks (e.g., Top-10).</p></li>
+</ol>
+<p>This step is <strong>fast but imprecise</strong> — like screening resumes by keyword. It casts a wide net.</p>
+</section>
+<hr class="docutils" />
+<section id="reranking-precision-filtering">
+<h2><span class="section-number">7.8. </span>8. Reranking: Precision Filtering<a class="headerlink" href="#reranking-precision-filtering" title="Link to this heading">#</a></h2>
+<p>The retrieval step returns 10 chunks, but some may be false positives. <strong>Reranking</strong> uses a more powerful (but slower) model called a <strong>Cross-Encoder</strong> to re-score each chunk.</p>
+<section id="how-is-reranking-different-from-retrieval">
+<h3><span class="section-number">7.8.1. </span>How is Reranking Different from Retrieval?<a class="headerlink" href="#how-is-reranking-different-from-retrieval" title="Link to this heading">#</a></h3>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>Aspect</p></th>
+<th class="head text-left"><p>Retrieval (Embedding)</p></th>
+<th class="head text-left"><p>Reranking (Cross-Encoder)</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>Speed</p></td>
+<td class="text-left"><p>⚡ Very fast</p></td>
+<td class="text-left"><p>🐢 Slower</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>Cost</p></td>
+<td class="text-left"><p>💰 Low</p></td>
+<td class="text-left"><p>💰💰 Higher</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>Accuracy</p></td>
+<td class="text-left"><p>🎯 Moderate</p></td>
+<td class="text-left"><p>🎯🎯🎯 High</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>Scale</p></td>
+<td class="text-left"><p>Thousands of chunks</p></td>
+<td class="text-left"><p>Only 10–20 chunks</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Think of it like a job hiring process:</p>
+<ul class="simple">
+<li><p><strong>Retrieval</strong> = Screening 1,000 resumes → shortlist 10 candidates</p></li>
+<li><p><strong>Reranking</strong> = Interviewing 10 candidates → hiring the top 3</p></li>
+</ul>
+</section>
+</section>
+<hr class="docutils" />
+<section id="generation-producing-the-final-answer">
+<h2><span class="section-number">7.9. </span>9. Generation: Producing the Final Answer<a class="headerlink" href="#generation-producing-the-final-answer" title="Link to this heading">#</a></h2>
+<p>Finally, the top 3 reranked chunks and the user’s question are combined into a prompt and sent to a large language model (e.g., GPT-4o, Gemini, DeepSeek):</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Based on the following context, answer the user&#39;s question.
+If the answer is not in the context, say &quot;I don&#39;t know.&quot;
+
+Context:
+[Chunk 1 text]
+[Chunk 2 text]
+[Chunk 3 text]
+
+Question: What methodology did the authors use?
+</pre></div>
+</div>
+<p>The LLM generates a grounded, accurate answer based on the retrieved evidence.</p>
+</section>
+<hr class="docutils" />
+<section id="known-limitations-of-rag">
+<h2><span class="section-number">7.10. </span>10. Known Limitations of RAG<a class="headerlink" href="#known-limitations-of-rag" title="Link to this heading">#</a></h2>
+<p>RAG is powerful, but it is not perfect:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>Limitation</p></th>
+<th class="head text-left"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p><strong>Chunking artifacts</strong></p></td>
+<td class="text-left"><p>Important info may be cut at chunk boundaries, losing co-reference (e.g., “He” loses link to “Dr. Wang”).</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><strong>Poor at global questions</strong></p></td>
+<td class="text-left"><p>“How many times does ‘watermelon’ appear?” requires scanning ALL chunks, not just the most similar ones.</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><strong>Embedding quality ceiling</strong></p></td>
+<td class="text-left"><p>Embedding models compress meaning — subtle nuances can be lost.</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><strong>Hallucination still possible</strong></p></td>
+<td class="text-left"><p>If retrieved chunks are marginally relevant, the LLM may still interpolate incorrectly.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<blockquote>
+<div><p><strong>Solutions</strong>: Advanced chunking strategies, Graph RAG (covered in Tutorial 03), hybrid search (combining keyword + vector), and agentic RAG with iterative retrieval.</p>
+</div></blockquote>
+</section>
+<hr class="docutils" />
+<section id="read-more">
+<h2><span class="section-number">7.11. </span>Read More<a class="headerlink" href="#read-more" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://arxiv.org/abs/2005.11401">Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks (Original RAG Paper)</a> — Lewis et al., 2020. The foundational paper introducing RAG.</p></li>
+<li><p><a class="reference external" href="https://huggingface.co/spaces/mteb/leaderboard">MTEB Embedding Leaderboard</a> — Compare embedding model performance.</p></li>
+<li><p><a class="reference external" href="https://docs.trychroma.com/">ChromaDB Documentation</a> — Getting started with the popular open-source vector database.</p></li>
+<li><p><a class="reference external" href="https://www.pinecone.io/learn/retrieval-augmented-generation/">Pinecone Learning Center: What is RAG?</a> — Visual, beginner-friendly RAG explainer.</p></li>
+<li><p><a class="reference external" href="https://python.langchain.com/docs/tutorials/rag/">LangChain RAG Tutorial</a> — Step-by-step RAG implementation using LangChain.</p></li>
+<li><p><a class="reference external" href="https://docs.llamaindex.ai/">LlamaIndex Documentation</a> — Another popular framework for building RAG pipelines.</p></li>
+<li><p><a class="reference external" href="https://www.sbert.net/">Sentence Transformers Library</a> — Open-source library for embedding and cross-encoder models.</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="knowledge-quiz">
+<h2><span class="section-number">7.12. </span>Knowledge Quiz<a class="headerlink" href="#knowledge-quiz" title="Link to this heading">#</a></h2>
+<p><strong>Q1: Why can’t you simply paste an entire 500-page document into an LLM’s prompt instead of using RAG?</strong></p>
+<details>
+<summary>Answer</summary>
+Three reasons: (1) The document may exceed the model's context window limit 
+(2) More input = higher cost per query (3) More input = slower response time and the model may lose focus on relevant sections.
+</details>
+<p><strong>Q2: What is the fundamental difference between an Embedding Model and a Large Language Model (LLM)?</strong></p>
+<details>
+<summary>Answer</summary>
+An Embedding Model converts text into a fixed-length numerical vector (e.g., 768 or 1536 dimensions) that captures semantic meaning. An LLM generates natural language text as output. They serve fundamentally different roles in the RAG pipeline — embedding for search, LLM for generation.
+</details>
+<p><strong>Q3: Why does a RAG pipeline use both Retrieval AND Reranking instead of just one step?</strong></p>
+<details>
+<summary>Answer</summary>
+Retrieval (vector similarity) is fast but imprecise — it can quickly narrow thousands of chunks down to ~10 candidates. Reranking (Cross-Encoder) is slow but highly accurate — it precisely scores only the ~10 candidates to find the best 3. Combining both gives speed AND accuracy, like resume screening followed by interviews.
+</details>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./docs\rag"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../local-llm/01-deploy-local-llm.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title"><span class="section-number">6. </span>Deploy Open-Source LLMs Locally with Ollama &amp; AnythingLLM</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="02-implementing-rag.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title"><span class="section-number">8. </span>Implementing RAG with Python</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-problem-rag-solves">7.1. 1. The Problem RAG Solves</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-two-phases-of-rag">7.2. 2. The Two Phases of RAG</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#chunking-splitting-documents">7.3. 3. Chunking: Splitting Documents</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#common-chunking-strategies">7.3.1. Common Chunking Strategies</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-overlap-trick">7.3.2. The Overlap Trick</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#embedding-turning-text-into-vectors">7.4. 4. Embedding: Turning Text into Vectors</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-a-vector">7.4.1. What is a Vector?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-embedding">7.4.2. What is Embedding?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#popular-embedding-models">7.4.3. Popular Embedding Models</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#vector-databases">7.5. 5. Vector Databases</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#how-it-works">7.5.1. How It Works</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#popular-vector-databases">7.5.2. Popular Vector Databases</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#vector-similarity-how-closeness-is-measured">7.6. 6. Vector Similarity: How “Closeness” is Measured</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#retrieval-finding-relevant-chunks">7.7. 7. Retrieval: Finding Relevant Chunks</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reranking-precision-filtering">7.8. 8. Reranking: Precision Filtering</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#how-is-reranking-different-from-retrieval">7.8.1. How is Reranking Different from Retrieval?</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#generation-producing-the-final-answer">7.9. 9. Generation: Producing the Final Answer</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#known-limitations-of-rag">7.10. 10. Known Limitations of RAG</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#read-more">7.11. Read More</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#knowledge-quiz">7.12. Knowledge Quiz</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Yalin Yang
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2026.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

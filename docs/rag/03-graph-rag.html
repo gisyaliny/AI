@@ -1,0 +1,956 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+    <title>9. Graph RAG: Knowledge Graphs Meet Retrieval &#8212; AI Tools Learning Handbook</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.5.2/css/all.min.css?digest=dfe6caa3a7d634c4db9b" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.5.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b76e3c8a" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b" />
+  <script src="../../_static/vendor/fontawesome/6.5.2/js/all.min.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+    <script src="../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js?v=4a39c7ea"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'docs/rag/03-graph-rag';</script>
+    <link rel="canonical" href="https://gisyaliny.github.io/AI/docs/rag/03-graph-rag.html" />
+    <link rel="icon" href="../../_static/fav.ico"/>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="prev" title="8. Implementing RAG with Python" href="02-implementing-rag.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-primary-sidebar-checkbox"/>
+  <label class="overlay overlay-primary" for="pst-primary-sidebar-checkbox"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          id="pst-secondary-sidebar-checkbox"/>
+  <label class="overlay overlay-secondary" for="pst-secondary-sidebar-checkbox"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search..."
+         aria-label="Search..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../index.html">
+  
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/logo.png" class="logo__image only-light" alt="AI Tools Learning Handbook - Home"/>
+    <script>document.write(`<img src="../../_static/logo.png" class="logo__image only-dark" alt="AI Tools Learning Handbook - Home"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+ <script>
+ document.write(`
+   <button class="btn search-button-field search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span class="search-button__default-text">Search</span>
+    <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+   </button>
+ `);
+ </script></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Vibe Coding</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../vibe-coding/01-environment-and-basics.html">1. Environment Setup &amp; Basic Interaction (Environment Setup &amp; Basic Interaction)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../vibe-coding/02-complex-tasks-and-terminal.html">2. Complex Tasks &amp; Terminal Control</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../vibe-coding/03-multimodal-and-context.html">3. Multimodal &amp; Context Management</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../vibe-coding/04-advanced-features.html">4. Advanced Features &amp; Customization</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Research</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../research/01-ai-prompts-for-research.html">5. AI Prompts &amp; Skills for Academic Research</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Local LLM</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../local-llm/01-deploy-local-llm.html">6. Deploy Open-Source LLMs Locally with Ollama &amp; AnythingLLM</a></li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">RAG</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="01-what-is-rag.html">7. What is RAG? (Retrieval-Augmented Generation)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="02-implementing-rag.html">8. Implementing RAG with Python</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">9. Graph RAG: Knowledge Graphs Meet Retrieval</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-source-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Source repositories">
+    <i class="fab fa-github"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://github.com/gisyaliny/AI" target="_blank"
+   class="btn btn-sm btn-source-repository-button dropdown-item"
+   title="Source repository"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+<span class="btn__text-container">Repository</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/gisyaliny/AI/edit/main/docs/rag/03-graph-rag.md" target="_blank"
+   class="btn btn-sm btn-source-edit-button dropdown-item"
+   title="Suggest edit"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-pencil-alt"></i>
+  </span>
+<span class="btn__text-container">Suggest edit</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li><a href="https://github.com/gisyaliny/AI/issues/new?title=Issue%20on%20page%20%2Fdocs/rag/03-graph-rag.html&body=Your%20issue%20content%20here." target="_blank"
+   class="btn btn-sm btn-source-issues-button dropdown-item"
+   title="Open an issue"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-lightbulb"></i>
+  </span>
+<span class="btn__text-container">Open issue</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../_sources/docs/rag/03-graph-rag.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="theme-switch fa-solid fa-sun fa-lg" data-mode="light"></i>
+    <i class="theme-switch fa-solid fa-moon fa-lg" data-mode="dark"></i>
+    <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"></i>
+  </button>
+`);
+</script>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm pst-navbar-icon search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Graph RAG: Knowledge Graphs Meet Retrieval</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-limitations-of-traditional-rag">9.1. 1. The Limitations of Traditional RAG</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-a-knowledge-graph">9.2. 2. What is a Knowledge Graph?</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#formal-terminology">9.2.1. Formal Terminology</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-graph-rag-builds-the-knowledge-graph">9.3. 3. How Graph RAG Builds the Knowledge Graph</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#step-1-entity-and-relationship-extraction">9.3.1. Step 1: Entity and Relationship Extraction</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#step-2-data-gleaning-the-llm-pua-loop">9.3.2. Step 2: Data Gleaning (The “LLM PUA” Loop)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#step-3-merging-across-chunks">9.3.3. Step 3: Merging Across Chunks</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#community-detection-building-hierarchies">9.4. 4. Community Detection: Building Hierarchies</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#indexing-embedding-the-graph">9.5. 5. Indexing: Embedding the Graph</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#querying-local-search-vs-global-search">9.6. 6. Querying: Local Search vs. Global Search</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#local-search-bottom-up">9.6.1. Local Search (Bottom-Up)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#global-search-top-down">9.6.2. Global Search (Top-Down)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#graph-rag-vs-traditional-rag">9.7. 7. Graph RAG vs. Traditional RAG</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#getting-started-with-graph-rag">9.8. 8. Getting Started with Graph RAG</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#option-a-microsoft-s-graphrag-python">9.8.1. Option A: Microsoft’s GraphRAG (Python)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#option-b-neo4j-langchain">9.8.2. Option B: Neo4j + LangChain</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#when-to-use-graph-rag">9.9. 9. When to Use Graph RAG</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#read-more">9.10. Read More</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#knowledge-quiz">9.11. Knowledge Quiz</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="graph-rag-knowledge-graphs-meet-retrieval">
+<h1><span class="section-number">9. </span>Graph RAG: Knowledge Graphs Meet Retrieval<a class="headerlink" href="#graph-rag-knowledge-graphs-meet-retrieval" title="Link to this heading">#</a></h1>
+<p>Traditional RAG struggles with global questions (“How many times is X mentioned?”) and loses inter-chunk relationships. <strong>Graph RAG</strong> solves this by building a <strong>knowledge graph</strong> from your documents, enabling both fine-grained and high-level reasoning.</p>
+<hr class="docutils" />
+<section id="the-limitations-of-traditional-rag">
+<h2><span class="section-number">9.1. </span>1. The Limitations of Traditional RAG<a class="headerlink" href="#the-limitations-of-traditional-rag" title="Link to this heading">#</a></h2>
+<p>Before diving into Graph RAG, let’s understand <em>why</em> it exists:</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>Problem</p></th>
+<th class="head text-left"><p>Example</p></th>
+<th class="head text-left"><p>Why Traditional RAG Fails</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p><strong>Global questions</strong></p></td>
+<td class="text-left"><p>“What are the main themes of this article?”</p></td>
+<td class="text-left"><p>No single chunk answers this — the answer spans the entire document.</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><strong>Counting / aggregation</strong></p></td>
+<td class="text-left"><p>“How many times is ‘watermelon’ mentioned?”</p></td>
+<td class="text-left"><p>“Watermelon” appears across many chunks; no single chunk is “most similar.”</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><strong>Cross-chunk reasoning</strong></p></td>
+<td class="text-left"><p>“Does Wang prefer fruit over vegetables?”</p></td>
+<td class="text-left"><p>The answer requires connecting information scattered across multiple chunks.</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><strong>Pronoun resolution</strong></p></td>
+<td class="text-left"><p>Chunk 1: “Dr. Wang…” Chunk 2: “He also…”</p></td>
+<td class="text-left"><p>“He” loses its reference to “Dr. Wang” after chunking.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<blockquote>
+<div><p><strong>Core insight</strong>: Traditional RAG treats every chunk as an isolated island. Graph RAG builds bridges between them.</p>
+</div></blockquote>
+</section>
+<hr class="docutils" />
+<section id="what-is-a-knowledge-graph">
+<h2><span class="section-number">9.2. </span>2. What is a Knowledge Graph?<a class="headerlink" href="#what-is-a-knowledge-graph" title="Link to this heading">#</a></h2>
+<p>A knowledge graph is a structured representation of information as a network of <strong>entities</strong> (nodes) and <strong>relationships</strong> (edges).</p>
+<p><strong>Example sentence</strong>: <em>“Wang likes to eat watermelon.”</em></p>
+<p>In a knowledge graph, this becomes:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>[Wang] ---(likes to eat)---&gt; [Watermelon]
+  │                               │
+  └─ type: Person                 └─ type: Fruit
+</pre></div>
+</div>
+<section id="formal-terminology">
+<h3><span class="section-number">9.2.1. </span>Formal Terminology<a class="headerlink" href="#formal-terminology" title="Link to this heading">#</a></h3>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>Term</p></th>
+<th class="head text-left"><p>Meaning</p></th>
+<th class="head text-left"><p>Example</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p><strong>Entity (Node)</strong></p></td>
+<td class="text-left"><p>A distinct thing in your data</p></td>
+<td class="text-left"><p>“Wang”, “Watermelon”</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><strong>Relationship (Edge)</strong></p></td>
+<td class="text-left"><p>A connection between entities</p></td>
+<td class="text-left"><p>“likes to eat”</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><strong>Attribute / Property</strong></p></td>
+<td class="text-left"><p>Metadata on nodes or edges</p></td>
+<td class="text-left"><p>Wang.type = “Person”</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><strong>LPG</strong></p></td>
+<td class="text-left"><p>Labeled Property Graph — a graph where nodes and edges can carry labels and properties</p></td>
+<td class="text-left"><p>The full structure above</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</section>
+<hr class="docutils" />
+<section id="how-graph-rag-builds-the-knowledge-graph">
+<h2><span class="section-number">9.3. </span>3. How Graph RAG Builds the Knowledge Graph<a class="headerlink" href="#how-graph-rag-builds-the-knowledge-graph" title="Link to this heading">#</a></h2>
+<p>Before LLMs, building knowledge graphs required complex NLP pipelines (NER models, dependency parsers, etc.). Graph RAG leverages LLMs to do it all with prompts.</p>
+<section id="step-1-entity-and-relationship-extraction">
+<h3><span class="section-number">9.3.1. </span>Step 1: Entity and Relationship Extraction<a class="headerlink" href="#step-1-entity-and-relationship-extraction" title="Link to this heading">#</a></h3>
+<p>For each text chunk, Graph RAG sends a prompt to the LLM:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Goal: Extract entities and relationships from the following text.
+
+Entity types to identify: [Person, Object, Location, Event, Concept]
+
+For each entity, provide:
+- Entity name
+- Entity type
+- Brief description
+
+For each relationship, provide:
+- Source entity
+- Target entity
+- Relationship description
+
+IMPORTANT: Only extract information explicitly stated in the text.
+Do NOT invent or infer information not present.
+
+Text:
+&quot;Wang likes to eat watermelon. Xiao Wang also likes watermelon.
+The watermelon tastes sweet.&quot;
+</pre></div>
+</div>
+<p>The LLM returns structured output like:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Entities:
+  - Wang | Person | A person who likes watermelon
+  - Xiao Wang | Person | Another person who likes watermelon
+  - Watermelon | Fruit | A fruit that tastes sweet
+
+Relationships:
+  - Wang → likes to eat → Watermelon
+  - Xiao Wang → likes to eat → Watermelon
+  - Watermelon → has taste → Sweet
+</pre></div>
+</div>
+</section>
+<section id="step-2-data-gleaning-the-llm-pua-loop">
+<h3><span class="section-number">9.3.2. </span>Step 2: Data Gleaning (The “LLM PUA” Loop)<a class="headerlink" href="#step-2-data-gleaning-the-llm-pua-loop" title="Link to this heading">#</a></h3>
+<p>After the initial extraction, Graph RAG sends the results <em>back</em> to the LLM and asks:</p>
+<blockquote>
+<div><p>“Here is the knowledge graph you generated. Is there anything you missed? Any additional entities or relationships to add?”</p>
+</div></blockquote>
+<p>If the LLM says yes, it adds more. Then Graph RAG asks again. This loop continues until the LLM confirms: <strong>“I have nothing more to add.”</strong></p>
+<p>This iterative refinement process is called <strong>Data Gleaning</strong> and significantly improves extraction completeness.</p>
+</section>
+<section id="step-3-merging-across-chunks">
+<h3><span class="section-number">9.3.3. </span>Step 3: Merging Across Chunks<a class="headerlink" href="#step-3-merging-across-chunks" title="Link to this heading">#</a></h3>
+<p>After processing every chunk independently, Graph RAG <strong>merges</strong> entities with the same name:</p>
+<ul class="simple">
+<li><p>All “Wang” nodes from different chunks → merged into one “Wang” node.</p></li>
+<li><p>All “Watermelon” nodes → merged into one “Watermelon” node.</p></li>
+<li><p>Descriptions from different chunks are <strong>concatenated</strong>, then sent to the LLM to generate a unified, coherent summary.</p></li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Before merge:
+  Chunk 1: Wang → &quot;A person who likes watermelon&quot;
+  Chunk 3: Wang → &quot;The main character who went to the market&quot;
+
+After merge (LLM-summarized):
+  Wang → &quot;The main character, a person who likes watermelon and went to the market&quot;
+</pre></div>
+</div>
+</section>
+</section>
+<hr class="docutils" />
+<section id="community-detection-building-hierarchies">
+<h2><span class="section-number">9.4. </span>4. Community Detection: Building Hierarchies<a class="headerlink" href="#community-detection-building-hierarchies" title="Link to this heading">#</a></h2>
+<p>A knowledge graph for a long document can have hundreds or thousands of nodes. To make it navigable, Graph RAG applies <strong>Leiden community detection</strong> to cluster densely connected nodes.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Level 0 (Raw):     Wang ── Watermelon ── Sweet
+                      │         │
+                   Xiao Wang ── Peach
+
+Level 1 (Clusters): [Food Lovers Cluster]    [Taste Cluster]
+                     Wang, Xiao Wang,         Sweet
+                     Watermelon, Peach
+
+Level 2 (Abstract): [Article Overview]
+                     &quot;An article about food preferences
+                      of Wang and Xiao Wang&quot;
+</pre></div>
+</div>
+<p>At each level, the LLM generates a <strong>summary description</strong> for the cluster. Crucially, these summaries can contain <strong>inferred information</strong> not explicitly in any single chunk:</p>
+<blockquote>
+<div><p><em>“Xiao Wang only likes watermelon. Combined with Wang’s preference for both watermelon and peach, we can infer that Xiao Wang does not like peach.”</em></p>
+</div></blockquote>
+<p>This is reasoning that traditional RAG simply cannot perform.</p>
+</section>
+<hr class="docutils" />
+<section id="indexing-embedding-the-graph">
+<h2><span class="section-number">9.5. </span>5. Indexing: Embedding the Graph<a class="headerlink" href="#indexing-embedding-the-graph" title="Link to this heading">#</a></h2>
+<p>Once the hierarchical knowledge graph is built, Graph RAG converts everything into searchable vectors:</p>
+<ol class="arabic simple">
+<li><p><strong>Entity descriptions</strong> → embedded and stored in vector DB</p></li>
+<li><p><strong>Relationship descriptions</strong> → embedded and stored</p></li>
+<li><p><strong>Community summaries (each level)</strong> → embedded and stored</p></li>
+<li><p><strong>Original text chunks</strong> → embedded and stored (just like traditional RAG)</p></li>
+</ol>
+</section>
+<hr class="docutils" />
+<section id="querying-local-search-vs-global-search">
+<h2><span class="section-number">9.6. </span>6. Querying: Local Search vs. Global Search<a class="headerlink" href="#querying-local-search-vs-global-search" title="Link to this heading">#</a></h2>
+<p>Graph RAG offers two complementary search strategies:</p>
+<section id="local-search-bottom-up">
+<h3><span class="section-number">9.6.1. </span>Local Search (Bottom-Up)<a class="headerlink" href="#local-search-bottom-up" title="Link to this heading">#</a></h3>
+<p><strong>Best for</strong>: Detailed, specific questions (“What does Wang like to eat?”)</p>
+<ol class="arabic simple">
+<li><p>Embed the user’s question.</p></li>
+<li><p>Search the <strong>lowest-level</strong> graph entities for the most similar matches.</p></li>
+<li><p>Use the graph’s mapping to pull in:</p>
+<ul class="simple">
+<li><p>Connected neighboring entities and relationships</p></li>
+<li><p>The original source text chunks</p></li>
+<li><p>Higher-level community summaries</p></li>
+</ul>
+</li>
+<li><p>Package everything and send to the LLM.</p></li>
+</ol>
+</section>
+<section id="global-search-top-down">
+<h3><span class="section-number">9.6.2. </span>Global Search (Top-Down)<a class="headerlink" href="#global-search-top-down" title="Link to this heading">#</a></h3>
+<p><strong>Best for</strong>: Abstract, panoramic questions (“What is the main theme of this article?”)</p>
+<ol class="arabic simple">
+<li><p>Start from the <strong>highest-level</strong> community summaries.</p></li>
+<li><p>Find the most relevant high-level clusters.</p></li>
+<li><p>Drill down into their sub-communities for supporting detail.</p></li>
+<li><p>Package everything and send to the LLM.</p></li>
+</ol>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>Feature</p></th>
+<th class="head text-left"><p>Local Search</p></th>
+<th class="head text-left"><p>Global Search</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>Starting point</p></td>
+<td class="text-left"><p>Bottom of hierarchy</p></td>
+<td class="text-left"><p>Top of hierarchy</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>Strength</p></td>
+<td class="text-left"><p>Precise, detail-rich answers</p></td>
+<td class="text-left"><p>Broad, thematic answers</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>Example query</p></td>
+<td class="text-left"><p>“What are Wang’s hobbies?”</p></td>
+<td class="text-left"><p>“Summarize the key themes”</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</section>
+<hr class="docutils" />
+<section id="graph-rag-vs-traditional-rag">
+<h2><span class="section-number">9.7. </span>7. Graph RAG vs. Traditional RAG<a class="headerlink" href="#graph-rag-vs-traditional-rag" title="Link to this heading">#</a></h2>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>Aspect</p></th>
+<th class="head text-left"><p>Traditional RAG</p></th>
+<th class="head text-left"><p>Graph RAG</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p><strong>Data structure</strong></p></td>
+<td class="text-left"><p>Flat list of chunks</p></td>
+<td class="text-left"><p>Hierarchical knowledge graph</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><strong>Cross-chunk reasoning</strong></p></td>
+<td class="text-left"><p>❌ Each chunk is isolated</p></td>
+<td class="text-left"><p>✅ Entities link across chunks</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><strong>Global questions</strong></p></td>
+<td class="text-left"><p>❌ Poor</p></td>
+<td class="text-left"><p>✅ Community summaries handle these</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><strong>Inferred knowledge</strong></p></td>
+<td class="text-left"><p>❌ Only explicit text</p></td>
+<td class="text-left"><p>✅ LLM can reason at cluster level</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><strong>Token cost</strong></p></td>
+<td class="text-left"><p>💰 Low</p></td>
+<td class="text-left"><p>💰💰💰 High (LLM used in indexing)</p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p><strong>Setup complexity</strong></p></td>
+<td class="text-left"><p>Simple</p></td>
+<td class="text-left"><p>Complex</p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p><strong>Best for</strong></p></td>
+<td class="text-left"><p>FAQ, support docs</p></td>
+<td class="text-left"><p>Research papers, reports, legal docs</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<hr class="docutils" />
+<section id="getting-started-with-graph-rag">
+<h2><span class="section-number">9.8. </span>8. Getting Started with Graph RAG<a class="headerlink" href="#getting-started-with-graph-rag" title="Link to this heading">#</a></h2>
+<section id="option-a-microsoft-s-graphrag-python">
+<h3><span class="section-number">9.8.1. </span>Option A: Microsoft’s GraphRAG (Python)<a class="headerlink" href="#option-a-microsoft-s-graphrag-python" title="Link to this heading">#</a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>graphrag
+
+<span class="c1"># Initialize a project</span>
+python<span class="w"> </span>-m<span class="w"> </span>graphrag<span class="w"> </span>init<span class="w"> </span>--root<span class="w"> </span>./my_project
+
+<span class="c1"># Index your documents (builds the knowledge graph)</span>
+python<span class="w"> </span>-m<span class="w"> </span>graphrag<span class="w"> </span>index<span class="w"> </span>--root<span class="w"> </span>./my_project
+
+<span class="c1"># Query with local search</span>
+python<span class="w"> </span>-m<span class="w"> </span>graphrag<span class="w"> </span>query<span class="w"> </span>--root<span class="w"> </span>./my_project<span class="w"> </span>--method<span class="w"> </span><span class="nb">local</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--query<span class="w"> </span><span class="s2">&quot;What does Wang like to eat?&quot;</span>
+
+<span class="c1"># Query with global search  </span>
+python<span class="w"> </span>-m<span class="w"> </span>graphrag<span class="w"> </span>query<span class="w"> </span>--root<span class="w"> </span>./my_project<span class="w"> </span>--method<span class="w"> </span>global<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--query<span class="w"> </span><span class="s2">&quot;What are the main themes of this document?&quot;</span>
+</pre></div>
+</div>
+</section>
+<section id="option-b-neo4j-langchain">
+<h3><span class="section-number">9.8.2. </span>Option B: Neo4j + LangChain<a class="headerlink" href="#option-b-neo4j-langchain" title="Link to this heading">#</a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">langchain_community.graphs</span> <span class="kn">import</span> <span class="n">Neo4jGraph</span>
+<span class="kn">from</span> <span class="nn">langchain_experimental.graph_transformers</span> <span class="kn">import</span> <span class="n">LLMGraphTransformer</span>
+<span class="kn">from</span> <span class="nn">langchain_openai</span> <span class="kn">import</span> <span class="n">ChatOpenAI</span>
+
+<span class="c1"># Connect to Neo4j</span>
+<span class="n">graph</span> <span class="o">=</span> <span class="n">Neo4jGraph</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="s2">&quot;bolt://localhost:7687&quot;</span><span class="p">,</span> <span class="n">username</span><span class="o">=</span><span class="s2">&quot;neo4j&quot;</span><span class="p">,</span> <span class="n">password</span><span class="o">=</span><span class="s2">&quot;password&quot;</span><span class="p">)</span>
+
+<span class="c1"># Use LLM to extract graph from documents</span>
+<span class="n">llm</span> <span class="o">=</span> <span class="n">ChatOpenAI</span><span class="p">(</span><span class="n">model</span><span class="o">=</span><span class="s2">&quot;gpt-4o&quot;</span><span class="p">)</span>
+<span class="n">transformer</span> <span class="o">=</span> <span class="n">LLMGraphTransformer</span><span class="p">(</span><span class="n">llm</span><span class="o">=</span><span class="n">llm</span><span class="p">)</span>
+<span class="n">graph_documents</span> <span class="o">=</span> <span class="n">transformer</span><span class="o">.</span><span class="n">convert_to_graph_documents</span><span class="p">(</span><span class="n">documents</span><span class="p">)</span>
+
+<span class="c1"># Store in Neo4j</span>
+<span class="n">graph</span><span class="o">.</span><span class="n">add_graph_documents</span><span class="p">(</span><span class="n">graph_documents</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+</section>
+<hr class="docutils" />
+<section id="when-to-use-graph-rag">
+<h2><span class="section-number">9.9. </span>9. When to Use Graph RAG<a class="headerlink" href="#when-to-use-graph-rag" title="Link to this heading">#</a></h2>
+<p>✅ <strong>Use Graph RAG when:</strong></p>
+<ul class="simple">
+<li><p>Your documents are long and complex (research papers, legal contracts, technical manuals).</p></li>
+<li><p>Users ask questions that require cross-document reasoning.</p></li>
+<li><p>Global/thematic questions are common.</p></li>
+<li><p>Accuracy matters more than cost.</p></li>
+</ul>
+<p>❌ <strong>Stick with Traditional RAG when:</strong></p>
+<ul class="simple">
+<li><p>Documents are short and self-contained (FAQs, product descriptions).</p></li>
+<li><p>Questions are simple and fact-retrieval based.</p></li>
+<li><p>Budget is limited (Graph RAG consumes significantly more LLM tokens during indexing).</p></li>
+<li><p>Low-latency responses are critical.</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="read-more">
+<h2><span class="section-number">9.10. </span>Read More<a class="headerlink" href="#read-more" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="https://www.microsoft.com/en-us/research/blog/graphrag-unlocking-llm-discovery-on-narrative-private-data/">GraphRAG: Unlocking LLM Discovery on Narrative Private Data (Microsoft Research)</a> — The original Microsoft blog post introducing Graph RAG.</p></li>
+<li><p><a class="reference external" href="https://github.com/microsoft/graphrag">Microsoft GraphRAG GitHub Repository</a> — Official open-source implementation.</p></li>
+<li><p><a class="reference external" href="https://arxiv.org/abs/2404.16130">From Local to Global: A Graph RAG Approach (Paper)</a> — The academic paper behind Microsoft GraphRAG.</p></li>
+<li><p><a class="reference external" href="https://neo4j.com/">Neo4j Graph Database</a> — Popular graph database engine for storing knowledge graphs.</p></li>
+<li><p><a class="reference external" href="https://python.langchain.com/docs/how_to/graph_constructing/">LangChain Graph Transformers</a> — Build knowledge graphs from documents using LangChain.</p></li>
+<li><p><a class="reference external" href="https://www.nature.com/articles/s41598-019-41695-z">Leiden Community Detection Algorithm</a> — The clustering algorithm used by Graph RAG.</p></li>
+<li><p><a class="reference external" href="https://arxiv.org/abs/2003.02320">Knowledge Graphs: A Comprehensive Survey</a> — Academic survey of knowledge graph techniques.</p></li>
+</ul>
+</section>
+<hr class="docutils" />
+<section id="knowledge-quiz">
+<h2><span class="section-number">9.11. </span>Knowledge Quiz<a class="headerlink" href="#knowledge-quiz" title="Link to this heading">#</a></h2>
+<p><strong>Q1: What is “Data Gleaning” in the Graph RAG pipeline?</strong></p>
+<details>
+<summary>Answer</summary>
+Data Gleaning is an iterative loop where Graph RAG sends the extracted knowledge graph back to the LLM and asks: "Did you miss anything? Is there more to add?" The LLM adds more entities/relationships, and the process repeats until the LLM confirms nothing is left. This improves extraction completeness.
+</details>
+<p><strong>Q2: Why is Graph RAG significantly more expensive (in tokens) than traditional RAG?</strong></p>
+<details>
+<summary>Answer</summary>
+Traditional RAG only calls the LLM once per user query (at generation time). Graph RAG calls the LLM extensively during the INDEXING phase — for entity extraction, data gleaning loops, description merging, community summarization at every hierarchy level. The LLM cost is front-loaded into the preparation phase.
+</details>
+<p><strong>Q3: When would you use “Global Search” instead of “Local Search” in Graph RAG?</strong></p>
+<details>
+<summary>Answer</summary>
+Use Global Search for abstract, thematic, or panoramic questions (e.g., "What are the key themes of this report?"). It starts from the top of the knowledge graph hierarchy where summaries are most abstract. Use Local Search for detailed, specific questions (e.g., "What did the author say about method X?") where you need precise, evidence-rich answers from the bottom of the hierarchy.
+</details>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./docs\rag"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="02-implementing-rag.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title"><span class="section-number">8. </span>Implementing RAG with Python</p>
+      </div>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-limitations-of-traditional-rag">9.1. 1. The Limitations of Traditional RAG</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-a-knowledge-graph">9.2. 2. What is a Knowledge Graph?</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#formal-terminology">9.2.1. Formal Terminology</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-graph-rag-builds-the-knowledge-graph">9.3. 3. How Graph RAG Builds the Knowledge Graph</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#step-1-entity-and-relationship-extraction">9.3.1. Step 1: Entity and Relationship Extraction</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#step-2-data-gleaning-the-llm-pua-loop">9.3.2. Step 2: Data Gleaning (The “LLM PUA” Loop)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#step-3-merging-across-chunks">9.3.3. Step 3: Merging Across Chunks</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#community-detection-building-hierarchies">9.4. 4. Community Detection: Building Hierarchies</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#indexing-embedding-the-graph">9.5. 5. Indexing: Embedding the Graph</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#querying-local-search-vs-global-search">9.6. 6. Querying: Local Search vs. Global Search</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#local-search-bottom-up">9.6.1. Local Search (Bottom-Up)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#global-search-top-down">9.6.2. Global Search (Top-Down)</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#graph-rag-vs-traditional-rag">9.7. 7. Graph RAG vs. Traditional RAG</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#getting-started-with-graph-rag">9.8. 8. Getting Started with Graph RAG</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#option-a-microsoft-s-graphrag-python">9.8.1. Option A: Microsoft’s GraphRAG (Python)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#option-b-neo4j-langchain">9.8.2. Option B: Neo4j + LangChain</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#when-to-use-graph-rag">9.9. 9. When to Use Graph RAG</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#read-more">9.10. Read More</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#knowledge-quiz">9.11. Knowledge Quiz</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Yalin Yang
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2026.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=dfe6caa3a7d634c4db9b"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=dfe6caa3a7d634c4db9b"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>
