@@ -15,6 +15,16 @@ parts:
       - file: docs/vibe-coding/02-complex-tasks-and-terminal
       - file: docs/vibe-coding/03-multimodal-and-context
       - file: docs/vibe-coding/04-advanced-features
+  - caption: Research
+    numbered: true
+    maxdepth: 2
+    chapters:
+      - file: docs/research/01-ai-prompts-for-research
+  - caption: Local LLM
+    numbered: true
+    maxdepth: 2
+    chapters:
+      - file: docs/local-llm/01-deploy-local-llm
   # - caption: RAG
   #   numbered: true
   #   maxdepth: 2
