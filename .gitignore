@@ -7,3 +7,6 @@ private/
 **/*.parquet
 **/*.json
 **/*.geojson
+.agents/
+transcripts/
+.claude/
