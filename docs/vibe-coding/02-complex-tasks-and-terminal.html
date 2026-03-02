@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>2. 02 - Complex Tasks &amp; Terminal Control &#8212; AI Tools Learning Handbook</title>
+    <title>2. Complex Tasks &amp; Terminal Control &#8212; AI Tools Learning Handbook</title>
   
   
   
@@ -32,7 +32,7 @@
     <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
     <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css?v=6644e6bb" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
   
@@ -62,8 +62,8 @@
     <link rel="icon" href="../../_static/fav.ico"/>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="3. 03 - Multimodal &amp; Context Management" href="03-multimodal-and-context.html" />
-    <link rel="prev" title="1. 01 - Environment Setup &amp; Basic Interaction (Environment Setup &amp; Basic Interaction)" href="01-environment-and-basics.html" />
+    <link rel="next" title="3. Multimodal &amp; Context Management" href="03-multimodal-and-context.html" />
+    <link rel="prev" title="1. Environment Setup &amp; Basic Interaction (Environment Setup &amp; Basic Interaction)" href="01-environment-and-basics.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -175,10 +175,10 @@
     <div class="bd-toc-item navbar-nav active">
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">Vibe Coding</span></p>
 <ul class="current nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="01-environment-and-basics.html">1. 01 - Environment Setup &amp; Basic Interaction (Environment Setup &amp; Basic Interaction)</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">2. 02 - Complex Tasks &amp; Terminal Control</a></li>
-<li class="toctree-l1"><a class="reference internal" href="03-multimodal-and-context.html">3. 03 - Multimodal &amp; Context Management</a></li>
-<li class="toctree-l1"><a class="reference internal" href="04-advanced-features.html">4. 04 - Advanced Features &amp; Customization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="01-environment-and-basics.html">1. Environment Setup &amp; Basic Interaction (Environment Setup &amp; Basic Interaction)</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">2. Complex Tasks &amp; Terminal Control</a></li>
+<li class="toctree-l1"><a class="reference internal" href="03-multimodal-and-context.html">3. Multimodal &amp; Context Management</a></li>
+<li class="toctree-l1"><a class="reference internal" href="04-advanced-features.html">4. Advanced Features &amp; Customization</a></li>
 </ul>
 
     </div>
@@ -381,7 +381,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>02 - Complex Tasks & Terminal Control</h1>
+    <h1>Complex Tasks & Terminal Control</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -408,7 +408,7 @@ document.write(`
                 <article class="bd-article">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="complex-tasks-terminal-control">
-<h1><span class="section-number">2. </span>02 - Complex Tasks &amp; Terminal Control<a class="headerlink" href="#complex-tasks-terminal-control" title="Link to this heading">#</a></h1>
+<h1><span class="section-number">2. </span>Complex Tasks &amp; Terminal Control<a class="headerlink" href="#complex-tasks-terminal-control" title="Link to this heading">#</a></h1>
 <p>After mastering basic interactions, we will learn how to let Claude Code execute terminal commands, manage long-running background tasks, and explore more complex architectural refactoring.</p>
 <section id="executing-terminal-commands-bash">
 <h2><span class="section-number">2.1. </span>1. Executing Terminal Commands (Bash)<a class="headerlink" href="#executing-terminal-commands-bash" title="Link to this heading">#</a></h2>
@@ -449,24 +449,7 @@ document.write(`
 <li><p><strong>View Tasks</strong>: Type the <code class="docutils literal notranslate"><span class="pre">/tasks</span></code> command to view the list of commands currently running in the background.</p></li>
 <li><p><strong>Terminate Task</strong>: In the task list interface, select the target task and press the <code class="docutils literal notranslate"><span class="pre">K</span></code> key to kill the background service process.</p></li>
 </ul>
-<div class="highlight-mermaid notranslate"><div class="highlight"><pre><span></span>sequenceDiagram
-    participant User
-    participant ClaudeCode
-    participant DevServer
-    
-    User-&gt;&gt;ClaudeCode: ! npm run dev
-    ClaudeCode-&gt;&gt;DevServer: Start Server (Blocking)
-    User-&gt;&gt;ClaudeCode: (Typing a new prompt)
-    ClaudeCode--xUser: No response (Blocked)
-    User-&gt;&gt;ClaudeCode: Press Ctrl + B
-    ClaudeCode-&gt;&gt;DevServer: Move to Background
-    ClaudeCode-&gt;&gt;User: Ready for prompts
-    User-&gt;&gt;ClaudeCode: /tasks
-    ClaudeCode-&gt;&gt;User: Show running tasks
-    User-&gt;&gt;ClaudeCode: Press K
-    ClaudeCode-&gt;&gt;DevServer: Kill Server
-</pre></div>
-</div>
+<p><img alt="calude code tasks" src="../../_images/002.png" /></p>
 </section>
 <hr class="docutils" />
 <section id="knowledge-quiz">
@@ -520,7 +503,7 @@ Press `Ctrl + B` to send it to the background. Subsequently, you can use `/tasks
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title"><span class="section-number">1. </span>01 - Environment Setup &amp; Basic Interaction (Environment Setup &amp; Basic Interaction)</p>
+        <p class="prev-next-title"><span class="section-number">1. </span>Environment Setup &amp; Basic Interaction (Environment Setup &amp; Basic Interaction)</p>
       </div>
     </a>
     <a class="right-next"
@@ -528,7 +511,7 @@ Press `Ctrl + B` to send it to the background. Subsequently, you can use `/tasks
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title"><span class="section-number">3. </span>03 - Multimodal &amp; Context Management</p>
+        <p class="prev-next-title"><span class="section-number">3. </span>Multimodal &amp; Context Management</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>

@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>3. 03 - Multimodal &amp; Context Management &#8212; AI Tools Learning Handbook</title>
+    <title>3. Multimodal &amp; Context Management &#8212; AI Tools Learning Handbook</title>
   
   
   
@@ -32,7 +32,7 @@
     <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=eba8b062" />
     <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=13237357" />
     <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
-    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.8ecb98da25f57f5357bf6f572d296f466b2cfe2517ffebfabe82451661e28f02.css?v=6644e6bb" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css?v=4fa983c6" />
     <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
   
@@ -62,8 +62,8 @@
     <link rel="icon" href="../../_static/fav.ico"/>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="4. 04 - Advanced Features &amp; Customization" href="04-advanced-features.html" />
-    <link rel="prev" title="2. 02 - Complex Tasks &amp; Terminal Control" href="02-complex-tasks-and-terminal.html" />
+    <link rel="next" title="4. Advanced Features &amp; Customization" href="04-advanced-features.html" />
+    <link rel="prev" title="2. Complex Tasks &amp; Terminal Control" href="02-complex-tasks-and-terminal.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -175,10 +175,10 @@
     <div class="bd-toc-item navbar-nav active">
         <p aria-level="2" class="caption" role="heading"><span class="caption-text">Vibe Coding</span></p>
 <ul class="current nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="01-environment-and-basics.html">1. 01 - Environment Setup &amp; Basic Interaction (Environment Setup &amp; Basic Interaction)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="02-complex-tasks-and-terminal.html">2. 02 - Complex Tasks &amp; Terminal Control</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">3. 03 - Multimodal &amp; Context Management</a></li>
-<li class="toctree-l1"><a class="reference internal" href="04-advanced-features.html">4. 04 - Advanced Features &amp; Customization</a></li>
+<li class="toctree-l1"><a class="reference internal" href="01-environment-and-basics.html">1. Environment Setup &amp; Basic Interaction (Environment Setup &amp; Basic Interaction)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="02-complex-tasks-and-terminal.html">2. Complex Tasks &amp; Terminal Control</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">3. Multimodal &amp; Context Management</a></li>
+<li class="toctree-l1"><a class="reference internal" href="04-advanced-features.html">4. Advanced Features &amp; Customization</a></li>
 </ul>
 
     </div>
@@ -381,7 +381,7 @@ document.write(`
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>03 - Multimodal & Context Management</h1>
+    <h1>Multimodal & Context Management</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -391,14 +391,20 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#version-rewind-rewind">3.1. 1. Version Rewind (Rewind)</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#image-multimodal-input">3.2. 2. Image Multimodal Input</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#installing-mcp-servers-using-figma-as-an-example">3.3. 3. Installing MCP Servers (Using Figma as an Example)</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#recovering-historical-sessions-resume">3.4. 4. Recovering Historical Sessions (Resume)</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#using-mcp-to-translate-design-mocks-into-code">3.5. 5. Using MCP to Translate Design Mocks into Code</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#context-compaction-and-clearing">3.6. 6. Context Compaction and Clearing</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#project-memory-files-claude-md">3.7. 7. Project Memory Files (CLAUDE.md)</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#knowledge-quiz">3.8. Knowledge Quiz</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-mcp-model-context-protocol">3.1. 1. What is MCP (Model Context Protocol)?</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#authentic-example-workflow-adding-a-postgresql-mcp">3.1.1. Authentic Example Workflow: Adding a PostgreSQL MCP</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#using-visuals-multimodal-input">3.2. 2. Using Visuals: Multimodal Input</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#high-fidelity-ui-generation-the-figma-mcp">3.3. 3. High-Fidelity UI Generation (The Figma MCP)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#managing-ai-memory-context">3.4. 4. Managing AI Memory (Context)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-compact-command-workflow">3.4.1. The <code class="docutils literal notranslate"><span class="pre">/compact</span></code> Command Workflow</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-clear-command">3.4.2. The <code class="docutils literal notranslate"><span class="pre">/clear</span></code> Command</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#version-rewind-resuming">3.5. 5. Version Rewind &amp; Resuming</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#project-memory-claude-md">3.6. 6. Project Memory: CLAUDE.md</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#knowledge-quiz">3.7. Knowledge Quiz</a></li>
 </ul>
             </nav>
         </div>
@@ -411,85 +417,92 @@ document.write(`
                 <article class="bd-article">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="multimodal-context-management">
-<h1><span class="section-number">3. </span>03 - Multimodal &amp; Context Management<a class="headerlink" href="#multimodal-context-management" title="Link to this heading">#</a></h1>
-<p>This chapter introduces visual elements and contextual memory management, features that are absolutely crucial in delivering complex requirements.</p>
-<section id="version-rewind-rewind">
-<h2><span class="section-number">3.1. </span>1. Version Rewind (Rewind)<a class="headerlink" href="#version-rewind-rewind" title="Link to this heading">#</a></h2>
-<p>If you feel that a newly added feature is redundant or poorly implemented:</p>
-<ul class="simple">
-<li><p>Type <code class="docutils literal notranslate"><span class="pre">/rewind</span></code> or rapidly press the <code class="docutils literal notranslate"><span class="pre">ESC</span></code> key twice to trigger the version rewind menu.</p></li>
-<li><p>A restore point is created every time an input request and its edits are completed.</p></li>
-<li><p>You can select “Restore code and session,” and the system will roll the codebase back to that specific moment.</p></li>
-</ul>
-<p><em>Note: Files generated by external terminal commands (like the <code class="docutils literal notranslate"><span class="pre">node_modules</span></code> folder created by <code class="docutils literal notranslate"><span class="pre">npm</span> <span class="pre">install</span></code>, or other miscellaneous files) cannot be rewound. It is highly recommended to use Git alongside this system for more reliable rollbacks.</em></p>
-</section>
-<section id="image-multimodal-input">
-<h2><span class="section-number">3.2. </span>2. Image Multimodal Input<a class="headerlink" href="#image-multimodal-input" title="Link to this heading">#</a></h2>
-<p>Tired of describing UI purely with text? You can provide Claude Code directly with your design mockups!</p>
-<ul class="simple">
-<li><p><strong>Drag and Drop</strong>: Drag the image directly into your active terminal/Claude Code interface.</p></li>
-<li><p><strong>Clipboard Paste</strong>: Copy the image and use <code class="docutils literal notranslate"><span class="pre">Ctrl</span> <span class="pre">+</span> <span class="pre">V</span></code> to paste it. (Take note: Even on macOS, you must use <code class="docutils literal notranslate"><span class="pre">Ctrl</span> <span class="pre">+</span> <span class="pre">V</span></code>, not <code class="docutils literal notranslate"><span class="pre">Command</span> <span class="pre">+</span> <span class="pre">V</span></code>).</p></li>
-</ul>
-<blockquote>
-<div><p><strong>Image Suggestion (Nanobanana Prompt)</strong>: A 3D isometric masterpiece illustrating a user physically dragging a highly detailed, vibrant mobile app UI mockup design (showing buttons, colorful charts, and text) into a glowing, translucent holographic terminal console. The terminal console is breaking down the image into floating lines of glowing green and blue code chunks. The scene is filled with magical, floating digital particles, shot in an isometric angle, soft ambient lighting mixed with bright neon digital bursts, unreal engine 5 render, highly detailed modeling.</p>
-</div></blockquote>
-</section>
-<section id="installing-mcp-servers-using-figma-as-an-example">
-<h2><span class="section-number">3.3. </span>3. Installing MCP Servers (Using Figma as an Example)<a class="headerlink" href="#installing-mcp-servers-using-figma-as-an-example" title="Link to this heading">#</a></h2>
-<p>To ensure the code rendition of your front-end design mockup is pixel-perfect down to the font weight and padding, you can integrate external tools via the MCP (Model Context Protocol):</p>
-<ol class="arabic simple">
-<li><p>Exit Claude Code (<code class="docutils literal notranslate"><span class="pre">Ctrl</span> <span class="pre">+</span> <span class="pre">C</span></code>), and run the official Figma MCP installation command (e.g., using <code class="docutils literal notranslate"><span class="pre">npx</span> <span class="pre">...</span></code>).</p></li>
-<li><p>Inside Claude Code, type <code class="docutils literal notranslate"><span class="pre">/mcp</span></code>, and you will see the newly installed Figma Server.</p></li>
-<li><p>If it requires authentication, select <code class="docutils literal notranslate"><span class="pre">Authenticate</span></code> and grant access permissions in the pop-up browser window.</p></li>
+<h1><span class="section-number">3. </span>Multimodal &amp; Context Management<a class="headerlink" href="#multimodal-context-management" title="Link to this heading">#</a></h1>
+<p>This chapter introduces how Claude Code interacts with the outside world through visual inputs and the Model Context Protocol (MCP), and how to manage the AI’s memory (context) for long-running projects.</p>
+<section id="what-is-mcp-model-context-protocol">
+<h2><span class="section-number">3.1. </span>1. What is MCP (Model Context Protocol)?<a class="headerlink" href="#what-is-mcp-model-context-protocol" title="Link to this heading">#</a></h2>
+<p>Think of Claude Code as a brilliant brain. By default, it can read and write files on your computer. But what if it needs to query your live PostgreSQL database, fetch issues from your GitHub board, read documentation from a live website, or extract Figma design tokens?</p>
+<p><strong>MCP Servers</strong> act as the “hands and eyes” for Claude. They are standardized connectors that let Claude securely interact with external tools and data sources.</p>
+<section id="authentic-example-workflow-adding-a-postgresql-mcp">
+<h3><span class="section-number">3.1.1. </span>Authentic Example Workflow: Adding a PostgreSQL MCP<a class="headerlink" href="#authentic-example-workflow-adding-a-postgresql-mcp" title="Link to this heading">#</a></h3>
+<p>Imagine you want Claude to analyze your local database structure and write a SQL migration script.</p>
+<ol class="arabic">
+<li><p><strong>Install the MCP via CLI Wizard:</strong>
+In your terminal, run:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>claude<span class="w"> </span>mcp<span class="w"> </span>add<span class="w"> </span>db<span class="w"> </span>--<span class="w"> </span>npm<span class="w"> </span>-y<span class="w"> </span>@modelcontextprotocol/server-postgres<span class="w"> </span>postgresql://localhost/mydb
+</pre></div>
+</div>
+</li>
+<li><p><strong>Interact:</strong>
+Once installed, you can ask Claude Code:
+<em>“Use the db tool to list all tables, then write a query to find users who signed up in the last 30 days.”</em></p></li>
+<li><p><strong>How it works:</strong> Claude Code automatically calls the <code class="docutils literal notranslate"><span class="pre">db</span></code> MCP server, assesses the schema, and generates the exact query. You never have to manually paste database schemas into the chat!</p></li>
 </ol>
 </section>
-<section id="recovering-historical-sessions-resume">
-<h2><span class="section-number">3.4. </span>4. Recovering Historical Sessions (Resume)<a class="headerlink" href="#recovering-historical-sessions-resume" title="Link to this heading">#</a></h2>
-<p>Because you closed the terminal earlier, your previous chat history was lost. How do you find it?</p>
+</section>
+<section id="using-visuals-multimodal-input">
+<h2><span class="section-number">3.2. </span>2. Using Visuals: Multimodal Input<a class="headerlink" href="#using-visuals-multimodal-input" title="Link to this heading">#</a></h2>
+<p>Sometimes, describing a UI purely with text is impossible. You can provide Claude Code directly with your design mockups or screenshots.</p>
 <ul class="simple">
-<li><p>Type the <code class="docutils literal notranslate"><span class="pre">/resume</span></code> command, choose the most recent session from the list, and press Enter to restore.</p></li>
-<li><p><strong>The simpler way</strong>: Start Claude Code with the <code class="docutils literal notranslate"><span class="pre">claude</span> <span class="pre">-c</span></code> flag (‘Continue’), which will automatically restore the latest recent session.</p></li>
+<li><p><strong>Drag and Drop</strong>: Drag the image directly into your active terminal running Claude Code.</p></li>
+<li><p><strong>Clipboard Paste</strong>: Copy the image and use <code class="docutils literal notranslate"><span class="pre">Ctrl</span> <span class="pre">+</span> <span class="pre">V</span></code> to paste it. <em>(Note: Even on macOS, you must use <code class="docutils literal notranslate"><span class="pre">Ctrl</span> <span class="pre">+</span> <span class="pre">V</span></code>, not <code class="docutils literal notranslate"><span class="pre">Command</span> <span class="pre">+</span> <span class="pre">V</span></code>, inside the terminal)</em>.</p></li>
 </ul>
 </section>
-<section id="using-mcp-to-translate-design-mocks-into-code">
-<h2><span class="section-number">3.5. </span>5. Using MCP to Translate Design Mocks into Code<a class="headerlink" href="#using-mcp-to-translate-design-mocks-into-code" title="Link to this heading">#</a></h2>
-<p>Once authenticated:</p>
+<section id="high-fidelity-ui-generation-the-figma-mcp">
+<h2><span class="section-number">3.3. </span>3. High-Fidelity UI Generation (The Figma MCP)<a class="headerlink" href="#high-fidelity-ui-generation-the-figma-mcp" title="Link to this heading">#</a></h2>
+<p>While pasting a screenshot is great for rough prototyping, an image lacks exact font sizes, hex colors, and margin data. For pixel-perfect React or HTML components, use the Figma MCP instead:</p>
 <ol class="arabic simple">
-<li><p>Issue a prompt to Claude Code: <em>“Modify the page to match the Figma mockup strictly.”</em></p></li>
-<li><p>Attach the Figma object link obtained via <code class="docutils literal notranslate"><span class="pre">Copy</span> <span class="pre">link</span> <span class="pre">to</span> <span class="pre">selection</span></code>, then hit Enter.</p></li>
-<li><p>The model will automatically identify and call the relevant MCP Tool (e.g., <code class="docutils literal notranslate"><span class="pre">get_design_context</span></code>).</p></li>
-<li><p>It will systematically invoke screenshot tools to analyze padding, margins, dimensions, and styling metadata. Ultimately, it produces a front-end UI that is a 1:1 match to the design!</p></li>
+<li><p><strong>Setup:</strong> Install the official Figma MCP server (<code class="docutils literal notranslate"><span class="pre">claude</span> <span class="pre">mcp</span> <span class="pre">add</span> <span class="pre">figma</span> <span class="pre">...</span></code>).</p></li>
+<li><p><strong>Authenticate:</strong> Type <code class="docutils literal notranslate"><span class="pre">/mcp</span></code>, select the Figma tool, and follow the browser authentication link.</p></li>
+<li><p><strong>Prompt it:</strong> <em>“Modify <code class="docutils literal notranslate"><span class="pre">index.html</span></code> to match the Figma mockup exactly. Here is the link: [Figma Object Link]”</em></p></li>
+<li><p><strong>Result:</strong> Claude uses the MCP to fetch the exact design tokens (padding: 16px, background: #1A1A1A, etc.) and writes a 1:1 matching code component.</p></li>
 </ol>
 </section>
-<section id="context-compaction-and-clearing">
-<h2><span class="section-number">3.6. </span>6. Context Compaction and Clearing<a class="headerlink" href="#context-compaction-and-clearing" title="Link to this heading">#</a></h2>
-<p>After parsing images, executing commands, and calling tools, the LLM’s context window can become exceedingly crowded.</p>
+<section id="managing-ai-memory-context">
+<h2><span class="section-number">3.4. </span>4. Managing AI Memory (Context)<a class="headerlink" href="#managing-ai-memory-context" title="Link to this heading">#</a></h2>
+<p>As you chat, paste images, and call MCP tools, Claude’s “context window” (its short-term memory) gets crowded. A bloated context makes the AI slower, more expensive, and prone to forgetting early instructions.</p>
+<section id="the-compact-command-workflow">
+<h3><span class="section-number">3.4.1. </span>The <code class="docutils literal notranslate"><span class="pre">/compact</span></code> Command Workflow<a class="headerlink" href="#the-compact-command-workflow" title="Link to this heading">#</a></h3>
+<p>When you notice Claude getting sluggish after a long coding session:</p>
+<ol class="arabic simple">
+<li><p>Type <code class="docutils literal notranslate"><span class="pre">/compact</span></code> and press Enter.</p></li>
+<li><p>The system intelligently summarizes the development focus, decisions, and outcomes of the current cycle.</p></li>
+<li><p>It permanently discards massive intermediate data (like long error logs or the Base64 strings of previous images).</p></li>
+<li><p>Response speed returns to normal, and Token costs drop dramatically! <em>(Use <code class="docutils literal notranslate"><span class="pre">Ctrl</span> <span class="pre">+</span> <span class="pre">O</span></code> to view the compacted summary).</em></p></li>
+</ol>
+</section>
+<section id="the-clear-command">
+<h3><span class="section-number">3.4.2. </span>The <code class="docutils literal notranslate"><span class="pre">/clear</span></code> Command<a class="headerlink" href="#the-clear-command" title="Link to this heading">#</a></h3>
+<p>If you are moving on to a completely different task (e.g., from Frontend styling to Backend database design), use <code class="docutils literal notranslate"><span class="pre">/clear</span></code>. This completely eradicates the memory of the current chat, giving you a fresh, fast slate.</p>
+</section>
+</section>
+<section id="version-rewind-resuming">
+<h2><span class="section-number">3.5. </span>5. Version Rewind &amp; Resuming<a class="headerlink" href="#version-rewind-resuming" title="Link to this heading">#</a></h2>
 <ul class="simple">
-<li><p><strong>Clear Context</strong>: Use <code class="docutils literal notranslate"><span class="pre">/clear</span></code>. This completely eradicates the memory of the current chat, creating a brand new slate of understanding.</p></li>
-<li><p><strong>Compact Context</strong>: Use <code class="docutils literal notranslate"><span class="pre">/compact</span></code>. The system intelligently summarizes the development focus, decisions, and outcomes of the current cycle, discarding massive intermediate data bits (like Image Base64 strings or lengthy error logs). This drastically restores response speed and lowers your Token expenditure. You can also use <code class="docutils literal notranslate"><span class="pre">Ctrl</span> <span class="pre">+</span> <span class="pre">O</span></code> to unfold and read the post-compacted context result.</p></li>
+<li><p><strong>Oops, go back! (<code class="docutils literal notranslate"><span class="pre">/rewind</span></code>)</strong>: If Claude writes bad code, type <code class="docutils literal notranslate"><span class="pre">/rewind</span></code> (or tap <code class="docutils literal notranslate"><span class="pre">ESC</span></code> twice). You can select a previous moment in the conversation and choose “Restore code and session” to undo the AI’s file edits. <em>(Note: It cannot undo <code class="docutils literal notranslate"><span class="pre">npm</span> <span class="pre">install</span></code> or other shell commands).</em></p></li>
+<li><p><strong>I closed the terminal! (<code class="docutils literal notranslate"><span class="pre">/resume</span></code>)</strong>: If you accidentally close your terminal, just reopen it, type <code class="docutils literal notranslate"><span class="pre">claude</span></code>, and then type <code class="docutils literal notranslate"><span class="pre">/resume</span></code> to pick up exactly where you left off. Alternatively, start Claude with <code class="docutils literal notranslate"><span class="pre">claude</span> <span class="pre">-c</span></code> (Continue) to auto-load the last session.</p></li>
 </ul>
 </section>
-<section id="project-memory-files-claude-md">
-<h2><span class="section-number">3.7. </span>7. Project Memory Files (<a class="reference external" href="http://CLAUDE.md">CLAUDE.md</a>)<a class="headerlink" href="#project-memory-files-claude-md" title="Link to this heading">#</a></h2>
-<p>Beyond the context of a single session, how do you pass “unified project settings” across multiple sessions?</p>
+<section id="project-memory-claude-md">
+<h2><span class="section-number">3.6. </span>6. Project Memory: <a class="reference external" href="http://CLAUDE.md">CLAUDE.md</a><a class="headerlink" href="#project-memory-claude-md" title="Link to this heading">#</a></h2>
+<p>How do you give Claude permanent instructions that persist across <em>every</em> session? (e.g., “Always use TypeScript, never use classes, prefer functional components”).</p>
 <ul class="simple">
-<li><p><strong><a class="reference external" href="http://CLAUDE.md">CLAUDE.md</a></strong>: You can have Claude instantly read this file upon boot as a permanent “plug-in” Prompt.</p></li>
-<li><p><strong>Generation Method</strong>: Use <code class="docutils literal notranslate"><span class="pre">/init</span></code> to automatically generate a standard guideline file for the current project, or simply create it manually.</p></li>
-<li><p><strong>Edit/Locate config</strong>: Use <code class="docutils literal notranslate"><span class="pre">/memory</span></code> to check whether the <code class="docutils literal notranslate"><span class="pre">.md</span></code> file is stored at the project level (current directory) or system level (user global directory). You can hardcode rules at the end of the file, such as: “Add ‘Happy Coding’ to the end of every response you make.” Once saved, every subsequent interaction will abide by this convention.</p></li>
+<li><p><strong>Create the file</strong>: Run <code class="docutils literal notranslate"><span class="pre">/init</span></code> to generate a <code class="docutils literal notranslate"><span class="pre">CLAUDE.md</span></code> file in your project root.</p></li>
+<li><p><strong>Edit it</strong>: Add your strict project guidelines. Every time Claude Code starts in this folder, it reads <code class="docutils literal notranslate"><span class="pre">CLAUDE.md</span></code> as its fundamental system prompt.</p></li>
 </ul>
 </section>
 <hr class="docutils" />
 <section id="knowledge-quiz">
-<h2><span class="section-number">3.8. </span>Knowledge Quiz<a class="headerlink" href="#knowledge-quiz" title="Link to this heading">#</a></h2>
-<p><strong>Q1: What shortcut MUST be used to paste an image within Claude Code on MacOS?</strong></p>
+<h2><span class="section-number">3.7. </span>Knowledge Quiz<a class="headerlink" href="#knowledge-quiz" title="Link to this heading">#</a></h2>
+<p><strong>Q1: Why is using the Figma MCP superior to simply pasting a PNG screenshot of a design?</strong></p>
 <details>
 <summary>Answer</summary>
-Even on macOS, you must use `Ctrl + V` to paste an image. `Command + V` will not work.
+A PNG image loses exact metadata like font-weight, precise padding, and exact hex colors. The MCP Server reads the raw design tokens directly from Figma's API, ensuring pixel-perfect 1:1 code reproduction.
 </details>
-<p><strong>Q2: Why is using Figma MCP highly recommended over simply sending the design mockup image directly to Claude Code?</strong></p>
+<p><strong>Q2: What happens when you run the <code class="docutils literal notranslate"><span class="pre">/compact</span></code> command after a long coding session?</strong></p>
 <details>
 <summary>Answer</summary>
-Simply reading an image often leads to losing exact font sizes, precise padding, and exact margin details. An MCP Tool extracts the exact metadata, measurements, and contextual sliced images directly from Figma's raw data, ensuring a high-fidelity 1:1 code reproduction.
+It summarizes your progress and decisions while throwing away bulky intermediate data (like long crash logs or image strings). This speeds up the AI and reduces token costs without losing the high-level project context.
 </details>
 </section>
 </section>
@@ -530,7 +543,7 @@ Simply reading an image often leads to losing exact font sizes, precise padding,
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title"><span class="section-number">2. </span>02 - Complex Tasks &amp; Terminal Control</p>
+        <p class="prev-next-title"><span class="section-number">2. </span>Complex Tasks &amp; Terminal Control</p>
       </div>
     </a>
     <a class="right-next"
@@ -538,7 +551,7 @@ Simply reading an image often leads to losing exact font sizes, precise padding,
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title"><span class="section-number">4. </span>04 - Advanced Features &amp; Customization</p>
+        <p class="prev-next-title"><span class="section-number">4. </span>Advanced Features &amp; Customization</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -558,14 +571,20 @@ Simply reading an image often leads to losing exact font sizes, precise padding,
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#version-rewind-rewind">3.1. 1. Version Rewind (Rewind)</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#image-multimodal-input">3.2. 2. Image Multimodal Input</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#installing-mcp-servers-using-figma-as-an-example">3.3. 3. Installing MCP Servers (Using Figma as an Example)</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#recovering-historical-sessions-resume">3.4. 4. Recovering Historical Sessions (Resume)</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#using-mcp-to-translate-design-mocks-into-code">3.5. 5. Using MCP to Translate Design Mocks into Code</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#context-compaction-and-clearing">3.6. 6. Context Compaction and Clearing</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#project-memory-files-claude-md">3.7. 7. Project Memory Files (CLAUDE.md)</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#knowledge-quiz">3.8. Knowledge Quiz</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-mcp-model-context-protocol">3.1. 1. What is MCP (Model Context Protocol)?</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#authentic-example-workflow-adding-a-postgresql-mcp">3.1.1. Authentic Example Workflow: Adding a PostgreSQL MCP</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#using-visuals-multimodal-input">3.2. 2. Using Visuals: Multimodal Input</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#high-fidelity-ui-generation-the-figma-mcp">3.3. 3. High-Fidelity UI Generation (The Figma MCP)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#managing-ai-memory-context">3.4. 4. Managing AI Memory (Context)</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-compact-command-workflow">3.4.1. The <code class="docutils literal notranslate"><span class="pre">/compact</span></code> Command Workflow</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-clear-command">3.4.2. The <code class="docutils literal notranslate"><span class="pre">/clear</span></code> Command</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#version-rewind-resuming">3.5. 5. Version Rewind &amp; Resuming</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#project-memory-claude-md">3.6. 6. Project Memory: CLAUDE.md</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#knowledge-quiz">3.7. Knowledge Quiz</a></li>
 </ul>
   </nav></div>
 
