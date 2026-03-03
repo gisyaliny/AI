@@ -484,27 +484,16 @@ document.write(`
 <li><p><strong>Chunking</strong>: Split documents into small pieces.</p></li>
 <li><p><strong>Indexing</strong>: Convert each chunk into a vector and store it in a vector database.</p></li>
 </ol>
-<p><strong>Phase B — Answering (After the user asks)</strong>
-3. <strong>Retrieval</strong>: Find the top-N most relevant chunks.
-4. <strong>Reranking</strong>: Refine the ranking for higher accuracy.
-5. <strong>Generation</strong>: Feed the top chunks + question to the LLM for a final answer.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>┌──────────────────────── Phase A: Preparation ────────────────────────┐
-│                                                                      │
-│   Documents  →  Chunking  →  Embedding Model  →  Vector Database     │
-│                                                                      │
-└──────────────────────────────────────────────────────────────────────┘
-
-┌──────────────────────── Phase B: Answering ──────────────────────────┐
-│                                                                      │
-│   User Question  →  Embedding  →  Vector DB Search  →  Top-10 Chunks │
-│                                      ↓                               │
-│                              Cross-Encoder Reranking  →  Top-3 Chunks│
-│                                      ↓                               │
-│                          Top-3 Chunks + Question  →  LLM  →  Answer  │
-│                                                                      │
-└──────────────────────────────────────────────────────────────────────┘
-</pre></div>
-</div>
+<p><strong>Phase B — Answering (After the user asks)</strong></p>
+<ol class="arabic simple" start="3">
+<li><p><strong>Retrieval</strong>: Find the top-N most relevant chunks.</p></li>
+<li><p><strong>Reranking</strong>: Refine the ranking for higher accuracy.</p></li>
+<li><p><strong>Generation</strong>: Feed the top chunks + question to the LLM for a final answer.</p></li>
+</ol>
+<p><strong>Phase A: Data Preparation</strong></p>
+<p><img alt="phase-a" src="../../_images/001.png" /></p>
+<p><strong>Phase B: Answering</strong></p>
+<p><img alt="phase-b" src="../../_images/002.png" /></p>
 </section>
 <hr class="docutils" />
 <section id="chunking-splitting-documents">
@@ -557,11 +546,7 @@ document.write(`
 <div><p><em>“<strong>Dr. Wang</strong> is a leading researcher in urban computing. <strong>He</strong> developed a novel algorithm…”</em></p>
 </div></blockquote>
 <p>If “Dr. Wang” is in Chunk 1 and “He” starts Chunk 2, the pronoun loses its reference. The solution is <strong>overlapping chunks</strong> — each chunk includes the last few sentences of the previous one:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Chunk 1: [sentences 1-10]
-Chunk 2: [sentences 8-17]   ← overlaps with Chunk 1
-Chunk 3: [sentences 15-24]  ← overlaps with Chunk 2
-</pre></div>
-</div>
+<p><img alt="overlap" src="../../_images/003.png" /></p>
 </section>
 </section>
 <hr class="docutils" />

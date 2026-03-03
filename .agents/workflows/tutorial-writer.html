@@ -412,7 +412,7 @@ description: A specialized agent skill for writing engaging, structured, and int
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#document-structure-formatting">1. Document Structure &amp; Formatting</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#code-snippets-commands">2. Code Snippets &amp; Commands</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#visual-descriptions-image-prompts">3. Visual Descriptions (Image Prompts)</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mermaid-diagrams">4. Mermaid Diagrams</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mermaid-diagrams-mandatory-for-all-visual-representations">4. Mermaid Diagrams (Mandatory for ALL Visual Representations)</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#end-of-chapter-knowledge-quiz">5. End-of-Chapter Knowledge Quiz</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tone">6. Tone</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#jupyter-book-integration-toc-yml">7. Jupyter Book Integration (_toc.yml)</a></li>
@@ -467,12 +467,15 @@ description: A specialized agent skill for writing engaging, structured, and int
 <em>Good:</em> A hyper-realistic, dramatic shot of a glowing red futuristic terminal screen displaying a massive hazard warning sign with the text “Bypass Permissions Mode Active” in bold, dripping digital font. The console interface is surrounded by complex holographic code streams. 8k resolution, cinematic composition.</p></li>
 </ul>
 </section>
-<section id="mermaid-diagrams">
-<h2>4. Mermaid Diagrams<a class="headerlink" href="#mermaid-diagrams" title="Link to this heading">#</a></h2>
-<p>Where appropriate (such as explaining workflows, architectures, or sequences of events), actively insert <code class="docutils literal notranslate"><span class="pre">mermaid</span></code> chart blocks to visually clarify logic.</p>
+<section id="mermaid-diagrams-mandatory-for-all-visual-representations">
+<h2>4. Mermaid Diagrams (Mandatory for ALL Visual Representations)<a class="headerlink" href="#mermaid-diagrams-mandatory-for-all-visual-representations" title="Link to this heading">#</a></h2>
+<p><strong>ALL workflows, flowcharts, pipelines, entity diagrams, hierarchies, and architecture diagrams MUST be rendered as Mermaid diagrams.</strong> Never use plain-text or ASCII-art representations.</p>
 <ul class="simple">
-<li><p>Use Flowcharts (<code class="docutils literal notranslate"><span class="pre">graph</span> <span class="pre">TD</span></code> or <code class="docutils literal notranslate"><span class="pre">graph</span> <span class="pre">LR</span></code>) for choices and architectures.</p></li>
-<li><p>Use Sequence Diagrams (<code class="docutils literal notranslate"><span class="pre">sequenceDiagram</span></code>) for order of execution.</p></li>
+<li><p>Use Flowcharts (<code class="docutils literal notranslate"><span class="pre">graph</span> <span class="pre">TD</span></code> or <code class="docutils literal notranslate"><span class="pre">graph</span> <span class="pre">LR</span></code>) for pipelines, architectures, and step-by-step processes.</p></li>
+<li><p>Use Sequence Diagrams (<code class="docutils literal notranslate"><span class="pre">sequenceDiagram</span></code>) for order of execution and interactions.</p></li>
+<li><p>Use Subgraphs to group related nodes (e.g., “Data Preparation”, “Answering”).</p></li>
+<li><p><strong>NEVER use ASCII-art box diagrams</strong> (e.g., <code class="docutils literal notranslate"><span class="pre">┌───┐</span></code>, <code class="docutils literal notranslate"><span class="pre">│</span></code>, <code class="docutils literal notranslate"><span class="pre">└───┘</span></code>, <code class="docutils literal notranslate"><span class="pre">──</span></code>, Unicode arrows <code class="docutils literal notranslate"><span class="pre">→</span></code>, <code class="docutils literal notranslate"><span class="pre">↓</span></code>), plain-text flowcharts, or indented text trees to represent visual structures. They do not render properly in Jupyter Book and are not accessible.</p></li>
+<li><p>The only exception is <strong>directory/file trees</strong> (e.g., <code class="docutils literal notranslate"><span class="pre">├──</span> <span class="pre">file.py</span></code>), which may remain as plain code blocks since Mermaid does not have a native tree layout.</p></li>
 </ul>
 </section>
 <section id="end-of-chapter-knowledge-quiz">
@@ -568,7 +571,7 @@ description: A specialized agent skill for writing engaging, structured, and int
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#document-structure-formatting">1. Document Structure &amp; Formatting</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#code-snippets-commands">2. Code Snippets &amp; Commands</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#visual-descriptions-image-prompts">3. Visual Descriptions (Image Prompts)</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mermaid-diagrams">4. Mermaid Diagrams</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mermaid-diagrams-mandatory-for-all-visual-representations">4. Mermaid Diagrams (Mandatory for ALL Visual Representations)</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#end-of-chapter-knowledge-quiz">5. End-of-Chapter Knowledge Quiz</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#tone">6. Tone</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#jupyter-book-integration-toc-yml">7. Jupyter Book Integration (_toc.yml)</a></li>

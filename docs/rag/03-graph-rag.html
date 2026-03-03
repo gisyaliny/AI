@@ -486,11 +486,7 @@ document.write(`
 <p>A knowledge graph is a structured representation of information as a network of <strong>entities</strong> (nodes) and <strong>relationships</strong> (edges).</p>
 <p><strong>Example sentence</strong>: <em>“Wang likes to eat watermelon.”</em></p>
 <p>In a knowledge graph, this becomes:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>[Wang] ---(likes to eat)---&gt; [Watermelon]
-  │                               │
-  └─ type: Person                 └─ type: Fruit
-</pre></div>
-</div>
+<p><img alt="graph-rag-example" src="../../_images/004.png" /></p>
 <section id="formal-terminology">
 <h3><span class="section-number">9.2.1. </span>Formal Terminology<a class="headerlink" href="#formal-terminology" title="Link to this heading">#</a></h3>
 <div class="pst-scrollable-table-container"><table class="table">
@@ -581,33 +577,14 @@ Relationships:
 <li><p>All “Watermelon” nodes → merged into one “Watermelon” node.</p></li>
 <li><p>Descriptions from different chunks are <strong>concatenated</strong>, then sent to the LLM to generate a unified, coherent summary.</p></li>
 </ul>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Before merge:
-  Chunk 1: Wang → &quot;A person who likes watermelon&quot;
-  Chunk 3: Wang → &quot;The main character who went to the market&quot;
-
-After merge (LLM-summarized):
-  Wang → &quot;The main character, a person who likes watermelon and went to the market&quot;
-</pre></div>
-</div>
+<p><img alt="graph-rag-merge" src="../../_images/005.png" /></p>
 </section>
 </section>
 <hr class="docutils" />
 <section id="community-detection-building-hierarchies">
 <h2><span class="section-number">9.4. </span>4. Community Detection: Building Hierarchies<a class="headerlink" href="#community-detection-building-hierarchies" title="Link to this heading">#</a></h2>
 <p>A knowledge graph for a long document can have hundreds or thousands of nodes. To make it navigable, Graph RAG applies <strong>Leiden community detection</strong> to cluster densely connected nodes.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Level 0 (Raw):     Wang ── Watermelon ── Sweet
-                      │         │
-                   Xiao Wang ── Peach
-
-Level 1 (Clusters): [Food Lovers Cluster]    [Taste Cluster]
-                     Wang, Xiao Wang,         Sweet
-                     Watermelon, Peach
-
-Level 2 (Abstract): [Article Overview]
-                     &quot;An article about food preferences
-                      of Wang and Xiao Wang&quot;
-</pre></div>
-</div>
+<p><img alt="graph-rag-community" src="../../_images/006.png" /></p>
 <p>At each level, the LLM generates a <strong>summary description</strong> for the cluster. Crucially, these summaries can contain <strong>inferred information</strong> not explicitly in any single chunk:</p>
 <blockquote>
 <div><p><em>“Xiao Wang only likes watermelon. Combined with Wang’s preference for both watermelon and peach, we can infer that Xiao Wang does not like peach.”</em></p>

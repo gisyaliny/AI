@@ -27,11 +27,7 @@ A knowledge graph is a structured representation of information as a network of 
 
 In a knowledge graph, this becomes:
 
-```
-[Wang] ---(likes to eat)---> [Watermelon]
-  │                               │
-  └─ type: Person                 └─ type: Fruit
-```
+![graph-rag-example](./img/004.png)
 
 ### Formal Terminology
 
@@ -106,14 +102,7 @@ After processing every chunk independently, Graph RAG **merges** entities with t
 - All "Watermelon" nodes → merged into one "Watermelon" node.
 - Descriptions from different chunks are **concatenated**, then sent to the LLM to generate a unified, coherent summary.
 
-```
-Before merge:
-  Chunk 1: Wang → "A person who likes watermelon"
-  Chunk 3: Wang → "The main character who went to the market"
-
-After merge (LLM-summarized):
-  Wang → "The main character, a person who likes watermelon and went to the market"
-```
+![graph-rag-merge](./img/005.png)
 
 ---
 
@@ -121,19 +110,7 @@ After merge (LLM-summarized):
 
 A knowledge graph for a long document can have hundreds or thousands of nodes. To make it navigable, Graph RAG applies **Leiden community detection** to cluster densely connected nodes.
 
-```
-Level 0 (Raw):     Wang ── Watermelon ── Sweet
-                      │         │
-                   Xiao Wang ── Peach
-
-Level 1 (Clusters): [Food Lovers Cluster]    [Taste Cluster]
-                     Wang, Xiao Wang,         Sweet
-                     Watermelon, Peach
-
-Level 2 (Abstract): [Article Overview]
-                     "An article about food preferences
-                      of Wang and Xiao Wang"
-```
+![graph-rag-community](./img/006.png)
 
 At each level, the LLM generates a **summary description** for the cluster. Crucially, these summaries can contain **inferred information** not explicitly in any single chunk:
 

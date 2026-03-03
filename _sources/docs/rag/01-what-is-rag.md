@@ -25,31 +25,23 @@ Imagine you are building a customer support chatbot for your company. Your produ
 The entire RAG pipeline splits cleanly into two phases:
 
 **Phase A — Data Preparation (Before the user asks)**
+
 1. **Chunking**: Split documents into small pieces.
 2. **Indexing**: Convert each chunk into a vector and store it in a vector database.
 
 **Phase B — Answering (After the user asks)**
+
 3. **Retrieval**: Find the top-N most relevant chunks.
 4. **Reranking**: Refine the ranking for higher accuracy.
 5. **Generation**: Feed the top chunks + question to the LLM for a final answer.
 
-```
-┌──────────────────────── Phase A: Preparation ────────────────────────┐
-│                                                                      │
-│   Documents  →  Chunking  →  Embedding Model  →  Vector Database     │
-│                                                                      │
-└──────────────────────────────────────────────────────────────────────┘
+**Phase A: Data Preparation**
 
-┌──────────────────────── Phase B: Answering ──────────────────────────┐
-│                                                                      │
-│   User Question  →  Embedding  →  Vector DB Search  →  Top-10 Chunks │
-│                                      ↓                               │
-│                              Cross-Encoder Reranking  →  Top-3 Chunks│
-│                                      ↓                               │
-│                          Top-3 Chunks + Question  →  LLM  →  Answer  │
-│                                                                      │
-└──────────────────────────────────────────────────────────────────────┘
-```
+![phase-a](./img/001.png)
+
+**Phase B: Answering**
+
+![phase-b](./img/002.png)
 
 ---
 
@@ -75,11 +67,7 @@ When chunks are split at a boundary, context can be lost. For example:
 
 If "Dr. Wang" is in Chunk 1 and "He" starts Chunk 2, the pronoun loses its reference. The solution is **overlapping chunks** — each chunk includes the last few sentences of the previous one:
 
-```
-Chunk 1: [sentences 1-10]
-Chunk 2: [sentences 8-17]   ← overlaps with Chunk 1
-Chunk 3: [sentences 15-24]  ← overlaps with Chunk 2
-```
+![overlap](./img/003.png)
 
 ---
 
