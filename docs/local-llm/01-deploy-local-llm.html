@@ -442,7 +442,7 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#citation">6.7. Citation</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#end-to-end-workflow-from-download-to-deployment">6.8. 5. End-to-End Workflow: From Download to Deployment</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#troubleshooting-common-issues">6.9. 6. Troubleshooting Common Issues</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#curated-resources-further-reading">6.10. 7. Curated Resources &amp; Further Reading</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#read-more">6.10. Read More</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#official-documentation">6.10.1. Official Documentation</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tutorials-guides">6.10.2. Tutorials &amp; Guides</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#community-ecosystem">6.10.3. Community &amp; Ecosystem</a></li>
@@ -716,9 +716,14 @@ ollama<span class="w"> </span>run<span class="w"> </span>research-assistant
 <p><a class="reference external" href="https://anythingllm.com/">AnythingLLM</a> is a desktop application that connects to your local Ollama models and lets you chat with your own documents — PDFs, Word files, code repositories, and more. This is called <strong>Retrieval-Augmented Generation (RAG)</strong>.</p>
 <section id="how-rag-works-for-beginners">
 <h3><span class="section-number">6.3.1. </span>3.1 How RAG Works (For Beginners)<a class="headerlink" href="#how-rag-works-for-beginners" title="Link to this heading">#</a></h3>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Your Documents  →  Split into Chunks  →  Convert to Embeddings  →  Store in Vector DB
-                                                                          ↓
-    Your Question  →  Find Relevant Chunks  →  Feed to LLM  →  AI Answer (with sources!)
+<div class="highlight-mermaid notranslate"><div class="highlight"><pre><span></span>graph LR
+    A[Your Documents] --&gt; B[Split into Chunks]
+    B --&gt; C[Convert to Embeddings]
+    C --&gt; D[Store in Vector DB]
+    E[Your Question] --&gt; F[Find Relevant Chunks]
+    D --&gt; F
+    F --&gt; G[Feed to LLM]
+    G --&gt; H[&quot;AI Answer (with sources!)&quot;]
 </pre></div>
 </div>
 <p>Instead of the LLM guessing from its training data, RAG forces it to <strong>look up your actual documents first</strong>, then generate an answer based on what it found. This dramatically reduces hallucination.</p>
@@ -966,25 +971,16 @@ result = pipe(&quot;Describe the land use pattern in this satellite image analys
 <section id="end-to-end-workflow-from-download-to-deployment">
 <h2><span class="section-number">6.8. </span>5. End-to-End Workflow: From Download to Deployment<a class="headerlink" href="#end-to-end-workflow-from-download-to-deployment" title="Link to this heading">#</a></h2>
 <p>Here is a complete workflow combining everything we’ve learned:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>Step 1: Install Ollama
-         ↓
-Step 2: Pull a base model (e.g., llama3.1:8b)
-         ↓
-Step 3: Create a custom Modelfile with your system prompt
-         ↓
-Step 4: Build your custom model with `ollama create`
-         ↓
-Step 5: Install AnythingLLM
-         ↓
-Step 6: Connect AnythingLLM → Ollama (localhost:11434)
-         ↓
-Step 7: Upload your research papers into a Workspace
-         ↓
-Step 8: Chat with your documents using your custom model!
-         ↓
-(Optional) Step 9: Fine-tune the model on your domain data
-         ↓
-(Optional) Step 10: Publish to Hugging Face for the community
+<div class="highlight-mermaid notranslate"><div class="highlight"><pre><span></span>graph TD
+    S1[&quot;1. Install Ollama&quot;] --&gt; S2[&quot;2. Pull a base model (e.g., llama3.1:8b)&quot;]
+    S2 --&gt; S3[&quot;3. Create a custom Modelfile&quot;]
+    S3 --&gt; S4[&quot;4. Build custom model with ollama create&quot;]
+    S4 --&gt; S5[&quot;5. Install AnythingLLM&quot;]
+    S5 --&gt; S6[&quot;6. Connect AnythingLLM to Ollama&quot;]
+    S6 --&gt; S7[&quot;7. Upload research papers into a Workspace&quot;]
+    S7 --&gt; S8[&quot;8. Chat with your documents!&quot;]
+    S8 --&gt; S9[&quot;9. (Optional) Fine-tune on domain data&quot;]
+    S9 --&gt; S10[&quot;10. (Optional) Publish to Hugging Face&quot;]
 </pre></div>
 </div>
 </section>
@@ -1021,8 +1017,8 @@ Step 8: Chat with your documents using your custom model!
 </div>
 </section>
 <hr class="docutils" />
-<section id="curated-resources-further-reading">
-<h2><span class="section-number">6.10. </span>7. Curated Resources &amp; Further Reading<a class="headerlink" href="#curated-resources-further-reading" title="Link to this heading">#</a></h2>
+<section id="read-more">
+<h2><span class="section-number">6.10. </span>Read More<a class="headerlink" href="#read-more" title="Link to this heading">#</a></h2>
 <section id="official-documentation">
 <h3><span class="section-number">6.10.1. </span>Official Documentation<a class="headerlink" href="#official-documentation" title="Link to this heading">#</a></h3>
 <ul class="simple">
@@ -1172,7 +1168,7 @@ Step 8: Chat with your documents using your custom model!
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#citation">6.7. Citation</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#end-to-end-workflow-from-download-to-deployment">6.8. 5. End-to-End Workflow: From Download to Deployment</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#troubleshooting-common-issues">6.9. 6. Troubleshooting Common Issues</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#curated-resources-further-reading">6.10. 7. Curated Resources &amp; Further Reading</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#read-more">6.10. Read More</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#official-documentation">6.10.1. Official Documentation</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#tutorials-guides">6.10.2. Tutorials &amp; Guides</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#community-ecosystem">6.10.3. Community &amp; Ecosystem</a></li>

@@ -66,6 +66,15 @@ How do you give Claude permanent instructions that persist across *every* sessio
 - **Edit it**: Add your strict project guidelines. Every time Claude Code starts in this folder, it reads `CLAUDE.md` as its fundamental system prompt.
 
 ---
+## Read More
+
+- [Model Context Protocol (MCP) Overview](https://modelcontextprotocol.io/) — Official MCP specification and ecosystem.
+- [Claude Code MCP Configuration](https://docs.anthropic.com/en/docs/claude-code/mcp) — How to add and manage MCP servers in Claude Code.
+- [Figma MCP Server](https://github.com/anthropics/anthropic-figma-mcp) — Connect Claude Code to Figma for pixel-perfect UI generation.
+- [Claude Code Memory Management](https://docs.anthropic.com/en/docs/claude-code/memory) — Using CLAUDE.md and context commands effectively.
+- [MCP Server Registry](https://github.com/modelcontextprotocol/servers) — Directory of available MCP servers (GitHub, Slack, PostgreSQL, etc.).
+
+---
 
 ## Knowledge Quiz
 

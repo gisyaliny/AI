@@ -263,7 +263,7 @@ Relevant Manuscript Section:
 
 ---
 
-## 8. Curated Resources & Further Reading
+## Read More
 
 ### AI-Powered Research & Writing Tools
 - [Semantic Scholar](https://www.semanticscholar.org/) — Free AI-powered academic search engine with citation graphs and paper recommendations.
