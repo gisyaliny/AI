@@ -114,21 +114,128 @@ ollama --version
 
 ### 2.2 Verify the API server
 
-Ollama normally starts its local server automatically.
+Ollama normally starts its local server automatically. The default local API endpoint is:
 
+```text
+http://localhost:11434
+```
+
+Use the command for your operating system.
+
+```{tab-set}
+
+```{tab-item} macOS / Linux
 ```bash
 curl http://localhost:11434/api/tags
 ```
 
-**Example description:** this asks the local Ollama server for the list of installed models. If you receive JSON, the API server is working. This is the fastest health check before debugging Python or JavaScript code.
+**Example description:** this asks the local Ollama server for the list of installed models. If you receive JSON, the API server is working. This is the fastest health check before debugging Python, JavaScript, Open WebUI, or AnythingLLM connections.
+```
 
-If it fails, start the server manually:
+```{tab-item} Windows PowerShell
+```powershell
+Invoke-RestMethod http://localhost:11434/api/tags
+```
 
+**Example description:** `Invoke-RestMethod` is PowerShell's native HTTP client. It converts the JSON response into PowerShell objects, which makes it easier to inspect model names on Windows.
+```
+
+```{tab-item} Windows CMD
+```cmd
+curl.exe http://localhost:11434/api/tags
+```
+
+**Example description:** Windows also has `curl.exe`. In CMD, use `curl.exe` explicitly so Windows does not confuse it with PowerShell aliases.
+```
+
+```
+
+If the health check fails, start or restart Ollama manually.
+
+```{tab-set}
+
+```{tab-item} macOS
 ```bash
+open -a Ollama
+# or, if you want to run the server directly in this terminal:
 ollama serve
 ```
 
-**Example description:** `ollama serve` launches the local HTTP API server. Use it when the desktop app is not running or when another program cannot connect to `localhost:11434`.
+**Example description:** opening the app starts Ollama in the menu bar. `ollama serve` starts the API server in the foreground, which is useful when you want to see server logs while debugging.
+```
+
+```{tab-item} Linux
+```bash
+sudo systemctl status ollama
+sudo systemctl restart ollama
+```
+
+**Example description:** on most Linux installs, Ollama runs as a systemd service. `status` checks whether the service is running; `restart` reloads it after configuration or environment changes.
+```
+
+```{tab-item} Windows PowerShell
+```powershell
+ollama serve
+```
+
+**Example description:** running `ollama serve` in PowerShell starts the local API server in the foreground. Keep that window open while testing from another terminal or application.
+```
+
+```
+
+### 2.3 Cross-platform command convention
+
+Most Ollama commands are identical across macOS, Linux, and Windows:
+
+```bash
+ollama list
+ollama run qwen3.6
+ollama ps
+ollama stop qwen3.6
+```
+
+The main differences are the **shell syntax** around HTTP calls, environment variables, virtual environments, file paths, and service management.
+
+| Task | macOS / Linux | Windows PowerShell |
+| :--- | :--- | :--- |
+| HTTP request | `curl ...` | `Invoke-RestMethod ...` or `curl.exe ...` |
+| Environment variable | `export NAME=value` | `$env:NAME="value"` |
+| Python launcher | `python3` | `py` or `python` |
+| Activate venv | `source .venv/bin/activate` | `.\.venv\Scripts\Activate.ps1` |
+| Home directory | `~/Models` | `$HOME\Models` |
+
+**Example description:** the model commands are portable, but the surrounding operating-system commands are not always portable. When copying examples, match the shell you are using.
+
+### 2.4 Where Ollama stores models
+
+Model storage locations are useful when you need to estimate disk usage, back up models, or move a model cache to a larger drive.
+
+| OS | Common location |
+| :--- | :--- |
+| macOS | `~/.ollama/models` |
+| Linux user install | `~/.ollama/models` |
+| Linux service install | often `/usr/share/ollama/.ollama/models` |
+| Windows | `%USERPROFILE%\.ollama\models` |
+
+```{tab-set}
+
+```{tab-item} macOS / Linux
+```bash
+du -sh ~/.ollama/models 2>/dev/null
+```
+
+**Example description:** this estimates how much disk space your local Ollama models consume. Large models and multiple quantizations can quickly use hundreds of gigabytes.
+```
+
+```{tab-item} Windows PowerShell
+```powershell
+Get-ChildItem "$env:USERPROFILE\.ollama\models" -Recurse | Measure-Object -Property Length -Sum
+```
+
+**Example description:** this recursively sums model files in the Windows Ollama model directory. The result is shown in bytes, which you can divide by `1GB` for a rough gigabyte estimate.
+```
+
+```
 
 ---
 
@@ -399,6 +506,52 @@ For ChatGPT-like UI:
 ```
 
 **Example description:** streaming returns partial tokens as the model generates them. It makes the UI feel faster but requires your frontend or backend to handle a stream of chunks.
+
+### 7.4 Windows PowerShell API examples
+
+The REST API is the same on every operating system, but Windows users often prefer PowerShell objects instead of raw JSON strings.
+
+```powershell
+$body = @{
+  model = "qwen3.6"
+  messages = @(
+    @{ role = "user"; content = "Explain what Ollama does in two sentences." }
+  )
+  stream = $false
+} | ConvertTo-Json -Depth 5
+
+$response = Invoke-RestMethod `
+  -Uri "http://localhost:11434/api/chat" `
+  -Method Post `
+  -ContentType "application/json" `
+  -Body $body
+
+$response.message.content
+```
+
+**Example description:** this is the PowerShell equivalent of the `/api/chat` cURL example. `ConvertTo-Json -Depth 5` is important because chat messages are nested objects; without enough depth, PowerShell can truncate nested JSON.
+
+If you prefer the OpenAI-compatible endpoint:
+
+```powershell
+$body = @{
+  model = "qwen3.6"
+  messages = @(
+    @{ role = "system"; content = "You are a concise assistant." },
+    @{ role = "user"; content = "Give me a one-line definition of RAG." }
+  )
+} | ConvertTo-Json -Depth 5
+
+$response = Invoke-RestMethod `
+  -Uri "http://localhost:11434/v1/chat/completions" `
+  -Method Post `
+  -ContentType "application/json" `
+  -Body $body
+
+$response.choices[0].message.content
+```
+
+**Example description:** this uses Ollama's OpenAI-compatible path. It is useful when your application already follows the OpenAI chat completion response structure.
 
 ---
 
@@ -1824,7 +1977,335 @@ A Modelfile is Ollama's recipe for creating a customized model from a base model
 
 ---
 
-## 35. Final Practical Advice
+## 35. Cross-Platform Examples: macOS, Windows, and Linux
+
+This section collects equivalent commands for the most common operations. Use it as a quick translation table when an example appears to be written for a different operating system.
+
+### 35.1 Health check and model list
+
+```{tab-set}
+
+```{tab-item} macOS / Linux
+```bash
+ollama list
+curl http://localhost:11434/api/tags
+```
+
+**Example description:** `ollama list` checks the local model registry from the CLI. `curl /api/tags` checks the same idea through the HTTP API, which is what applications use.
+```
+
+```{tab-item} Windows PowerShell
+```powershell
+ollama list
+Invoke-RestMethod http://localhost:11434/api/tags
+```
+
+**Example description:** the first command confirms the CLI works. The second confirms the local API works and returns the installed models as PowerShell objects.
+```
+
+```{tab-item} Windows CMD
+```cmd
+ollama list
+curl.exe http://localhost:11434/api/tags
+```
+
+**Example description:** CMD can use `curl.exe` for the API health check. This is useful on machines where PowerShell execution policies are restricted.
+```
+
+```
+
+### 35.2 Run the same model on each OS
+
+```{tab-set}
+
+```{tab-item} macOS / Linux
+```bash
+ollama run qwen3.6
+```
+
+**Example description:** this loads the model and starts an interactive terminal chat. If the model is missing, Ollama downloads it first.
+```
+
+```{tab-item} Windows PowerShell / CMD
+```powershell
+ollama run qwen3.6
+```
+
+**Example description:** Ollama's model commands are the same on Windows. The difference usually appears only when you write JSON, paths, or environment variables.
+```
+
+```
+
+### 35.3 Python virtual environment setup
+
+```{tab-set}
+
+```{tab-item} macOS / Linux
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+python3 -m pip install -U ollama openai numpy
+```
+
+**Example description:** this creates an isolated Python environment, activates it, and installs the Ollama SDK, OpenAI SDK, and NumPy for simple RAG experiments.
+```
+
+```{tab-item} Windows PowerShell
+```powershell
+py -m venv .venv
+.\.venv\Scripts\Activate.ps1
+py -m pip install -U ollama openai numpy
+```
+
+**Example description:** Windows virtual environments use a different activation script. If activation is blocked, run PowerShell as the current user and set a less restrictive execution policy for the session.
+```
+
+```{tab-item} Windows CMD
+```cmd
+py -m venv .venv
+.venv\Scripts\activate.bat
+py -m pip install -U ollama openai numpy
+```
+
+**Example description:** CMD uses `activate.bat` instead of the PowerShell activation script.
+```
+
+```
+
+### 35.4 Run toy scripts
+
+```{tab-set}
+
+```{tab-item} macOS / Linux
+```bash
+python3 tiny_rag.py
+python3 tool_calling_demo.py
+```
+
+**Example description:** these commands run the tutorial's toy RAG and tool-calling scripts with the active Python environment.
+```
+
+```{tab-item} Windows PowerShell / CMD
+```powershell
+py tiny_rag.py
+py tool_calling_demo.py
+```
+
+**Example description:** `py` is the Windows Python launcher. It helps select the installed Python version consistently.
+```
+
+```
+
+### 35.5 Environment variables
+
+```{tab-set}
+
+```{tab-item} macOS / Linux temporary session
+```bash
+export OLLAMA_HOST=127.0.0.1:11434
+export OLLAMA_KEEP_ALIVE=5m
+export OLLAMA_CONTEXT_LENGTH=8192
+ollama serve
+```
+
+**Example description:** these variables affect the Ollama server launched from the same shell. They are temporary and disappear when the terminal closes.
+```
+
+```{tab-item} Windows PowerShell temporary session
+```powershell
+$env:OLLAMA_HOST="127.0.0.1:11434"
+$env:OLLAMA_KEEP_ALIVE="5m"
+$env:OLLAMA_CONTEXT_LENGTH="8192"
+ollama serve
+```
+
+**Example description:** `$env:` sets variables for the current PowerShell session. Start `ollama serve` from that same window so the server receives the settings.
+```
+
+```{tab-item} Linux systemd service
+```bash
+sudo systemctl edit ollama
+```
+
+Then add:
+
+```ini
+[Service]
+Environment="OLLAMA_KEEP_ALIVE=5m"
+Environment="OLLAMA_CONTEXT_LENGTH=8192"
+```
+
+Reload and restart:
+
+```bash
+sudo systemctl daemon-reload
+sudo systemctl restart ollama
+```
+
+**Example description:** Linux service installs do not automatically inherit shell variables. A systemd override is the correct place for persistent server-level settings.
+```
+
+```
+
+### 35.6 API calls: cURL vs PowerShell
+
+```{tab-set}
+
+```{tab-item} macOS / Linux cURL
+```bash
+curl http://localhost:11434/api/chat \
+  -H "Content-Type: application/json" \
+  -d '{
+    "model": "qwen3.6",
+    "messages": [
+      {"role": "user", "content": "Explain local LLMs in one paragraph."}
+    ],
+    "stream": false
+  }'
+```
+
+**Example description:** this sends a complete chat request to the local Ollama API. `stream:false` makes the response easier to read in scripts because Ollama returns one final JSON object.
+```
+
+```{tab-item} Windows PowerShell
+```powershell
+$body = @{
+  model = "qwen3.6"
+  messages = @(
+    @{ role = "user"; content = "Explain local LLMs in one paragraph." }
+  )
+  stream = $false
+} | ConvertTo-Json -Depth 5
+
+Invoke-RestMethod `
+  -Uri "http://localhost:11434/api/chat" `
+  -Method Post `
+  -ContentType "application/json" `
+  -Body $body
+```
+
+**Example description:** PowerShell objects are safer than manually escaping a long JSON string. `ConvertTo-Json` turns the hashtable into the JSON body expected by Ollama.
+```
+
+```
+
+### 35.7 Check which process owns port 11434
+
+```{tab-set}
+
+```{tab-item} macOS
+```bash
+lsof -i :11434
+```
+
+**Example description:** this checks whether Ollama or another process is listening on the default API port.
+```
+
+```{tab-item} Linux
+```bash
+ss -ltnp | grep 11434
+```
+
+**Example description:** `ss` is the modern Linux tool for checking listening TCP ports. It helps diagnose connection refused errors.
+```
+
+```{tab-item} Windows PowerShell
+```powershell
+Get-NetTCPConnection -LocalPort 11434
+```
+
+**Example description:** this shows Windows TCP listeners using port `11434`. If another process owns the port, stop it or change Ollama's host/port.
+```
+
+```
+
+### 35.8 Import a local GGUF file
+
+```{tab-set}
+
+```{tab-item} macOS / Linux
+```bash
+mkdir -p ~/Models/demo-gguf
+cd ~/Models/demo-gguf
+# Put model.Q4_K_M.gguf in this folder first.
+cat > Modelfile <<'EOF'
+FROM ./model.Q4_K_M.gguf
+PARAMETER temperature 0.3
+EOF
+ollama create demo-local -f Modelfile
+ollama run demo-local
+```
+
+**Example description:** the `Modelfile` tells Ollama which local GGUF file to wrap as a runnable model. `ollama create` registers it under the name `demo-local`.
+```
+
+```{tab-item} Windows PowerShell
+```powershell
+New-Item -ItemType Directory -Force -Path "$HOME\Models\demo-gguf"
+Set-Location "$HOME\Models\demo-gguf"
+# Put model.Q4_K_M.gguf in this folder first.
+@"
+FROM ./model.Q4_K_M.gguf
+PARAMETER temperature 0.3
+"@ | Set-Content Modelfile
+ollama create demo-local -f Modelfile
+ollama run demo-local
+```
+
+**Example description:** PowerShell's here-string creates the `Modelfile`. Forward slashes inside `FROM ./model...` are fine because Ollama reads the path relative to the Modelfile.
+```
+
+```
+
+### 35.9 Open WebUI with Docker
+
+```{tab-set}
+
+```{tab-item} macOS / Linux
+```bash
+docker run -d \
+  -p 3000:8080 \
+  --add-host=host.docker.internal:host-gateway \
+  -v open-webui:/app/backend/data \
+  --name open-webui \
+  --restart always \
+  ghcr.io/open-webui/open-webui:main
+```
+
+**Example description:** this runs Open WebUI and points containers to the host machine so the web UI can reach Ollama at `host.docker.internal:11434`.
+```
+
+```{tab-item} Windows PowerShell
+```powershell
+docker run -d `
+  -p 3000:8080 `
+  --add-host=host.docker.internal:host-gateway `
+  -v open-webui:/app/backend/data `
+  --name open-webui `
+  --restart always `
+  ghcr.io/open-webui/open-webui:main
+```
+
+**Example description:** this is the PowerShell line-continuation version of the Docker command. The backtick character continues the command on the next line.
+```
+
+```
+
+### 35.10 Common path translations
+
+| Concept | macOS / Linux | Windows PowerShell |
+| :--- | :--- | :--- |
+| Home folder | `~` | `$HOME` |
+| Models folder example | `~/Models` | `$HOME\Models` |
+| Current directory | `./file.gguf` | `.\file.gguf` |
+| Activate venv | `source .venv/bin/activate` | `.\.venv\Scripts\Activate.ps1` |
+| Delete model file/folder manually | `rm -rf path` | `Remove-Item -Recurse -Force path` |
+
+**Example description:** most Ollama commands are OS-neutral, but file paths are not. When an example fails, check path syntax before assuming the model or API is broken.
+
+---
+
+## 36. Final Practical Advice
 
 A reliable learning order is:
 

@@ -414,6 +414,8 @@ document.write(`
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#installation-and-first-checks">7.3. 2. Installation and First Checks</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#install-ollama">7.3.1. 2.1 Install Ollama</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#verify-the-api-server">7.3.2. 2.2 Verify the API server</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cross-platform-command-convention">7.3.3. 2.3 Cross-platform command convention</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#where-ollama-stores-models">7.3.4. 2.4 Where Ollama stores models</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#core-cli-commands-you-must-know">7.4. 3. Core CLI Commands You Must Know</a><ul class="nav section-nav flex-column">
@@ -443,6 +445,7 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#api-generate">7.8.1. 7.1 <code class="docutils literal notranslate"><span class="pre">/api/generate</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#api-chat">7.8.2. 7.2 <code class="docutils literal notranslate"><span class="pre">/api/chat</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#streaming-vs-non-streaming">7.8.3. 7.3 Streaming vs non-streaming</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#windows-powershell-api-examples">7.8.4. 7.4 Windows PowerShell API examples</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#python-native-ollama-sdk">7.9. 8. Python: Native Ollama SDK</a><ul class="nav section-nav flex-column">
@@ -557,7 +560,20 @@ document.write(`
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rag-agents">7.35.4. RAG / agents</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#final-practical-advice">7.36. 35. Final Practical Advice</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cross-platform-examples-macos-windows-and-linux">7.36. 35. Cross-Platform Examples: macOS, Windows, and Linux</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#health-check-and-model-list">7.36.1. 35.1 Health check and model list</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#run-the-same-model-on-each-os">7.36.2. 35.2 Run the same model on each OS</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#python-virtual-environment-setup">7.36.3. 35.3 Python virtual environment setup</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#run-toy-scripts">7.36.4. 35.4 Run toy scripts</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#environment-variables">7.36.5. 35.5 Environment variables</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#api-calls-curl-vs-powershell">7.36.6. 35.6 API calls: cURL vs PowerShell</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#check-which-process-owns-port-11434">7.36.7. 35.7 Check which process owns port 11434</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#import-a-local-gguf-file">7.36.8. 35.8 Import a local GGUF file</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#open-webui-with-docker">7.36.9. 35.9 Open WebUI with Docker</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#common-path-translations">7.36.10. 35.10 Common path translations</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#final-practical-advice">7.37. 36. Final Practical Advice</a></li>
 </ul>
             </nav>
         </div>
@@ -719,16 +735,158 @@ ollama --version
 </section>
 <section id="verify-the-api-server">
 <h3><span class="section-number">7.3.2. </span>2.2 Verify the API server<a class="headerlink" href="#verify-the-api-server" title="Link to this heading">#</a></h3>
-<p>Ollama normally starts its local server automatically.</p>
+<p>Ollama normally starts its local server automatically. The default local API endpoint is:</p>
+<div class="highlight-text notranslate"><div class="highlight"><pre><span></span>http://localhost:11434
+</pre></div>
+</div>
+<p>Use the command for your operating system.</p>
+<div class="sd-tab-set docutils">
+<input checked="checked" id="sd-tab-item-1" name="sd-tab-set-1" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-1">
+macOS / Linux</label><div class="sd-tab-content docutils">
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl<span class="w"> </span>http://localhost:11434/api/tags
 </pre></div>
 </div>
-<p><strong>Example description:</strong> this asks the local Ollama server for the list of installed models. If you receive JSON, the API server is working. This is the fastest health check before debugging Python or JavaScript code.</p>
-<p>If it fails, start the server manually:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ollama<span class="w"> </span>serve
+</div>
+</div>
+<p><strong>Example description:</strong> this asks the local Ollama server for the list of installed models. If you receive JSON, the API server is working. This is the fastest health check before debugging Python, JavaScript, Open WebUI, or AnythingLLM connections.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
+```{tab-item} Windows PowerShell
+```powershell
+Invoke-RestMethod http://localhost:11434/api/tags
 </pre></div>
 </div>
-<p><strong>Example description:</strong> <code class="docutils literal notranslate"><span class="pre">ollama</span> <span class="pre">serve</span></code> launches the local HTTP API server. Use it when the desktop app is not running or when another program cannot connect to <code class="docutils literal notranslate"><span class="pre">localhost:11434</span></code>.</p>
+<p><strong>Example description:</strong> <code class="docutils literal notranslate"><span class="pre">Invoke-RestMethod</span></code> is PowerShell’s native HTTP client. It converts the JSON response into PowerShell objects, which makes it easier to inspect model names on Windows.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
+```{tab-item} Windows CMD
+```cmd
+curl.exe http://localhost:11434/api/tags
+</pre></div>
+</div>
+<p><strong>Example description:</strong> Windows also has <code class="docutils literal notranslate"><span class="pre">curl.exe</span></code>. In CMD, use <code class="docutils literal notranslate"><span class="pre">curl.exe</span></code> explicitly so Windows does not confuse it with PowerShell aliases.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+<p>If the health check fails, start or restart Ollama manually.</p>
+<div class="sd-tab-set docutils">
+<input checked="checked" id="sd-tab-item-2" name="sd-tab-set-2" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-2">
+macOS</label><div class="sd-tab-content docutils">
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>open<span class="w"> </span>-a<span class="w"> </span>Ollama
+<span class="c1"># or, if you want to run the server directly in this terminal:</span>
+ollama<span class="w"> </span>serve
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Example description:</strong> opening the app starts Ollama in the menu bar. <code class="docutils literal notranslate"><span class="pre">ollama</span> <span class="pre">serve</span></code> starts the API server in the foreground, which is useful when you want to see server logs while debugging.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
+```{tab-item} Linux
+```bash
+sudo systemctl status ollama
+sudo systemctl restart ollama
+</pre></div>
+</div>
+<p><strong>Example description:</strong> on most Linux installs, Ollama runs as a systemd service. <code class="docutils literal notranslate"><span class="pre">status</span></code> checks whether the service is running; <code class="docutils literal notranslate"><span class="pre">restart</span></code> reloads it after configuration or environment changes.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
+```{tab-item} Windows PowerShell
+```powershell
+ollama serve
+</pre></div>
+</div>
+<p><strong>Example description:</strong> running <code class="docutils literal notranslate"><span class="pre">ollama</span> <span class="pre">serve</span></code> in PowerShell starts the local API server in the foreground. Keep that window open while testing from another terminal or application.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+</section>
+<section id="cross-platform-command-convention">
+<h3><span class="section-number">7.3.3. </span>2.3 Cross-platform command convention<a class="headerlink" href="#cross-platform-command-convention" title="Link to this heading">#</a></h3>
+<p>Most Ollama commands are identical across macOS, Linux, and Windows:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ollama<span class="w"> </span>list
+ollama<span class="w"> </span>run<span class="w"> </span>qwen3.6
+ollama<span class="w"> </span>ps
+ollama<span class="w"> </span>stop<span class="w"> </span>qwen3.6
+</pre></div>
+</div>
+<p>The main differences are the <strong>shell syntax</strong> around HTTP calls, environment variables, virtual environments, file paths, and service management.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>Task</p></th>
+<th class="head text-left"><p>macOS / Linux</p></th>
+<th class="head text-left"><p>Windows PowerShell</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>HTTP request</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">curl</span> <span class="pre">...</span></code></p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">Invoke-RestMethod</span> <span class="pre">...</span></code> or <code class="docutils literal notranslate"><span class="pre">curl.exe</span> <span class="pre">...</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>Environment variable</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">export</span> <span class="pre">NAME=value</span></code></p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">$env:NAME=&quot;value&quot;</span></code></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>Python launcher</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">python3</span></code></p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">py</span></code> or <code class="docutils literal notranslate"><span class="pre">python</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>Activate venv</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">source</span> <span class="pre">.venv/bin/activate</span></code></p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">.\.venv\Scripts\Activate.ps1</span></code></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>Home directory</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">~/Models</span></code></p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">$HOME\Models</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>Example description:</strong> the model commands are portable, but the surrounding operating-system commands are not always portable. When copying examples, match the shell you are using.</p>
+</section>
+<section id="where-ollama-stores-models">
+<h3><span class="section-number">7.3.4. </span>2.4 Where Ollama stores models<a class="headerlink" href="#where-ollama-stores-models" title="Link to this heading">#</a></h3>
+<p>Model storage locations are useful when you need to estimate disk usage, back up models, or move a model cache to a larger drive.</p>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>OS</p></th>
+<th class="head text-left"><p>Common location</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>macOS</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">~/.ollama/models</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>Linux user install</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">~/.ollama/models</span></code></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>Linux service install</p></td>
+<td class="text-left"><p>often <code class="docutils literal notranslate"><span class="pre">/usr/share/ollama/.ollama/models</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>Windows</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">%USERPROFILE%\.ollama\models</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sd-tab-set docutils">
+<input checked="checked" id="sd-tab-item-3" name="sd-tab-set-3" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-3">
+macOS / Linux</label><div class="sd-tab-content docutils">
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>du<span class="w"> </span>-sh<span class="w"> </span>~/.ollama/models<span class="w"> </span><span class="m">2</span>&gt;/dev/null
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Example description:</strong> this estimates how much disk space your local Ollama models consume. Large models and multiple quantizations can quickly use hundreds of gigabytes.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
+```{tab-item} Windows PowerShell
+```powershell
+Get-ChildItem &quot;$env:USERPROFILE\.ollama\models&quot; -Recurse | Measure-Object -Property Length -Sum
+</pre></div>
+</div>
+<p><strong>Example description:</strong> this recursively sums model files in the Windows Ollama model directory. The result is shown in bytes, which you can divide by <code class="docutils literal notranslate"><span class="pre">1GB</span></code> for a rough gigabyte estimate.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
 </section>
 </section>
 <hr class="docutils" />
@@ -984,6 +1142,47 @@ Apple Silicon: try MLX variants when available
 </pre></div>
 </div>
 <p><strong>Example description:</strong> streaming returns partial tokens as the model generates them. It makes the UI feel faster but requires your frontend or backend to handle a stream of chunks.</p>
+</section>
+<section id="windows-powershell-api-examples">
+<h3><span class="section-number">7.8.4. </span>7.4 Windows PowerShell API examples<a class="headerlink" href="#windows-powershell-api-examples" title="Link to this heading">#</a></h3>
+<p>The REST API is the same on every operating system, but Windows users often prefer PowerShell objects instead of raw JSON strings.</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nv">$body</span> <span class="p">=</span> <span class="p">@{</span>
+  <span class="n">model</span> <span class="p">=</span> <span class="s2">&quot;qwen3.6&quot;</span>
+  <span class="n">messages</span> <span class="p">=</span> <span class="p">@(</span>
+    <span class="p">@{</span> <span class="n">role</span> <span class="p">=</span> <span class="s2">&quot;user&quot;</span><span class="p">;</span> <span class="n">content</span> <span class="p">=</span> <span class="s2">&quot;Explain what Ollama does in two sentences.&quot;</span> <span class="p">}</span>
+  <span class="p">)</span>
+  <span class="n">stream</span> <span class="p">=</span> <span class="nv">$false</span>
+<span class="p">}</span> <span class="p">|</span> <span class="nb">ConvertTo-Json</span> <span class="n">-Depth</span> <span class="n">5</span>
+
+<span class="nv">$response</span> <span class="p">=</span> <span class="nb">Invoke-RestMethod</span> <span class="p">`</span>
+  <span class="n">-Uri</span> <span class="s2">&quot;http://localhost:11434/api/chat&quot;</span> <span class="p">`</span>
+  <span class="n">-Method</span> <span class="n">Post</span> <span class="p">`</span>
+  <span class="n">-ContentType</span> <span class="s2">&quot;application/json&quot;</span> <span class="p">`</span>
+  <span class="n">-Body</span> <span class="nv">$body</span>
+
+<span class="nv">$response</span><span class="p">.</span><span class="n">message</span><span class="p">.</span><span class="n">content</span>
+</pre></div>
+</div>
+<p><strong>Example description:</strong> this is the PowerShell equivalent of the <code class="docutils literal notranslate"><span class="pre">/api/chat</span></code> cURL example. <code class="docutils literal notranslate"><span class="pre">ConvertTo-Json</span> <span class="pre">-Depth</span> <span class="pre">5</span></code> is important because chat messages are nested objects; without enough depth, PowerShell can truncate nested JSON.</p>
+<p>If you prefer the OpenAI-compatible endpoint:</p>
+<div class="highlight-powershell notranslate"><div class="highlight"><pre><span></span><span class="nv">$body</span> <span class="p">=</span> <span class="p">@{</span>
+  <span class="n">model</span> <span class="p">=</span> <span class="s2">&quot;qwen3.6&quot;</span>
+  <span class="n">messages</span> <span class="p">=</span> <span class="p">@(</span>
+    <span class="p">@{</span> <span class="n">role</span> <span class="p">=</span> <span class="s2">&quot;system&quot;</span><span class="p">;</span> <span class="n">content</span> <span class="p">=</span> <span class="s2">&quot;You are a concise assistant.&quot;</span> <span class="p">},</span>
+    <span class="p">@{</span> <span class="n">role</span> <span class="p">=</span> <span class="s2">&quot;user&quot;</span><span class="p">;</span> <span class="n">content</span> <span class="p">=</span> <span class="s2">&quot;Give me a one-line definition of RAG.&quot;</span> <span class="p">}</span>
+  <span class="p">)</span>
+<span class="p">}</span> <span class="p">|</span> <span class="nb">ConvertTo-Json</span> <span class="n">-Depth</span> <span class="n">5</span>
+
+<span class="nv">$response</span> <span class="p">=</span> <span class="nb">Invoke-RestMethod</span> <span class="p">`</span>
+  <span class="n">-Uri</span> <span class="s2">&quot;http://localhost:11434/v1/chat/completions&quot;</span> <span class="p">`</span>
+  <span class="n">-Method</span> <span class="n">Post</span> <span class="p">`</span>
+  <span class="n">-ContentType</span> <span class="s2">&quot;application/json&quot;</span> <span class="p">`</span>
+  <span class="n">-Body</span> <span class="nv">$body</span>
+
+<span class="nv">$response</span><span class="p">.</span><span class="n">choices</span><span class="p">[</span><span class="n">0</span><span class="p">].</span><span class="n">message</span><span class="p">.</span><span class="n">content</span>
+</pre></div>
+</div>
+<p><strong>Example description:</strong> this uses Ollama’s OpenAI-compatible path. It is useful when your application already follows the OpenAI chat completion response structure.</p>
 </section>
 </section>
 <hr class="docutils" />
@@ -2394,8 +2593,359 @@ For actions that change data, create a draft and ask for human confirmation.
 </section>
 </section>
 <hr class="docutils" />
+<section id="cross-platform-examples-macos-windows-and-linux">
+<h2><span class="section-number">7.36. </span>35. Cross-Platform Examples: macOS, Windows, and Linux<a class="headerlink" href="#cross-platform-examples-macos-windows-and-linux" title="Link to this heading">#</a></h2>
+<p>This section collects equivalent commands for the most common operations. Use it as a quick translation table when an example appears to be written for a different operating system.</p>
+<section id="health-check-and-model-list">
+<h3><span class="section-number">7.36.1. </span>35.1 Health check and model list<a class="headerlink" href="#health-check-and-model-list" title="Link to this heading">#</a></h3>
+<div class="sd-tab-set docutils">
+<input checked="checked" id="sd-tab-item-4" name="sd-tab-set-4" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-4">
+macOS / Linux</label><div class="sd-tab-content docutils">
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ollama<span class="w"> </span>list
+curl<span class="w"> </span>http://localhost:11434/api/tags
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Example description:</strong> <code class="docutils literal notranslate"><span class="pre">ollama</span> <span class="pre">list</span></code> checks the local model registry from the CLI. <code class="docutils literal notranslate"><span class="pre">curl</span> <span class="pre">/api/tags</span></code> checks the same idea through the HTTP API, which is what applications use.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
+```{tab-item} Windows PowerShell
+```powershell
+ollama list
+Invoke-RestMethod http://localhost:11434/api/tags
+</pre></div>
+</div>
+<p><strong>Example description:</strong> the first command confirms the CLI works. The second confirms the local API works and returns the installed models as PowerShell objects.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
+```{tab-item} Windows CMD
+```cmd
+ollama list
+curl.exe http://localhost:11434/api/tags
+</pre></div>
+</div>
+<p><strong>Example description:</strong> CMD can use <code class="docutils literal notranslate"><span class="pre">curl.exe</span></code> for the API health check. This is useful on machines where PowerShell execution policies are restricted.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+</section>
+<section id="run-the-same-model-on-each-os">
+<h3><span class="section-number">7.36.2. </span>35.2 Run the same model on each OS<a class="headerlink" href="#run-the-same-model-on-each-os" title="Link to this heading">#</a></h3>
+<div class="sd-tab-set docutils">
+<input checked="checked" id="sd-tab-item-5" name="sd-tab-set-5" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-5">
+macOS / Linux</label><div class="sd-tab-content docutils">
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>ollama<span class="w"> </span>run<span class="w"> </span>qwen3.6
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Example description:</strong> this loads the model and starts an interactive terminal chat. If the model is missing, Ollama downloads it first.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
+```{tab-item} Windows PowerShell / CMD
+```powershell
+ollama run qwen3.6
+</pre></div>
+</div>
+<p><strong>Example description:</strong> Ollama’s model commands are the same on Windows. The difference usually appears only when you write JSON, paths, or environment variables.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+</section>
+<section id="python-virtual-environment-setup">
+<h3><span class="section-number">7.36.3. </span>35.3 Python virtual environment setup<a class="headerlink" href="#python-virtual-environment-setup" title="Link to this heading">#</a></h3>
+<div class="sd-tab-set docutils">
+<input checked="checked" id="sd-tab-item-6" name="sd-tab-set-6" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-6">
+macOS / Linux</label><div class="sd-tab-content docutils">
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python3<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span>.venv
+<span class="nb">source</span><span class="w"> </span>.venv/bin/activate
+python3<span class="w"> </span>-m<span class="w"> </span>pip<span class="w"> </span>install<span class="w"> </span>-U<span class="w"> </span>ollama<span class="w"> </span>openai<span class="w"> </span>numpy
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Example description:</strong> this creates an isolated Python environment, activates it, and installs the Ollama SDK, OpenAI SDK, and NumPy for simple RAG experiments.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
+```{tab-item} Windows PowerShell
+```powershell
+py -m venv .venv
+.\.venv\Scripts\Activate.ps1
+py -m pip install -U ollama openai numpy
+</pre></div>
+</div>
+<p><strong>Example description:</strong> Windows virtual environments use a different activation script. If activation is blocked, run PowerShell as the current user and set a less restrictive execution policy for the session.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
+```{tab-item} Windows CMD
+```cmd
+py -m venv .venv
+.venv\Scripts\activate.bat
+py -m pip install -U ollama openai numpy
+</pre></div>
+</div>
+<p><strong>Example description:</strong> CMD uses <code class="docutils literal notranslate"><span class="pre">activate.bat</span></code> instead of the PowerShell activation script.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+</section>
+<section id="run-toy-scripts">
+<h3><span class="section-number">7.36.4. </span>35.4 Run toy scripts<a class="headerlink" href="#run-toy-scripts" title="Link to this heading">#</a></h3>
+<div class="sd-tab-set docutils">
+<input checked="checked" id="sd-tab-item-7" name="sd-tab-set-7" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-7">
+macOS / Linux</label><div class="sd-tab-content docutils">
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>python3<span class="w"> </span>tiny_rag.py
+python3<span class="w"> </span>tool_calling_demo.py
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Example description:</strong> these commands run the tutorial’s toy RAG and tool-calling scripts with the active Python environment.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
+```{tab-item} Windows PowerShell / CMD
+```powershell
+py tiny_rag.py
+py tool_calling_demo.py
+</pre></div>
+</div>
+<p><strong>Example description:</strong> <code class="docutils literal notranslate"><span class="pre">py</span></code> is the Windows Python launcher. It helps select the installed Python version consistently.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+</section>
+<section id="environment-variables">
+<h3><span class="section-number">7.36.5. </span>35.5 Environment variables<a class="headerlink" href="#environment-variables" title="Link to this heading">#</a></h3>
+<div class="sd-tab-set docutils">
+<input checked="checked" id="sd-tab-item-8" name="sd-tab-set-8" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-8">
+macOS / Linux temporary session</label><div class="sd-tab-content docutils">
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">export</span><span class="w"> </span><span class="nv">OLLAMA_HOST</span><span class="o">=</span><span class="m">127</span>.0.0.1:11434
+<span class="nb">export</span><span class="w"> </span><span class="nv">OLLAMA_KEEP_ALIVE</span><span class="o">=</span>5m
+<span class="nb">export</span><span class="w"> </span><span class="nv">OLLAMA_CONTEXT_LENGTH</span><span class="o">=</span><span class="m">8192</span>
+ollama<span class="w"> </span>serve
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Example description:</strong> these variables affect the Ollama server launched from the same shell. They are temporary and disappear when the terminal closes.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
+```{tab-item} Windows PowerShell temporary session
+```powershell
+$env:OLLAMA_HOST=&quot;127.0.0.1:11434&quot;
+$env:OLLAMA_KEEP_ALIVE=&quot;5m&quot;
+$env:OLLAMA_CONTEXT_LENGTH=&quot;8192&quot;
+ollama serve
+</pre></div>
+</div>
+<p><strong>Example description:</strong> <code class="docutils literal notranslate"><span class="pre">$env:</span></code> sets variables for the current PowerShell session. Start <code class="docutils literal notranslate"><span class="pre">ollama</span> <span class="pre">serve</span></code> from that same window so the server receives the settings.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
+```{tab-item} Linux systemd service
+```bash
+sudo systemctl edit ollama
+</pre></div>
+</div>
+<p>Then add:</p>
+<div class="highlight-ini notranslate"><div class="highlight"><pre><span></span><span class="k">[Service]</span>
+<span class="na">Environment</span><span class="o">=</span><span class="s">&quot;OLLAMA_KEEP_ALIVE=5m&quot;</span>
+<span class="na">Environment</span><span class="o">=</span><span class="s">&quot;OLLAMA_CONTEXT_LENGTH=8192&quot;</span>
+</pre></div>
+</div>
+<p>Reload and restart:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo<span class="w"> </span>systemctl<span class="w"> </span>daemon-reload
+sudo<span class="w"> </span>systemctl<span class="w"> </span>restart<span class="w"> </span>ollama
+</pre></div>
+</div>
+<p><strong>Example description:</strong> Linux service installs do not automatically inherit shell variables. A systemd override is the correct place for persistent server-level settings.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+</section>
+<section id="api-calls-curl-vs-powershell">
+<h3><span class="section-number">7.36.6. </span>35.6 API calls: cURL vs PowerShell<a class="headerlink" href="#api-calls-curl-vs-powershell" title="Link to this heading">#</a></h3>
+<div class="sd-tab-set docutils">
+<input checked="checked" id="sd-tab-item-9" name="sd-tab-set-9" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-9">
+macOS / Linux cURL</label><div class="sd-tab-content docutils">
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>curl<span class="w"> </span>http://localhost:11434/api/chat<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-H<span class="w"> </span><span class="s2">&quot;Content-Type: application/json&quot;</span><span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-d<span class="w"> </span><span class="s1">&#39;{</span>
+<span class="s1">    &quot;model&quot;: &quot;qwen3.6&quot;,</span>
+<span class="s1">    &quot;messages&quot;: [</span>
+<span class="s1">      {&quot;role&quot;: &quot;user&quot;, &quot;content&quot;: &quot;Explain local LLMs in one paragraph.&quot;}</span>
+<span class="s1">    ],</span>
+<span class="s1">    &quot;stream&quot;: false</span>
+<span class="s1">  }&#39;</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Example description:</strong> this sends a complete chat request to the local Ollama API. <code class="docutils literal notranslate"><span class="pre">stream:false</span></code> makes the response easier to read in scripts because Ollama returns one final JSON object.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
+```{tab-item} Windows PowerShell
+```powershell
+$body = @{
+  model = &quot;qwen3.6&quot;
+  messages = @(
+    @{ role = &quot;user&quot;; content = &quot;Explain local LLMs in one paragraph.&quot; }
+  )
+  stream = $false
+} | ConvertTo-Json -Depth 5
+
+Invoke-RestMethod `
+  -Uri &quot;http://localhost:11434/api/chat&quot; `
+  -Method Post `
+  -ContentType &quot;application/json&quot; `
+  -Body $body
+</pre></div>
+</div>
+<p><strong>Example description:</strong> PowerShell objects are safer than manually escaping a long JSON string. <code class="docutils literal notranslate"><span class="pre">ConvertTo-Json</span></code> turns the hashtable into the JSON body expected by Ollama.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+</section>
+<section id="check-which-process-owns-port-11434">
+<h3><span class="section-number">7.36.7. </span>35.7 Check which process owns port 11434<a class="headerlink" href="#check-which-process-owns-port-11434" title="Link to this heading">#</a></h3>
+<div class="sd-tab-set docutils">
+<input checked="checked" id="sd-tab-item-10" name="sd-tab-set-10" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-10">
+macOS</label><div class="sd-tab-content docutils">
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>lsof<span class="w"> </span>-i<span class="w"> </span>:11434
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Example description:</strong> this checks whether Ollama or another process is listening on the default API port.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
+```{tab-item} Linux
+```bash
+ss -ltnp | grep 11434
+</pre></div>
+</div>
+<p><strong>Example description:</strong> <code class="docutils literal notranslate"><span class="pre">ss</span></code> is the modern Linux tool for checking listening TCP ports. It helps diagnose connection refused errors.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
+```{tab-item} Windows PowerShell
+```powershell
+Get-NetTCPConnection -LocalPort 11434
+</pre></div>
+</div>
+<p><strong>Example description:</strong> this shows Windows TCP listeners using port <code class="docutils literal notranslate"><span class="pre">11434</span></code>. If another process owns the port, stop it or change Ollama’s host/port.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+</section>
+<section id="import-a-local-gguf-file">
+<h3><span class="section-number">7.36.8. </span>35.8 Import a local GGUF file<a class="headerlink" href="#import-a-local-gguf-file" title="Link to this heading">#</a></h3>
+<div class="sd-tab-set docutils">
+<input checked="checked" id="sd-tab-item-11" name="sd-tab-set-11" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-11">
+macOS / Linux</label><div class="sd-tab-content docutils">
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>mkdir<span class="w"> </span>-p<span class="w"> </span>~/Models/demo-gguf
+<span class="nb">cd</span><span class="w"> </span>~/Models/demo-gguf
+<span class="c1"># Put model.Q4_K_M.gguf in this folder first.</span>
+cat<span class="w"> </span>&gt;<span class="w"> </span>Modelfile<span class="w"> </span><span class="s">&lt;&lt;&#39;EOF&#39;</span>
+<span class="s">FROM ./model.Q4_K_M.gguf</span>
+<span class="s">PARAMETER temperature 0.3</span>
+<span class="s">EOF</span>
+ollama<span class="w"> </span>create<span class="w"> </span>demo-local<span class="w"> </span>-f<span class="w"> </span>Modelfile
+ollama<span class="w"> </span>run<span class="w"> </span>demo-local
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Example description:</strong> the <code class="docutils literal notranslate"><span class="pre">Modelfile</span></code> tells Ollama which local GGUF file to wrap as a runnable model. <code class="docutils literal notranslate"><span class="pre">ollama</span> <span class="pre">create</span></code> registers it under the name <code class="docutils literal notranslate"><span class="pre">demo-local</span></code>.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
+```{tab-item} Windows PowerShell
+```powershell
+New-Item -ItemType Directory -Force -Path &quot;$HOME\Models\demo-gguf&quot;
+Set-Location &quot;$HOME\Models\demo-gguf&quot;
+# Put model.Q4_K_M.gguf in this folder first.
+@&quot;
+FROM ./model.Q4_K_M.gguf
+PARAMETER temperature 0.3
+&quot;@ | Set-Content Modelfile
+ollama create demo-local -f Modelfile
+ollama run demo-local
+</pre></div>
+</div>
+<p><strong>Example description:</strong> PowerShell’s here-string creates the <code class="docutils literal notranslate"><span class="pre">Modelfile</span></code>. Forward slashes inside <code class="docutils literal notranslate"><span class="pre">FROM</span> <span class="pre">./model...</span></code> are fine because Ollama reads the path relative to the Modelfile.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+</section>
+<section id="open-webui-with-docker">
+<h3><span class="section-number">7.36.9. </span>35.9 Open WebUI with Docker<a class="headerlink" href="#open-webui-with-docker" title="Link to this heading">#</a></h3>
+<div class="sd-tab-set docutils">
+<input checked="checked" id="sd-tab-item-12" name="sd-tab-set-12" type="radio">
+<label class="sd-tab-label" for="sd-tab-item-12">
+macOS / Linux</label><div class="sd-tab-content docutils">
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker<span class="w"> </span>run<span class="w"> </span>-d<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-p<span class="w"> </span><span class="m">3000</span>:8080<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--add-host<span class="o">=</span>host.docker.internal:host-gateway<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>-v<span class="w"> </span>open-webui:/app/backend/data<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--name<span class="w"> </span>open-webui<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>--restart<span class="w"> </span>always<span class="w"> </span><span class="se">\</span>
+<span class="w">  </span>ghcr.io/open-webui/open-webui:main
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Example description:</strong> this runs Open WebUI and points containers to the host machine so the web UI can reach Ollama at <code class="docutils literal notranslate"><span class="pre">host.docker.internal:11434</span></code>.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
+```{tab-item} Windows PowerShell
+```powershell
+docker run -d `
+  -p 3000:8080 `
+  --add-host=host.docker.internal:host-gateway `
+  -v open-webui:/app/backend/data `
+  --name open-webui `
+  --restart always `
+  ghcr.io/open-webui/open-webui:main
+</pre></div>
+</div>
+<p><strong>Example description:</strong> this is the PowerShell line-continuation version of the Docker command. The backtick character continues the command on the next line.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
+</pre></div>
+</div>
+</section>
+<section id="common-path-translations">
+<h3><span class="section-number">7.36.10. </span>35.10 Common path translations<a class="headerlink" href="#common-path-translations" title="Link to this heading">#</a></h3>
+<div class="pst-scrollable-table-container"><table class="table">
+<thead>
+<tr class="row-odd"><th class="head text-left"><p>Concept</p></th>
+<th class="head text-left"><p>macOS / Linux</p></th>
+<th class="head text-left"><p>Windows PowerShell</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td class="text-left"><p>Home folder</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">~</span></code></p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">$HOME</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>Models folder example</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">~/Models</span></code></p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">$HOME\Models</span></code></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>Current directory</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">./file.gguf</span></code></p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">.\file.gguf</span></code></p></td>
+</tr>
+<tr class="row-odd"><td class="text-left"><p>Activate venv</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">source</span> <span class="pre">.venv/bin/activate</span></code></p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">.\.venv\Scripts\Activate.ps1</span></code></p></td>
+</tr>
+<tr class="row-even"><td class="text-left"><p>Delete model file/folder manually</p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">rm</span> <span class="pre">-rf</span> <span class="pre">path</span></code></p></td>
+<td class="text-left"><p><code class="docutils literal notranslate"><span class="pre">Remove-Item</span> <span class="pre">-Recurse</span> <span class="pre">-Force</span> <span class="pre">path</span></code></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>Example description:</strong> most Ollama commands are OS-neutral, but file paths are not. When an example fails, check path syntax before assuming the model or API is broken.</p>
+</section>
+</section>
+<hr class="docutils" />
 <section id="final-practical-advice">
-<h2><span class="section-number">7.36. </span>35. Final Practical Advice<a class="headerlink" href="#final-practical-advice" title="Link to this heading">#</a></h2>
+<h2><span class="section-number">7.37. </span>36. Final Practical Advice<a class="headerlink" href="#final-practical-advice" title="Link to this heading">#</a></h2>
 <p>A reliable learning order is:</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>1. Use a local chat model through Ollama.
 2. Learn the CLI: list, run, show, ps, stop, rm.
@@ -2492,6 +3042,8 @@ Your UI gives it a useful product experience.
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#installation-and-first-checks">7.3. 2. Installation and First Checks</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#install-ollama">7.3.1. 2.1 Install Ollama</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#verify-the-api-server">7.3.2. 2.2 Verify the API server</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cross-platform-command-convention">7.3.3. 2.3 Cross-platform command convention</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#where-ollama-stores-models">7.3.4. 2.4 Where Ollama stores models</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#core-cli-commands-you-must-know">7.4. 3. Core CLI Commands You Must Know</a><ul class="nav section-nav flex-column">
@@ -2521,6 +3073,7 @@ Your UI gives it a useful product experience.
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#api-generate">7.8.1. 7.1 <code class="docutils literal notranslate"><span class="pre">/api/generate</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#api-chat">7.8.2. 7.2 <code class="docutils literal notranslate"><span class="pre">/api/chat</span></code></a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#streaming-vs-non-streaming">7.8.3. 7.3 Streaming vs non-streaming</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#windows-powershell-api-examples">7.8.4. 7.4 Windows PowerShell API examples</a></li>
 </ul>
 </li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#python-native-ollama-sdk">7.9. 8. Python: Native Ollama SDK</a><ul class="nav section-nav flex-column">
@@ -2635,7 +3188,20 @@ Your UI gives it a useful product experience.
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#rag-agents">7.35.4. RAG / agents</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#final-practical-advice">7.36. 35. Final Practical Advice</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cross-platform-examples-macos-windows-and-linux">7.36. 35. Cross-Platform Examples: macOS, Windows, and Linux</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#health-check-and-model-list">7.36.1. 35.1 Health check and model list</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#run-the-same-model-on-each-os">7.36.2. 35.2 Run the same model on each OS</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#python-virtual-environment-setup">7.36.3. 35.3 Python virtual environment setup</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#run-toy-scripts">7.36.4. 35.4 Run toy scripts</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#environment-variables">7.36.5. 35.5 Environment variables</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#api-calls-curl-vs-powershell">7.36.6. 35.6 API calls: cURL vs PowerShell</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#check-which-process-owns-port-11434">7.36.7. 35.7 Check which process owns port 11434</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#import-a-local-gguf-file">7.36.8. 35.8 Import a local GGUF file</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#open-webui-with-docker">7.36.9. 35.9 Open WebUI with Docker</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#common-path-translations">7.36.10. 35.10 Common path translations</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#final-practical-advice">7.37. 36. Final Practical Advice</a></li>
 </ul>
   </nav></div>
 
