@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>8. Implementing RAG with Python &#8212; AI Tools Learning Handbook</title>
+    <title>9. Implementing RAG with Python &#8212; AI Tools Learning Handbook</title>
   
   
   
@@ -62,8 +62,8 @@
     <link rel="icon" href="../../_static/fav.ico"/>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="9. Graph RAG: Knowledge Graphs Meet Retrieval" href="03-graph-rag.html" />
-    <link rel="prev" title="7. What is RAG? (Retrieval-Augmented Generation)" href="01-what-is-rag.html" />
+    <link rel="next" title="10. Graph RAG: Knowledge Graphs Meet Retrieval" href="03-graph-rag.html" />
+    <link rel="prev" title="8. What is RAG? (Retrieval-Augmented Generation)" href="01-what-is-rag.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -187,12 +187,13 @@
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Local LLM</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../local-llm/01-deploy-local-llm.html">6. Deploy Open-Source LLMs Locally with Ollama &amp; AnythingLLM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../local-llm/02-mastering-ollama.html">7. 02 — Mastering Ollama: Local Models, APIs, RAG, Tools, and Production Patterns</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">RAG</span></p>
 <ul class="current nav bd-sidenav">
-<li class="toctree-l1"><a class="reference internal" href="01-what-is-rag.html">7. What is RAG? (Retrieval-Augmented Generation)</a></li>
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">8. Implementing RAG with Python</a></li>
-<li class="toctree-l1"><a class="reference internal" href="03-graph-rag.html">9. Graph RAG: Knowledge Graphs Meet Retrieval</a></li>
+<li class="toctree-l1"><a class="reference internal" href="01-what-is-rag.html">8. What is RAG? (Retrieval-Augmented Generation)</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">9. Implementing RAG with Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="03-graph-rag.html">10. Graph RAG: Knowledge Graphs Meet Retrieval</a></li>
 </ul>
 
     </div>
@@ -405,24 +406,24 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#prerequisites">8.1. Prerequisites</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#project-setup">8.2. 1. Project Setup</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#step-1-chunking">8.3. 2. Step 1 — Chunking</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#advanced-recursive-character-splitting-langchain-style">8.3.1. Advanced: Recursive Character Splitting (LangChain Style)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#prerequisites">9.1. Prerequisites</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#project-setup">9.2. 1. Project Setup</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#step-1-chunking">9.3. 2. Step 1 — Chunking</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#advanced-recursive-character-splitting-langchain-style">9.3.1. Advanced: Recursive Character Splitting (LangChain Style)</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#step-2-embedding">8.4. 3. Step 2 — Embedding</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#step-3-storing-in-a-vector-database-chromadb">8.5. 4. Step 3 — Storing in a Vector Database (ChromaDB)</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#step-4-retrieval">8.6. 5. Step 4 — Retrieval</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#step-5-reranking-with-cross-encoder">8.7. 6. Step 5 — Reranking with Cross-Encoder</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#step-6-generation-with-an-llm">8.8. 7. Step 6 — Generation with an LLM</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#setting-up-your-env-file">8.8.1. Setting up your <code class="docutils literal notranslate"><span class="pre">.env</span></code> file</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#step-2-embedding">9.4. 3. Step 2 — Embedding</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#step-3-storing-in-a-vector-database-chromadb">9.5. 4. Step 3 — Storing in a Vector Database (ChromaDB)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#step-4-retrieval">9.6. 5. Step 4 — Retrieval</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#step-5-reranking-with-cross-encoder">9.7. 6. Step 5 — Reranking with Cross-Encoder</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#step-6-generation-with-an-llm">9.8. 7. Step 6 — Generation with an LLM</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#setting-up-your-env-file">9.8.1. Setting up your <code class="docutils literal notranslate"><span class="pre">.env</span></code> file</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#putting-it-all-together">8.9. 8. Putting It All Together</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#complete-project-structure">8.10. 9. Complete Project Structure</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#read-more">8.11. Read More</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#knowledge-quiz">8.12. Knowledge Quiz</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#putting-it-all-together">9.9. 8. Putting It All Together</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#complete-project-structure">9.10. 9. Complete Project Structure</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#read-more">9.11. Read More</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#knowledge-quiz">9.12. Knowledge Quiz</a></li>
 </ul>
             </nav>
         </div>
@@ -435,11 +436,11 @@ document.write(`
                 <article class="bd-article">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="implementing-rag-with-python">
-<h1><span class="section-number">8. </span>Implementing RAG with Python<a class="headerlink" href="#implementing-rag-with-python" title="Link to this heading">#</a></h1>
+<h1><span class="section-number">9. </span>Implementing RAG with Python<a class="headerlink" href="#implementing-rag-with-python" title="Link to this heading">#</a></h1>
 <p>This hands-on tutorial walks you through building a complete RAG system from scratch using Python. You will implement every stage of the pipeline: chunking, embedding, vector storage, retrieval, reranking, and generation.</p>
 <hr class="docutils" />
 <section id="prerequisites">
-<h2><span class="section-number">8.1. </span>Prerequisites<a class="headerlink" href="#prerequisites" title="Link to this heading">#</a></h2>
+<h2><span class="section-number">9.1. </span>Prerequisites<a class="headerlink" href="#prerequisites" title="Link to this heading">#</a></h2>
 <ul class="simple">
 <li><p>Python 3.10+</p></li>
 <li><p>A package manager: <a class="reference external" href="https://docs.astral.sh/uv/">uv</a> (recommended) or pip</p></li>
@@ -449,7 +450,7 @@ document.write(`
 </section>
 <hr class="docutils" />
 <section id="project-setup">
-<h2><span class="section-number">8.2. </span>1. Project Setup<a class="headerlink" href="#project-setup" title="Link to this heading">#</a></h2>
+<h2><span class="section-number">9.2. </span>1. Project Setup<a class="headerlink" href="#project-setup" title="Link to this heading">#</a></h2>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create project directory</span>
 mkdir<span class="w"> </span>rag-demo<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">cd</span><span class="w"> </span>rag-demo
 
@@ -493,7 +494,7 @@ uv<span class="w"> </span>add<span class="w"> </span>sentence-transformers<span 
 </section>
 <hr class="docutils" />
 <section id="step-1-chunking">
-<h2><span class="section-number">8.3. </span>2. Step 1 — Chunking<a class="headerlink" href="#step-1-chunking" title="Link to this heading">#</a></h2>
+<h2><span class="section-number">9.3. </span>2. Step 1 — Chunking<a class="headerlink" href="#step-1-chunking" title="Link to this heading">#</a></h2>
 <p>The first step is splitting your document into smaller chunks. Here we use a simple line-based strategy:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span>
 
@@ -515,7 +516,7 @@ uv<span class="w"> </span>add<span class="w"> </span>sentence-transformers<span 
 </pre></div>
 </div>
 <section id="advanced-recursive-character-splitting-langchain-style">
-<h3><span class="section-number">8.3.1. </span>Advanced: Recursive Character Splitting (LangChain Style)<a class="headerlink" href="#advanced-recursive-character-splitting-langchain-style" title="Link to this heading">#</a></h3>
+<h3><span class="section-number">9.3.1. </span>Advanced: Recursive Character Splitting (LangChain Style)<a class="headerlink" href="#advanced-recursive-character-splitting-langchain-style" title="Link to this heading">#</a></h3>
 <p>For production systems, use recursive splitting with overlap:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">recursive_chunk</span><span class="p">(</span><span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">chunk_size</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">500</span><span class="p">,</span> <span class="n">overlap</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">50</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Split text with overlap to preserve context across boundaries.&quot;&quot;&quot;</span>
@@ -532,7 +533,7 @@ uv<span class="w"> </span>add<span class="w"> </span>sentence-transformers<span 
 </section>
 <hr class="docutils" />
 <section id="step-2-embedding">
-<h2><span class="section-number">8.4. </span>3. Step 2 — Embedding<a class="headerlink" href="#step-2-embedding" title="Link to this heading">#</a></h2>
+<h2><span class="section-number">9.4. </span>3. Step 2 — Embedding<a class="headerlink" href="#step-2-embedding" title="Link to this heading">#</a></h2>
 <p>Convert each chunk into a vector using a Sentence Transformer embedding model:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sentence_transformers</span> <span class="kn">import</span> <span class="n">SentenceTransformer</span>
 
@@ -557,7 +558,7 @@ uv<span class="w"> </span>add<span class="w"> </span>sentence-transformers<span 
 </section>
 <hr class="docutils" />
 <section id="step-3-storing-in-a-vector-database-chromadb">
-<h2><span class="section-number">8.5. </span>4. Step 3 — Storing in a Vector Database (ChromaDB)<a class="headerlink" href="#step-3-storing-in-a-vector-database-chromadb" title="Link to this heading">#</a></h2>
+<h2><span class="section-number">9.5. </span>4. Step 3 — Storing in a Vector Database (ChromaDB)<a class="headerlink" href="#step-3-storing-in-a-vector-database-chromadb" title="Link to this heading">#</a></h2>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">chromadb</span>
 
 <span class="c1"># Create an in-memory vector database</span>
@@ -584,7 +585,7 @@ uv<span class="w"> </span>add<span class="w"> </span>sentence-transformers<span 
 </section>
 <hr class="docutils" />
 <section id="step-4-retrieval">
-<h2><span class="section-number">8.6. </span>5. Step 4 — Retrieval<a class="headerlink" href="#step-4-retrieval" title="Link to this heading">#</a></h2>
+<h2><span class="section-number">9.6. </span>5. Step 4 — Retrieval<a class="headerlink" href="#step-4-retrieval" title="Link to this heading">#</a></h2>
 <p>Search the vector database for chunks most similar to the user’s question:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">retrieve</span><span class="p">(</span><span class="n">query</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">top_k</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">5</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Find the top_k most relevant chunks for a given query.&quot;&quot;&quot;</span>
@@ -607,7 +608,7 @@ uv<span class="w"> </span>add<span class="w"> </span>sentence-transformers<span 
 </section>
 <hr class="docutils" />
 <section id="step-5-reranking-with-cross-encoder">
-<h2><span class="section-number">8.7. </span>6. Step 5 — Reranking with Cross-Encoder<a class="headerlink" href="#step-5-reranking-with-cross-encoder" title="Link to this heading">#</a></h2>
+<h2><span class="section-number">9.7. </span>6. Step 5 — Reranking with Cross-Encoder<a class="headerlink" href="#step-5-reranking-with-cross-encoder" title="Link to this heading">#</a></h2>
 <p>Refine the retrieved results using a more accurate Cross-Encoder model:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">sentence_transformers</span> <span class="kn">import</span> <span class="n">CrossEncoder</span>
 
@@ -637,7 +638,7 @@ uv<span class="w"> </span>add<span class="w"> </span>sentence-transformers<span 
 </section>
 <hr class="docutils" />
 <section id="step-6-generation-with-an-llm">
-<h2><span class="section-number">8.8. </span>7. Step 6 — Generation with an LLM<a class="headerlink" href="#step-6-generation-with-an-llm" title="Link to this heading">#</a></h2>
+<h2><span class="section-number">9.8. </span>7. Step 6 — Generation with an LLM<a class="headerlink" href="#step-6-generation-with-an-llm" title="Link to this heading">#</a></h2>
 <p>Finally, send the reranked chunks and the question to a large language model:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">from</span> <span class="nn">dotenv</span> <span class="kn">import</span> <span class="n">load_dotenv</span>
@@ -673,7 +674,7 @@ uv<span class="w"> </span>add<span class="w"> </span>sentence-transformers<span 
 </pre></div>
 </div>
 <section id="setting-up-your-env-file">
-<h3><span class="section-number">8.8.1. </span>Setting up your <code class="docutils literal notranslate"><span class="pre">.env</span></code> file<a class="headerlink" href="#setting-up-your-env-file" title="Link to this heading">#</a></h3>
+<h3><span class="section-number">9.8.1. </span>Setting up your <code class="docutils literal notranslate"><span class="pre">.env</span></code> file<a class="headerlink" href="#setting-up-your-env-file" title="Link to this heading">#</a></h3>
 <p>Create a <code class="docutils literal notranslate"><span class="pre">.env</span></code> file in your project root:</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>GEMINI_API_KEY=your_api_key_here
 </pre></div>
@@ -682,7 +683,7 @@ uv<span class="w"> </span>add<span class="w"> </span>sentence-transformers<span 
 </section>
 <hr class="docutils" />
 <section id="putting-it-all-together">
-<h2><span class="section-number">8.9. </span>8. Putting It All Together<a class="headerlink" href="#putting-it-all-together" title="Link to this heading">#</a></h2>
+<h2><span class="section-number">9.9. </span>8. Putting It All Together<a class="headerlink" href="#putting-it-all-together" title="Link to this heading">#</a></h2>
 <p>Here is the complete pipeline in one clean function:</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">ask_rag</span><span class="p">(</span><span class="n">question</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">doc_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;my_document.md&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;End-to-end RAG pipeline: chunk → embed → store → retrieve → rerank → generate.&quot;&quot;&quot;</span>
@@ -707,7 +708,7 @@ uv<span class="w"> </span>add<span class="w"> </span>sentence-transformers<span 
 </section>
 <hr class="docutils" />
 <section id="complete-project-structure">
-<h2><span class="section-number">8.10. </span>9. Complete Project Structure<a class="headerlink" href="#complete-project-structure" title="Link to this heading">#</a></h2>
+<h2><span class="section-number">9.10. </span>9. Complete Project Structure<a class="headerlink" href="#complete-project-structure" title="Link to this heading">#</a></h2>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>rag-demo/
 ├── .env                    # API keys (add to .gitignore!)
 ├── pyproject.toml          # Dependencies managed by uv
@@ -719,7 +720,7 @@ uv<span class="w"> </span>add<span class="w"> </span>sentence-transformers<span 
 </section>
 <hr class="docutils" />
 <section id="read-more">
-<h2><span class="section-number">8.11. </span>Read More<a class="headerlink" href="#read-more" title="Link to this heading">#</a></h2>
+<h2><span class="section-number">9.11. </span>Read More<a class="headerlink" href="#read-more" title="Link to this heading">#</a></h2>
 <ul class="simple">
 <li><p><a class="reference external" href="https://www.sbert.net/">Sentence Transformers Documentation</a> — Embedding and cross-encoder model library.</p></li>
 <li><p><a class="reference external" href="https://docs.trychroma.com/getting-started">ChromaDB Getting Started</a> — Official ChromaDB quickstart guide.</p></li>
@@ -732,7 +733,7 @@ uv<span class="w"> </span>add<span class="w"> </span>sentence-transformers<span 
 </section>
 <hr class="docutils" />
 <section id="knowledge-quiz">
-<h2><span class="section-number">8.12. </span>Knowledge Quiz<a class="headerlink" href="#knowledge-quiz" title="Link to this heading">#</a></h2>
+<h2><span class="section-number">9.12. </span>Knowledge Quiz<a class="headerlink" href="#knowledge-quiz" title="Link to this heading">#</a></h2>
 <p><strong>Q1: Why do we use <code class="docutils literal notranslate"><span class="pre">uv</span> <span class="pre">run</span> <span class="pre">jupyter</span> <span class="pre">notebook</span></code> instead of just <code class="docutils literal notranslate"><span class="pre">jupyter</span> <span class="pre">notebook</span></code>?</strong></p>
 <details>
 <summary>Answer</summary>
@@ -787,7 +788,7 @@ The retrieval would fail completely. Different embedding models map text into in
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title"><span class="section-number">7. </span>What is RAG? (Retrieval-Augmented Generation)</p>
+        <p class="prev-next-title"><span class="section-number">8. </span>What is RAG? (Retrieval-Augmented Generation)</p>
       </div>
     </a>
     <a class="right-next"
@@ -795,7 +796,7 @@ The retrieval would fail completely. Different embedding models map text into in
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title"><span class="section-number">9. </span>Graph RAG: Knowledge Graphs Meet Retrieval</p>
+        <p class="prev-next-title"><span class="section-number">10. </span>Graph RAG: Knowledge Graphs Meet Retrieval</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -815,24 +816,24 @@ The retrieval would fail completely. Different embedding models map text into in
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#prerequisites">8.1. Prerequisites</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#project-setup">8.2. 1. Project Setup</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#step-1-chunking">8.3. 2. Step 1 — Chunking</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#advanced-recursive-character-splitting-langchain-style">8.3.1. Advanced: Recursive Character Splitting (LangChain Style)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#prerequisites">9.1. Prerequisites</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#project-setup">9.2. 1. Project Setup</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#step-1-chunking">9.3. 2. Step 1 — Chunking</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#advanced-recursive-character-splitting-langchain-style">9.3.1. Advanced: Recursive Character Splitting (LangChain Style)</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#step-2-embedding">8.4. 3. Step 2 — Embedding</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#step-3-storing-in-a-vector-database-chromadb">8.5. 4. Step 3 — Storing in a Vector Database (ChromaDB)</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#step-4-retrieval">8.6. 5. Step 4 — Retrieval</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#step-5-reranking-with-cross-encoder">8.7. 6. Step 5 — Reranking with Cross-Encoder</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#step-6-generation-with-an-llm">8.8. 7. Step 6 — Generation with an LLM</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#setting-up-your-env-file">8.8.1. Setting up your <code class="docutils literal notranslate"><span class="pre">.env</span></code> file</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#step-2-embedding">9.4. 3. Step 2 — Embedding</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#step-3-storing-in-a-vector-database-chromadb">9.5. 4. Step 3 — Storing in a Vector Database (ChromaDB)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#step-4-retrieval">9.6. 5. Step 4 — Retrieval</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#step-5-reranking-with-cross-encoder">9.7. 6. Step 5 — Reranking with Cross-Encoder</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#step-6-generation-with-an-llm">9.8. 7. Step 6 — Generation with an LLM</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#setting-up-your-env-file">9.8.1. Setting up your <code class="docutils literal notranslate"><span class="pre">.env</span></code> file</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#putting-it-all-together">8.9. 8. Putting It All Together</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#complete-project-structure">8.10. 9. Complete Project Structure</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#read-more">8.11. Read More</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#knowledge-quiz">8.12. Knowledge Quiz</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#putting-it-all-together">9.9. 8. Putting It All Together</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#complete-project-structure">9.10. 9. Complete Project Structure</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#read-more">9.11. Read More</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#knowledge-quiz">9.12. Knowledge Quiz</a></li>
 </ul>
   </nav></div>
 

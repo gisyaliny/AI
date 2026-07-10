@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>7. What is RAG? (Retrieval-Augmented Generation) &#8212; AI Tools Learning Handbook</title>
+    <title>8. What is RAG? (Retrieval-Augmented Generation) &#8212; AI Tools Learning Handbook</title>
   
   
   
@@ -62,8 +62,8 @@
     <link rel="icon" href="../../_static/fav.ico"/>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="8. Implementing RAG with Python" href="02-implementing-rag.html" />
-    <link rel="prev" title="6. Deploy Open-Source LLMs Locally with Ollama &amp; AnythingLLM" href="../local-llm/01-deploy-local-llm.html" />
+    <link rel="next" title="9. Implementing RAG with Python" href="02-implementing-rag.html" />
+    <link rel="prev" title="7. 02 — Mastering Ollama: Local Models, APIs, RAG, Tools, and Production Patterns" href="../local-llm/02-mastering-ollama.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
   </head>
@@ -187,12 +187,13 @@
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Local LLM</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../local-llm/01-deploy-local-llm.html">6. Deploy Open-Source LLMs Locally with Ollama &amp; AnythingLLM</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../local-llm/02-mastering-ollama.html">7. 02 — Mastering Ollama: Local Models, APIs, RAG, Tools, and Production Patterns</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">RAG</span></p>
 <ul class="current nav bd-sidenav">
-<li class="toctree-l1 current active"><a class="current reference internal" href="#">7. What is RAG? (Retrieval-Augmented Generation)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="02-implementing-rag.html">8. Implementing RAG with Python</a></li>
-<li class="toctree-l1"><a class="reference internal" href="03-graph-rag.html">9. Graph RAG: Knowledge Graphs Meet Retrieval</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">8. What is RAG? (Retrieval-Augmented Generation)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="02-implementing-rag.html">9. Implementing RAG with Python</a></li>
+<li class="toctree-l1"><a class="reference internal" href="03-graph-rag.html">10. Graph RAG: Knowledge Graphs Meet Retrieval</a></li>
 </ul>
 
     </div>
@@ -405,34 +406,34 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-problem-rag-solves">7.1. 1. The Problem RAG Solves</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-two-phases-of-rag">7.2. 2. The Two Phases of RAG</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#chunking-splitting-documents">7.3. 3. Chunking: Splitting Documents</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#common-chunking-strategies">7.3.1. Common Chunking Strategies</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-overlap-trick">7.3.2. The Overlap Trick</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-problem-rag-solves">8.1. 1. The Problem RAG Solves</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-two-phases-of-rag">8.2. 2. The Two Phases of RAG</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#chunking-splitting-documents">8.3. 3. Chunking: Splitting Documents</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#common-chunking-strategies">8.3.1. Common Chunking Strategies</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-overlap-trick">8.3.2. The Overlap Trick</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#embedding-turning-text-into-vectors">7.4. 4. Embedding: Turning Text into Vectors</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-a-vector">7.4.1. What is a Vector?</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-embedding">7.4.2. What is Embedding?</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#popular-embedding-models">7.4.3. Popular Embedding Models</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#embedding-turning-text-into-vectors">8.4. 4. Embedding: Turning Text into Vectors</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-a-vector">8.4.1. What is a Vector?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-embedding">8.4.2. What is Embedding?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#popular-embedding-models">8.4.3. Popular Embedding Models</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#vector-databases">7.5. 5. Vector Databases</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#how-it-works">7.5.1. How It Works</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#popular-vector-databases">7.5.2. Popular Vector Databases</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#vector-databases">8.5. 5. Vector Databases</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#how-it-works">8.5.1. How It Works</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#popular-vector-databases">8.5.2. Popular Vector Databases</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#vector-similarity-how-closeness-is-measured">7.6. 6. Vector Similarity: How “Closeness” is Measured</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#retrieval-finding-relevant-chunks">7.7. 7. Retrieval: Finding Relevant Chunks</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reranking-precision-filtering">7.8. 8. Reranking: Precision Filtering</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#how-is-reranking-different-from-retrieval">7.8.1. How is Reranking Different from Retrieval?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#vector-similarity-how-closeness-is-measured">8.6. 6. Vector Similarity: How “Closeness” is Measured</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#retrieval-finding-relevant-chunks">8.7. 7. Retrieval: Finding Relevant Chunks</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reranking-precision-filtering">8.8. 8. Reranking: Precision Filtering</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#how-is-reranking-different-from-retrieval">8.8.1. How is Reranking Different from Retrieval?</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#generation-producing-the-final-answer">7.9. 9. Generation: Producing the Final Answer</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#known-limitations-of-rag">7.10. 10. Known Limitations of RAG</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#read-more">7.11. Read More</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#knowledge-quiz">7.12. Knowledge Quiz</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#generation-producing-the-final-answer">8.9. 9. Generation: Producing the Final Answer</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#known-limitations-of-rag">8.10. 10. Known Limitations of RAG</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#read-more">8.11. Read More</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#knowledge-quiz">8.12. Knowledge Quiz</a></li>
 </ul>
             </nav>
         </div>
@@ -445,11 +446,11 @@ document.write(`
                 <article class="bd-article">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="what-is-rag-retrieval-augmented-generation">
-<h1><span class="section-number">7. </span>What is RAG? (Retrieval-Augmented Generation)<a class="headerlink" href="#what-is-rag-retrieval-augmented-generation" title="Link to this heading">#</a></h1>
+<h1><span class="section-number">8. </span>What is RAG? (Retrieval-Augmented Generation)<a class="headerlink" href="#what-is-rag-retrieval-augmented-generation" title="Link to this heading">#</a></h1>
 <p>This chapter explains the <strong>core concepts</strong> behind Retrieval-Augmented Generation from the ground up. By the end, you will understand why RAG exists, how every component works, and when to use it.</p>
 <hr class="docutils" />
 <section id="the-problem-rag-solves">
-<h2><span class="section-number">7.1. </span>1. The Problem RAG Solves<a class="headerlink" href="#the-problem-rag-solves" title="Link to this heading">#</a></h2>
+<h2><span class="section-number">8.1. </span>1. The Problem RAG Solves<a class="headerlink" href="#the-problem-rag-solves" title="Link to this heading">#</a></h2>
 <p>Imagine you are building a customer support chatbot for your company. Your product manual is 500 pages long. You have a powerful LLM like GPT-4o or DeepSeek, but:</p>
 <div class="pst-scrollable-table-container"><table class="table">
 <thead>
@@ -477,7 +478,7 @@ document.write(`
 </section>
 <hr class="docutils" />
 <section id="the-two-phases-of-rag">
-<h2><span class="section-number">7.2. </span>2. The Two Phases of RAG<a class="headerlink" href="#the-two-phases-of-rag" title="Link to this heading">#</a></h2>
+<h2><span class="section-number">8.2. </span>2. The Two Phases of RAG<a class="headerlink" href="#the-two-phases-of-rag" title="Link to this heading">#</a></h2>
 <p>The entire RAG pipeline splits cleanly into two phases:</p>
 <p><strong>Phase A — Data Preparation (Before the user asks)</strong></p>
 <ol class="arabic simple">
@@ -497,10 +498,10 @@ document.write(`
 </section>
 <hr class="docutils" />
 <section id="chunking-splitting-documents">
-<h2><span class="section-number">7.3. </span>3. Chunking: Splitting Documents<a class="headerlink" href="#chunking-splitting-documents" title="Link to this heading">#</a></h2>
+<h2><span class="section-number">8.3. </span>3. Chunking: Splitting Documents<a class="headerlink" href="#chunking-splitting-documents" title="Link to this heading">#</a></h2>
 <p>Chunking is the process of breaking a large document into smaller, manageable pieces. The quality of your chunks directly impacts the quality of your answers.</p>
 <section id="common-chunking-strategies">
-<h3><span class="section-number">7.3.1. </span>Common Chunking Strategies<a class="headerlink" href="#common-chunking-strategies" title="Link to this heading">#</a></h3>
+<h3><span class="section-number">8.3.1. </span>Common Chunking Strategies<a class="headerlink" href="#common-chunking-strategies" title="Link to this heading">#</a></h3>
 <div class="pst-scrollable-table-container"><table class="table">
 <thead>
 <tr class="row-odd"><th class="head text-left"><p>Strategy</p></th>
@@ -540,7 +541,7 @@ document.write(`
 </div>
 </section>
 <section id="the-overlap-trick">
-<h3><span class="section-number">7.3.2. </span>The Overlap Trick<a class="headerlink" href="#the-overlap-trick" title="Link to this heading">#</a></h3>
+<h3><span class="section-number">8.3.2. </span>The Overlap Trick<a class="headerlink" href="#the-overlap-trick" title="Link to this heading">#</a></h3>
 <p>When chunks are split at a boundary, context can be lost. For example:</p>
 <blockquote>
 <div><p><em>“<strong>Dr. Wang</strong> is a leading researcher in urban computing. <strong>He</strong> developed a novel algorithm…”</em></p>
@@ -551,9 +552,9 @@ document.write(`
 </section>
 <hr class="docutils" />
 <section id="embedding-turning-text-into-vectors">
-<h2><span class="section-number">7.4. </span>4. Embedding: Turning Text into Vectors<a class="headerlink" href="#embedding-turning-text-into-vectors" title="Link to this heading">#</a></h2>
+<h2><span class="section-number">8.4. </span>4. Embedding: Turning Text into Vectors<a class="headerlink" href="#embedding-turning-text-into-vectors" title="Link to this heading">#</a></h2>
 <section id="what-is-a-vector">
-<h3><span class="section-number">7.4.1. </span>What is a Vector?<a class="headerlink" href="#what-is-a-vector" title="Link to this heading">#</a></h3>
+<h3><span class="section-number">8.4.1. </span>What is a Vector?<a class="headerlink" href="#what-is-a-vector" title="Link to this heading">#</a></h3>
 <p>A vector is simply an array of numbers. In the context of RAG:</p>
 <ul class="simple">
 <li><p>A <strong>1-dimensional</strong> vector: <code class="docutils literal notranslate"><span class="pre">[3.0]</span></code></p></li>
@@ -563,7 +564,7 @@ document.write(`
 <p>Real embedding models produce vectors with <strong>hundreds to thousands of dimensions</strong> (e.g., 768 or 1536). More dimensions = richer semantic representation.</p>
 </section>
 <section id="what-is-embedding">
-<h3><span class="section-number">7.4.2. </span>What is Embedding?<a class="headerlink" href="#what-is-embedding" title="Link to this heading">#</a></h3>
+<h3><span class="section-number">8.4.2. </span>What is Embedding?<a class="headerlink" href="#what-is-embedding" title="Link to this heading">#</a></h3>
 <p>Embedding is the process of converting text into a fixed-length vector using a specialized <strong>Embedding Model</strong>. The key property is:</p>
 <blockquote>
 <div><p><strong>Semantically similar text produces vectors that are close together in vector space.</strong></p>
@@ -576,7 +577,7 @@ document.write(`
 </ul>
 </section>
 <section id="popular-embedding-models">
-<h3><span class="section-number">7.4.3. </span>Popular Embedding Models<a class="headerlink" href="#popular-embedding-models" title="Link to this heading">#</a></h3>
+<h3><span class="section-number">8.4.3. </span>Popular Embedding Models<a class="headerlink" href="#popular-embedding-models" title="Link to this heading">#</a></h3>
 <div class="pst-scrollable-table-container"><table class="table">
 <thead>
 <tr class="row-odd"><th class="head text-left"><p>Model</p></th>
@@ -615,10 +616,10 @@ document.write(`
 </section>
 <hr class="docutils" />
 <section id="vector-databases">
-<h2><span class="section-number">7.5. </span>5. Vector Databases<a class="headerlink" href="#vector-databases" title="Link to this heading">#</a></h2>
+<h2><span class="section-number">8.5. </span>5. Vector Databases<a class="headerlink" href="#vector-databases" title="Link to this heading">#</a></h2>
 <p>A vector database is a specialized storage system optimized for storing, indexing, and querying vectors.</p>
 <section id="how-it-works">
-<h3><span class="section-number">7.5.1. </span>How It Works<a class="headerlink" href="#how-it-works" title="Link to this heading">#</a></h3>
+<h3><span class="section-number">8.5.1. </span>How It Works<a class="headerlink" href="#how-it-works" title="Link to this heading">#</a></h3>
 <p>Each record in a vector database typically stores:</p>
 <ol class="arabic simple">
 <li><p>An <strong>ID</strong> (unique identifier)</p></li>
@@ -628,7 +629,7 @@ document.write(`
 <p>When you query with a new vector, the database calculates the <strong>distance</strong> between your query vector and every stored vector, then returns the closest matches.</p>
 </section>
 <section id="popular-vector-databases">
-<h3><span class="section-number">7.5.2. </span>Popular Vector Databases<a class="headerlink" href="#popular-vector-databases" title="Link to this heading">#</a></h3>
+<h3><span class="section-number">8.5.2. </span>Popular Vector Databases<a class="headerlink" href="#popular-vector-databases" title="Link to this heading">#</a></h3>
 <div class="pst-scrollable-table-container"><table class="table">
 <thead>
 <tr class="row-odd"><th class="head text-left"><p>Database</p></th>
@@ -672,7 +673,7 @@ document.write(`
 </section>
 <hr class="docutils" />
 <section id="vector-similarity-how-closeness-is-measured">
-<h2><span class="section-number">7.6. </span>6. Vector Similarity: How “Closeness” is Measured<a class="headerlink" href="#vector-similarity-how-closeness-is-measured" title="Link to this heading">#</a></h2>
+<h2><span class="section-number">8.6. </span>6. Vector Similarity: How “Closeness” is Measured<a class="headerlink" href="#vector-similarity-how-closeness-is-measured" title="Link to this heading">#</a></h2>
 <p>When the vector database searches for the chunks most similar to the user’s question, it uses a <strong>similarity metric</strong>:</p>
 <div class="pst-scrollable-table-container"><table class="table">
 <thead>
@@ -701,7 +702,7 @@ document.write(`
 </section>
 <hr class="docutils" />
 <section id="retrieval-finding-relevant-chunks">
-<h2><span class="section-number">7.7. </span>7. Retrieval: Finding Relevant Chunks<a class="headerlink" href="#retrieval-finding-relevant-chunks" title="Link to this heading">#</a></h2>
+<h2><span class="section-number">8.7. </span>7. Retrieval: Finding Relevant Chunks<a class="headerlink" href="#retrieval-finding-relevant-chunks" title="Link to this heading">#</a></h2>
 <p>When a user asks a question:</p>
 <ol class="arabic simple">
 <li><p>The question is embedded into a vector using the <strong>same embedding model</strong>.</p></li>
@@ -712,10 +713,10 @@ document.write(`
 </section>
 <hr class="docutils" />
 <section id="reranking-precision-filtering">
-<h2><span class="section-number">7.8. </span>8. Reranking: Precision Filtering<a class="headerlink" href="#reranking-precision-filtering" title="Link to this heading">#</a></h2>
+<h2><span class="section-number">8.8. </span>8. Reranking: Precision Filtering<a class="headerlink" href="#reranking-precision-filtering" title="Link to this heading">#</a></h2>
 <p>The retrieval step returns 10 chunks, but some may be false positives. <strong>Reranking</strong> uses a more powerful (but slower) model called a <strong>Cross-Encoder</strong> to re-score each chunk.</p>
 <section id="how-is-reranking-different-from-retrieval">
-<h3><span class="section-number">7.8.1. </span>How is Reranking Different from Retrieval?<a class="headerlink" href="#how-is-reranking-different-from-retrieval" title="Link to this heading">#</a></h3>
+<h3><span class="section-number">8.8.1. </span>How is Reranking Different from Retrieval?<a class="headerlink" href="#how-is-reranking-different-from-retrieval" title="Link to this heading">#</a></h3>
 <div class="pst-scrollable-table-container"><table class="table">
 <thead>
 <tr class="row-odd"><th class="head text-left"><p>Aspect</p></th>
@@ -752,7 +753,7 @@ document.write(`
 </section>
 <hr class="docutils" />
 <section id="generation-producing-the-final-answer">
-<h2><span class="section-number">7.9. </span>9. Generation: Producing the Final Answer<a class="headerlink" href="#generation-producing-the-final-answer" title="Link to this heading">#</a></h2>
+<h2><span class="section-number">8.9. </span>9. Generation: Producing the Final Answer<a class="headerlink" href="#generation-producing-the-final-answer" title="Link to this heading">#</a></h2>
 <p>Finally, the top 3 reranked chunks and the user’s question are combined into a prompt and sent to a large language model (e.g., GPT-4o, Gemini, DeepSeek):</p>
 <div class="highlight-text notranslate"><div class="highlight"><pre><span></span>Based on the following context, answer the user&#39;s question.
 If the answer is not in the context, say &quot;I don&#39;t know.&quot;
@@ -769,7 +770,7 @@ Question: What methodology did the authors use?
 </section>
 <hr class="docutils" />
 <section id="known-limitations-of-rag">
-<h2><span class="section-number">7.10. </span>10. Known Limitations of RAG<a class="headerlink" href="#known-limitations-of-rag" title="Link to this heading">#</a></h2>
+<h2><span class="section-number">8.10. </span>10. Known Limitations of RAG<a class="headerlink" href="#known-limitations-of-rag" title="Link to this heading">#</a></h2>
 <p>RAG is powerful, but it is not perfect:</p>
 <div class="pst-scrollable-table-container"><table class="table">
 <thead>
@@ -799,7 +800,7 @@ Question: What methodology did the authors use?
 </section>
 <hr class="docutils" />
 <section id="read-more">
-<h2><span class="section-number">7.11. </span>Read More<a class="headerlink" href="#read-more" title="Link to this heading">#</a></h2>
+<h2><span class="section-number">8.11. </span>Read More<a class="headerlink" href="#read-more" title="Link to this heading">#</a></h2>
 <ul class="simple">
 <li><p><a class="reference external" href="https://arxiv.org/abs/2005.11401">Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks (Original RAG Paper)</a> — Lewis et al., 2020. The foundational paper introducing RAG.</p></li>
 <li><p><a class="reference external" href="https://huggingface.co/spaces/mteb/leaderboard">MTEB Embedding Leaderboard</a> — Compare embedding model performance.</p></li>
@@ -812,7 +813,7 @@ Question: What methodology did the authors use?
 </section>
 <hr class="docutils" />
 <section id="knowledge-quiz">
-<h2><span class="section-number">7.12. </span>Knowledge Quiz<a class="headerlink" href="#knowledge-quiz" title="Link to this heading">#</a></h2>
+<h2><span class="section-number">8.12. </span>Knowledge Quiz<a class="headerlink" href="#knowledge-quiz" title="Link to this heading">#</a></h2>
 <p><strong>Q1: Why can’t you simply paste an entire 500-page document into an LLM’s prompt instead of using RAG?</strong></p>
 <details>
 <summary>Answer</summary>
@@ -863,12 +864,12 @@ Retrieval (vector similarity) is fast but imprecise — it can quickly narrow th
                   
 <div class="prev-next-area">
     <a class="left-prev"
-       href="../local-llm/01-deploy-local-llm.html"
+       href="../local-llm/02-mastering-ollama.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title"><span class="section-number">6. </span>Deploy Open-Source LLMs Locally with Ollama &amp; AnythingLLM</p>
+        <p class="prev-next-title"><span class="section-number">7. </span>02 — Mastering Ollama: Local Models, APIs, RAG, Tools, and Production Patterns</p>
       </div>
     </a>
     <a class="right-next"
@@ -876,7 +877,7 @@ Retrieval (vector similarity) is fast but imprecise — it can quickly narrow th
        title="next page">
       <div class="prev-next-info">
         <p class="prev-next-subtitle">next</p>
-        <p class="prev-next-title"><span class="section-number">8. </span>Implementing RAG with Python</p>
+        <p class="prev-next-title"><span class="section-number">9. </span>Implementing RAG with Python</p>
       </div>
       <i class="fa-solid fa-angle-right"></i>
     </a>
@@ -896,34 +897,34 @@ Retrieval (vector similarity) is fast but imprecise — it can quickly narrow th
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-problem-rag-solves">7.1. 1. The Problem RAG Solves</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-two-phases-of-rag">7.2. 2. The Two Phases of RAG</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#chunking-splitting-documents">7.3. 3. Chunking: Splitting Documents</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#common-chunking-strategies">7.3.1. Common Chunking Strategies</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-overlap-trick">7.3.2. The Overlap Trick</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-problem-rag-solves">8.1. 1. The Problem RAG Solves</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-two-phases-of-rag">8.2. 2. The Two Phases of RAG</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#chunking-splitting-documents">8.3. 3. Chunking: Splitting Documents</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#common-chunking-strategies">8.3.1. Common Chunking Strategies</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-overlap-trick">8.3.2. The Overlap Trick</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#embedding-turning-text-into-vectors">7.4. 4. Embedding: Turning Text into Vectors</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-a-vector">7.4.1. What is a Vector?</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-embedding">7.4.2. What is Embedding?</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#popular-embedding-models">7.4.3. Popular Embedding Models</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#embedding-turning-text-into-vectors">8.4. 4. Embedding: Turning Text into Vectors</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-a-vector">8.4.1. What is a Vector?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-embedding">8.4.2. What is Embedding?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#popular-embedding-models">8.4.3. Popular Embedding Models</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#vector-databases">7.5. 5. Vector Databases</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#how-it-works">7.5.1. How It Works</a></li>
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#popular-vector-databases">7.5.2. Popular Vector Databases</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#vector-databases">8.5. 5. Vector Databases</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#how-it-works">8.5.1. How It Works</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#popular-vector-databases">8.5.2. Popular Vector Databases</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#vector-similarity-how-closeness-is-measured">7.6. 6. Vector Similarity: How “Closeness” is Measured</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#retrieval-finding-relevant-chunks">7.7. 7. Retrieval: Finding Relevant Chunks</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reranking-precision-filtering">7.8. 8. Reranking: Precision Filtering</a><ul class="nav section-nav flex-column">
-<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#how-is-reranking-different-from-retrieval">7.8.1. How is Reranking Different from Retrieval?</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#vector-similarity-how-closeness-is-measured">8.6. 6. Vector Similarity: How “Closeness” is Measured</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#retrieval-finding-relevant-chunks">8.7. 7. Retrieval: Finding Relevant Chunks</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reranking-precision-filtering">8.8. 8. Reranking: Precision Filtering</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#how-is-reranking-different-from-retrieval">8.8.1. How is Reranking Different from Retrieval?</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#generation-producing-the-final-answer">7.9. 9. Generation: Producing the Final Answer</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#known-limitations-of-rag">7.10. 10. Known Limitations of RAG</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#read-more">7.11. Read More</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#knowledge-quiz">7.12. Knowledge Quiz</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#generation-producing-the-final-answer">8.9. 9. Generation: Producing the Final Answer</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#known-limitations-of-rag">8.10. 10. Known Limitations of RAG</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#read-more">8.11. Read More</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#knowledge-quiz">8.12. Knowledge Quiz</a></li>
 </ul>
   </nav></div>
 
