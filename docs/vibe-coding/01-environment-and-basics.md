@@ -43,6 +43,14 @@ When Claude Code wants to perform file operations (like creating a file), you fa
 
     ![calude code modes](./img/001.png)
 ---
+## Read More
+
+- [Claude Code Official Documentation](https://docs.anthropic.com/en/docs/claude-code/overview) — Full feature reference and setup guide.
+- [Claude Code CLI Reference](https://docs.anthropic.com/en/docs/claude-code/cli-reference) — Complete list of commands and flags.
+- [Getting Started with Claude Code (Anthropic Blog)](https://www.anthropic.com/blog/claude-code) — Official introduction and use cases.
+- [Node.js Download](https://nodejs.org/) — Required runtime for Claude Code installation.
+
+---
 
 ## Knowledge Quiz
 

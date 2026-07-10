@@ -97,6 +97,15 @@ Imagine you want Claude to get really good at Frontend web development and perfe
 3. Next time you prompt *"Build me a dashboard"*, Claude activates the entire integrated toolchain—querying Figma, formatting on save, and adhering to strict UI guidelines.
 
 ---
+## Read More
+
+- [Claude Code Agent Skills Guide](https://docs.anthropic.com/en/docs/claude-code/agent-skills) — How to create and manage Agent Skills.
+- [Claude Code Hooks Reference](https://docs.anthropic.com/en/docs/claude-code/hooks) — Automate actions with pre/post tool-use hooks.
+- [Claude Code Sub-Agents](https://docs.anthropic.com/en/docs/claude-code/sub-agents) — Spawning isolated AI workers for heavy tasks.
+- [Prettier Documentation](https://prettier.io/docs/en/) — The code formatter used in the Hooks example.
+- [ESLint Getting Started](https://eslint.org/docs/latest/use/getting-started) — JavaScript/TypeScript linting tool often paired with Hooks.
+
+---
 
 ## Knowledge Quiz
 

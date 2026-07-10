@@ -186,10 +186,15 @@ ollama run research-assistant
 
 ### 3.1 How RAG Works (For Beginners)
 
-```
-Your Documents  →  Split into Chunks  →  Convert to Embeddings  →  Store in Vector DB
-                                                                          ↓
-    Your Question  →  Find Relevant Chunks  →  Feed to LLM  →  AI Answer (with sources!)
+```mermaid
+graph LR
+    A[Your Documents] --> B[Split into Chunks]
+    B --> C[Convert to Embeddings]
+    C --> D[Store in Vector DB]
+    E[Your Question] --> F[Find Relevant Chunks]
+    D --> F
+    F --> G[Feed to LLM]
+    G --> H["AI Answer (with sources!)"]
 ```
 
 Instead of the LLM guessing from its training data, RAG forces it to **look up your actual documents first**, then generate an answer based on what it found. This dramatically reduces hallucination.
@@ -397,26 +402,17 @@ If you use this model, please cite:
 
 Here is a complete workflow combining everything we've learned:
 
-```
-Step 1: Install Ollama
-         ↓
-Step 2: Pull a base model (e.g., llama3.1:8b)
-         ↓
-Step 3: Create a custom Modelfile with your system prompt
-         ↓
-Step 4: Build your custom model with `ollama create`
-         ↓
-Step 5: Install AnythingLLM
-         ↓
-Step 6: Connect AnythingLLM → Ollama (localhost:11434)
-         ↓
-Step 7: Upload your research papers into a Workspace
-         ↓
-Step 8: Chat with your documents using your custom model!
-         ↓
-(Optional) Step 9: Fine-tune the model on your domain data
-         ↓
-(Optional) Step 10: Publish to Hugging Face for the community
+```mermaid
+graph TD
+    S1["1. Install Ollama"] --> S2["2. Pull a base model (e.g., llama3.1:8b)"]
+    S2 --> S3["3. Create a custom Modelfile"]
+    S3 --> S4["4. Build custom model with ollama create"]
+    S4 --> S5["5. Install AnythingLLM"]
+    S5 --> S6["6. Connect AnythingLLM to Ollama"]
+    S6 --> S7["7. Upload research papers into a Workspace"]
+    S7 --> S8["8. Chat with your documents!"]
+    S8 --> S9["9. (Optional) Fine-tune on domain data"]
+    S9 --> S10["10. (Optional) Publish to Hugging Face"]
 ```
 
 ---
@@ -434,7 +430,7 @@ Step 8: Chat with your documents using your custom model!
 
 ---
 
-## 7. Curated Resources & Further Reading
+## Read More
 
 ### Official Documentation
 - [Ollama Documentation](https://github.com/ollama/ollama/blob/main/README.md) — Official README with full command reference and API docs.

@@ -29,10 +29,13 @@ To ensure tutorials can be visually enriched by the user later, you must provide
   *Bad:* A picture of a terminal executing a command.
   *Good:* A hyper-realistic, dramatic shot of a glowing red futuristic terminal screen displaying a massive hazard warning sign with the text "Bypass Permissions Mode Active" in bold, dripping digital font. The console interface is surrounded by complex holographic code streams. 8k resolution, cinematic composition.
 
-## 4. Mermaid Diagrams
-Where appropriate (such as explaining workflows, architectures, or sequences of events), actively insert `mermaid` chart blocks to visually clarify logic. 
-- Use Flowcharts (`graph TD` or `graph LR`) for choices and architectures.
-- Use Sequence Diagrams (`sequenceDiagram`) for order of execution.
+## 4. Mermaid Diagrams (Mandatory for ALL Visual Representations)
+**ALL workflows, flowcharts, pipelines, entity diagrams, hierarchies, and architecture diagrams MUST be rendered as Mermaid diagrams.** Never use plain-text or ASCII-art representations.
+- Use Flowcharts (`graph TD` or `graph LR`) for pipelines, architectures, and step-by-step processes.
+- Use Sequence Diagrams (`sequenceDiagram`) for order of execution and interactions.
+- Use Subgraphs to group related nodes (e.g., "Data Preparation", "Answering").
+- **NEVER use ASCII-art box diagrams** (e.g., `┌───┐`, `│`, `└───┘`, `──`, Unicode arrows `→`, `↓`), plain-text flowcharts, or indented text trees to represent visual structures. They do not render properly in Jupyter Book and are not accessible.
+- The only exception is **directory/file trees** (e.g., `├── file.py`), which may remain as plain code blocks since Mermaid does not have a native tree layout.
 
 ## 5. End-of-Chapter Knowledge Quiz
 Every tutorial text MUST end with a "Knowledge Quiz" section under an `## Knowledge Quiz` heading.

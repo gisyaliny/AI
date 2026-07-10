@@ -25,6 +25,7 @@ parts:
     maxdepth: 2
     chapters:
       - file: docs/local-llm/01-deploy-local-llm
+      - file: docs/local-llm/02-mastering-ollama
   - caption: RAG
     numbered: true
     maxdepth: 2

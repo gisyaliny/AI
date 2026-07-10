@@ -37,6 +37,14 @@ When you execute a command through Claude Code that blocks the terminal, such as
 ![calude code tasks](./img/002.png)
 
 ---
+## Read More
+
+- [Claude Code CLI Reference](https://docs.anthropic.com/en/docs/claude-code/cli-reference) — Full list of CLI commands including `dangerously-skip-permissions`.
+- [Claude Code Permissions and Security](https://docs.anthropic.com/en/docs/claude-code/security) — Understanding permission models and best practices.
+- [Vite Getting Started](https://vite.dev/guide/) — Official Vite documentation for modern frontend tooling.
+- [React + TypeScript Cheatsheet](https://react-typescript-cheatsheet.netlify.app/) — Comprehensive patterns for React with TypeScript.
+
+---
 
 ## Knowledge Quiz
 
