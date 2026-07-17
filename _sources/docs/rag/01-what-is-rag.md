@@ -4,7 +4,7 @@ This chapter explains the **core concepts** behind Retrieval-Augmented Generatio
 
 ---
 
-## 1. The Problem RAG Solves
+## The Problem RAG Solves
 
 Imagine you are building a customer support chatbot for your company. Your product manual is 500 pages long. You have a powerful LLM like GPT-4o or DeepSeek, but:
 
@@ -20,7 +20,7 @@ Imagine you are building a customer support chatbot for your company. Your produ
 
 ---
 
-## 2. The Two Phases of RAG
+## The Two Phases of RAG
 
 The entire RAG pipeline splits cleanly into two phases:
 
@@ -45,7 +45,7 @@ The entire RAG pipeline splits cleanly into two phases:
 
 ---
 
-## 3. Chunking: Splitting Documents
+## Chunking: Splitting Documents
 
 Chunking is the process of breaking a large document into smaller, manageable pieces. The quality of your chunks directly impacts the quality of your answers.
 
@@ -71,7 +71,7 @@ If "Dr. Wang" is in Chunk 1 and "He" starts Chunk 2, the pronoun loses its refer
 
 ---
 
-## 4. Embedding: Turning Text into Vectors
+## Embedding: Turning Text into Vectors
 
 ### What is a Vector?
 
@@ -107,7 +107,7 @@ For example (simplified to 2D for visualization):
 
 ---
 
-## 5. Vector Databases
+## Vector Databases
 
 A vector database is a specialized storage system optimized for storing, indexing, and querying vectors.
 
@@ -134,7 +134,7 @@ When you query with a new vector, the database calculates the **distance** betwe
 
 ---
 
-## 6. Vector Similarity: How "Closeness" is Measured
+## Vector Similarity: How "Closeness" is Measured
 
 When the vector database searches for the chunks most similar to the user's question, it uses a **similarity metric**:
 
@@ -148,7 +148,7 @@ For most RAG applications, **cosine similarity** is the default and most reliabl
 
 ---
 
-## 7. Retrieval: Finding Relevant Chunks
+## Retrieval: Finding Relevant Chunks
 
 When a user asks a question:
 1. The question is embedded into a vector using the **same embedding model**.
@@ -159,7 +159,7 @@ This step is **fast but imprecise** — like screening resumes by keyword. It ca
 
 ---
 
-## 8. Reranking: Precision Filtering
+## Reranking: Precision Filtering
 
 The retrieval step returns 10 chunks, but some may be false positives. **Reranking** uses a more powerful (but slower) model called a **Cross-Encoder** to re-score each chunk.
 
@@ -178,7 +178,7 @@ Think of it like a job hiring process:
 
 ---
 
-## 9. Generation: Producing the Final Answer
+## Generation: Producing the Final Answer
 
 Finally, the top 3 reranked chunks and the user's question are combined into a prompt and sent to a large language model (e.g., GPT-4o, Gemini, DeepSeek):
 
@@ -198,7 +198,7 @@ The LLM generates a grounded, accurate answer based on the retrieved evidence.
 
 ---
 
-## 10. Known Limitations of RAG
+## Known Limitations of RAG
 
 RAG is powerful, but it is not perfect:
 

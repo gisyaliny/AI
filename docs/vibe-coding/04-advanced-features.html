@@ -187,7 +187,7 @@
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Local LLM</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../local-llm/01-deploy-local-llm.html">6. Deploy Open-Source LLMs Locally with Ollama &amp; AnythingLLM</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../local-llm/02-mastering-ollama.html">7. 02 — Mastering Ollama: Local Models, APIs, RAG, Tools, and Production Patterns</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../local-llm/02-mastering-ollama.html">7. — Mastering Ollama: Local Models, APIs, RAG, Tools, and Production Patterns</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">RAG</span></p>
 <ul class="nav bd-sidenav">
@@ -406,20 +406,20 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#agent-skills-dynamic-how-to-manuals">4.1. 1. Agent Skills: Dynamic “How-To” Manuals</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#agent-skills-dynamic-how-to-manuals">4.1. Agent Skills: Dynamic “How-To” Manuals</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#authentic-example-test-driven-development-tdd-skill">4.1.1. Authentic Example: Test-Driven Development (TDD) Skill</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#subagents-a-team-of-specialized-ai-assistants">4.2. 2. Subagents: A Team of Specialized AI Assistants</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#subagents-a-team-of-specialized-ai-assistants">4.2. Subagents: A Team of Specialized AI Assistants</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#authentic-workflow-creating-a-frontend-code-reviewer">4.2.1. Authentic Workflow: Creating a Frontend Code Reviewer</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#skill-vs-subagent-the-golden-rule">4.2.2. Skill vs. Subagent: The Golden Rule</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#automated-formatting-with-hooks">4.3. 3. Automated Formatting with Hooks</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#automated-formatting-with-hooks">4.3. Automated Formatting with Hooks</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#authentic-example-auto-formatting-with-prettier">4.3.1. Authentic Example: Auto-Formatting with Prettier</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#plugins-the-ultimate-all-in-one-power-up">4.4. 4. Plugins: The Ultimate “All-in-One” Power-Up</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#plugins-the-ultimate-all-in-one-power-up">4.4. Plugins: The Ultimate “All-in-One” Power-Up</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-difference-skills-vs-plugins">4.4.1. The Difference: Skills vs. Plugins</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#authentic-example-the-frontend-design-workflow">4.4.2. Authentic Example: The Frontend Design Workflow</a></li>
 </ul>
@@ -441,7 +441,7 @@ document.write(`
 <h1><span class="section-number">4. </span>Advanced Features &amp; Customization<a class="headerlink" href="#advanced-features-customization" title="Link to this heading">#</a></h1>
 <p>This chapter explores how to customize Claude Code’s behavior to fit your exact workflow. You’ll learn how to inject domain-specific instructions with Agent Skills, offload complex tasks to Subagents, and trigger automatic scripts using Hooks.</p>
 <section id="agent-skills-dynamic-how-to-manuals">
-<h2><span class="section-number">4.1. </span>1. Agent Skills: Dynamic “How-To” Manuals<a class="headerlink" href="#agent-skills-dynamic-how-to-manuals" title="Link to this heading">#</a></h2>
+<h2><span class="section-number">4.1. </span>Agent Skills: Dynamic “How-To” Manuals<a class="headerlink" href="#agent-skills-dynamic-how-to-manuals" title="Link to this heading">#</a></h2>
 <p><strong>What are they?</strong>
 Agent Skills are modular markdown files that teach Claude <em>how</em> to do specific things perfectly. Instead of typing a massive prompt every time, you define a Skill once. When Claude detects a relevant task, it automatically reads the Skill to learn the exact steps, patterns, and checklists.</p>
 <section id="authentic-example-test-driven-development-tdd-skill">
@@ -468,7 +468,7 @@ When asked to write a new feature, you must strictly follow the Red-Green-Refact
 </section>
 </section>
 <section id="subagents-a-team-of-specialized-ai-assistants">
-<h2><span class="section-number">4.2. </span>2. Subagents: A Team of Specialized AI Assistants<a class="headerlink" href="#subagents-a-team-of-specialized-ai-assistants" title="Link to this heading">#</a></h2>
+<h2><span class="section-number">4.2. </span>Subagents: A Team of Specialized AI Assistants<a class="headerlink" href="#subagents-a-team-of-specialized-ai-assistants" title="Link to this heading">#</a></h2>
 <p><strong>What are they?</strong>
 If you ask Claude to “Review the entire repository for security flaws,” the massive amount of code and intermediate thinking will bloat your main chat context, making the AI slow and expensive.</p>
 <p><strong>Subagents</strong> solve this. They are independent AI workers spawned in a <em>separate, isolated context</em>. They go off to do the heavy lifting and only report the final results back to you.</p>
@@ -506,7 +506,7 @@ If you ask Claude to “Review the entire repository for security flaws,” the 
 </section>
 </section>
 <section id="automated-formatting-with-hooks">
-<h2><span class="section-number">4.3. </span>3. Automated Formatting with Hooks<a class="headerlink" href="#automated-formatting-with-hooks" title="Link to this heading">#</a></h2>
+<h2><span class="section-number">4.3. </span>Automated Formatting with Hooks<a class="headerlink" href="#automated-formatting-with-hooks" title="Link to this heading">#</a></h2>
 <p>Hooks let you hijack Claude’s actions. You can tell your computer to automatically run a background script every time Claude finishes using a specific tool (like writing a file).</p>
 <section id="authentic-example-auto-formatting-with-prettier">
 <h3><span class="section-number">4.3.1. </span>Authentic Example: Auto-Formatting with Prettier<a class="headerlink" href="#authentic-example-auto-formatting-with-prettier" title="Link to this heading">#</a></h3>
@@ -522,7 +522,7 @@ If you ask Claude to “Review the entire repository for security flaws,” the 
 </section>
 </section>
 <section id="plugins-the-ultimate-all-in-one-power-up">
-<h2><span class="section-number">4.4. </span>4. Plugins: The Ultimate “All-in-One” Power-Up<a class="headerlink" href="#plugins-the-ultimate-all-in-one-power-up" title="Link to this heading">#</a></h2>
+<h2><span class="section-number">4.4. </span>Plugins: The Ultimate “All-in-One” Power-Up<a class="headerlink" href="#plugins-the-ultimate-all-in-one-power-up" title="Link to this heading">#</a></h2>
 <p><strong>What are they?</strong>
 A Plugin is a distributable “capsule” that bundles everything we’ve learned so far. It can contain Skills, Subagents, Hooks, and MCP Server configurations all wrapped together for easy one-click installation and sharing across teams.</p>
 <section id="the-difference-skills-vs-plugins">
@@ -653,20 +653,20 @@ A Skill is merely a set of text instructions telling the AI how to behave. A Plu
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#agent-skills-dynamic-how-to-manuals">4.1. 1. Agent Skills: Dynamic “How-To” Manuals</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#agent-skills-dynamic-how-to-manuals">4.1. Agent Skills: Dynamic “How-To” Manuals</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#authentic-example-test-driven-development-tdd-skill">4.1.1. Authentic Example: Test-Driven Development (TDD) Skill</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#subagents-a-team-of-specialized-ai-assistants">4.2. 2. Subagents: A Team of Specialized AI Assistants</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#subagents-a-team-of-specialized-ai-assistants">4.2. Subagents: A Team of Specialized AI Assistants</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#authentic-workflow-creating-a-frontend-code-reviewer">4.2.1. Authentic Workflow: Creating a Frontend Code Reviewer</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#skill-vs-subagent-the-golden-rule">4.2.2. Skill vs. Subagent: The Golden Rule</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#automated-formatting-with-hooks">4.3. 3. Automated Formatting with Hooks</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#automated-formatting-with-hooks">4.3. Automated Formatting with Hooks</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#authentic-example-auto-formatting-with-prettier">4.3.1. Authentic Example: Auto-Formatting with Prettier</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#plugins-the-ultimate-all-in-one-power-up">4.4. 4. Plugins: The Ultimate “All-in-One” Power-Up</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#plugins-the-ultimate-all-in-one-power-up">4.4. Plugins: The Ultimate “All-in-One” Power-Up</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-difference-skills-vs-plugins">4.4.1. The Difference: Skills vs. Plugins</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#authentic-example-the-frontend-design-workflow">4.4.2. Authentic Example: The Frontend Design Workflow</a></li>
 </ul>

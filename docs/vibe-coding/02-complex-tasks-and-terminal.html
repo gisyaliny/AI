@@ -187,7 +187,7 @@
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Local LLM</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../local-llm/01-deploy-local-llm.html">6. Deploy Open-Source LLMs Locally with Ollama &amp; AnythingLLM</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../local-llm/02-mastering-ollama.html">7. 02 — Mastering Ollama: Local Models, APIs, RAG, Tools, and Production Patterns</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../local-llm/02-mastering-ollama.html">7. — Mastering Ollama: Local Models, APIs, RAG, Tools, and Production Patterns</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">RAG</span></p>
 <ul class="nav bd-sidenav">
@@ -406,10 +406,10 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#executing-terminal-commands-bash">2.1. 1. Executing Terminal Commands (Bash)</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#refactoring-projects-using-plan-mode">2.2. 2. Refactoring Projects using Plan Mode</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#disabling-all-permission-checks-dangerously-skip-permissions">2.3. 3. Disabling All Permission Checks (dangerously-skip-permissions)</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#background-task-management">2.4. 4. Background Task Management</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#executing-terminal-commands-bash">2.1. Executing Terminal Commands (Bash)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#refactoring-projects-using-plan-mode">2.2. Refactoring Projects using Plan Mode</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#disabling-all-permission-checks-dangerously-skip-permissions">2.3. Disabling All Permission Checks (dangerously-skip-permissions)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#background-task-management">2.4. Background Task Management</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#read-more">2.5. Read More</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#knowledge-quiz">2.6. Knowledge Quiz</a></li>
 </ul>
@@ -427,7 +427,7 @@ document.write(`
 <h1><span class="section-number">2. </span>Complex Tasks &amp; Terminal Control<a class="headerlink" href="#complex-tasks-terminal-control" title="Link to this heading">#</a></h1>
 <p>After mastering basic interactions, we will learn how to let Claude Code execute terminal commands, manage long-running background tasks, and explore more complex architectural refactoring.</p>
 <section id="executing-terminal-commands-bash">
-<h2><span class="section-number">2.1. </span>1. Executing Terminal Commands (Bash)<a class="headerlink" href="#executing-terminal-commands-bash" title="Link to this heading">#</a></h2>
+<h2><span class="section-number">2.1. </span>Executing Terminal Commands (Bash)<a class="headerlink" href="#executing-terminal-commands-bash" title="Link to this heading">#</a></h2>
 <p>Besides conversing with the model, you can directly execute Bash commands within the Claude Code interface.</p>
 <ul class="simple">
 <li><p>Type <code class="docutils literal notranslate"><span class="pre">!</span></code> to enter Bash mode. Start with an exclamation mark followed by the terminal command, for instance:
@@ -436,7 +436,7 @@ document.write(`
 </ul>
 </section>
 <section id="refactoring-projects-using-plan-mode">
-<h2><span class="section-number">2.2. </span>2. Refactoring Projects using Plan Mode<a class="headerlink" href="#refactoring-projects-using-plan-mode" title="Link to this heading">#</a></h2>
+<h2><span class="section-number">2.2. </span>Refactoring Projects using Plan Mode<a class="headerlink" href="#refactoring-projects-using-plan-mode" title="Link to this heading">#</a></h2>
 <p>When we need to refactor a single HTML file project into a modern <code class="docutils literal notranslate"><span class="pre">React</span> <span class="pre">+</span> <span class="pre">TypeScript</span> <span class="pre">+</span> <span class="pre">Vite</span></code> architecture, letting the model modify things directly can get chaotic. This is where <code class="docutils literal notranslate"><span class="pre">Plan</span> <span class="pre">Mode</span></code> comes in handy:</p>
 <ol class="arabic simple">
 <li><p>Press <code class="docutils literal notranslate"><span class="pre">Shift</span> <span class="pre">+</span> <span class="pre">Tab</span></code> to toggle to <strong>Plan Mode</strong>.</p></li>
@@ -446,7 +446,7 @@ document.write(`
 </ol>
 </section>
 <section id="disabling-all-permission-checks-dangerously-skip-permissions">
-<h2><span class="section-number">2.3. </span>3. Disabling All Permission Checks (dangerously-skip-permissions)<a class="headerlink" href="#disabling-all-permission-checks-dangerously-skip-permissions" title="Link to this heading">#</a></h2>
+<h2><span class="section-number">2.3. </span>Disabling All Permission Checks (dangerously-skip-permissions)<a class="headerlink" href="#disabling-all-permission-checks-dangerously-skip-permissions" title="Link to this heading">#</a></h2>
 <p>Even in Auto mode, Claude Code will still ask your permission when executing <strong>terminal commands</strong> like <code class="docutils literal notranslate"><span class="pre">npm</span> <span class="pre">install</span></code>. If you want to delegate complete authority:</p>
 <ul class="simple">
 <li><p>Add a parameter when starting: <code class="docutils literal notranslate"><span class="pre">claude</span> <span class="pre">dangerously-skip-permissions</span></code></p></li>
@@ -458,7 +458,7 @@ document.write(`
 </div></blockquote>
 </section>
 <section id="background-task-management">
-<h2><span class="section-number">2.4. </span>4. Background Task Management<a class="headerlink" href="#background-task-management" title="Link to this heading">#</a></h2>
+<h2><span class="section-number">2.4. </span>Background Task Management<a class="headerlink" href="#background-task-management" title="Link to this heading">#</a></h2>
 <p>When you execute a command through Claude Code that blocks the terminal, such as a local server <code class="docutils literal notranslate"><span class="pre">npm</span> <span class="pre">run</span> <span class="pre">dev</span></code>, the model can no longer respond to your text inputs.</p>
 <ul class="simple">
 <li><p><strong>Suspend to Background</strong>: Press <code class="docutils literal notranslate"><span class="pre">Ctrl</span> <span class="pre">+</span> <span class="pre">B</span></code> to push the currently running service to the background.</p></li>
@@ -557,10 +557,10 @@ Press `Ctrl + B` to send it to the background. Subsequently, you can use `/tasks
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#executing-terminal-commands-bash">2.1. 1. Executing Terminal Commands (Bash)</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#refactoring-projects-using-plan-mode">2.2. 2. Refactoring Projects using Plan Mode</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#disabling-all-permission-checks-dangerously-skip-permissions">2.3. 3. Disabling All Permission Checks (dangerously-skip-permissions)</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#background-task-management">2.4. 4. Background Task Management</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#executing-terminal-commands-bash">2.1. Executing Terminal Commands (Bash)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#refactoring-projects-using-plan-mode">2.2. Refactoring Projects using Plan Mode</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#disabling-all-permission-checks-dangerously-skip-permissions">2.3. Disabling All Permission Checks (dangerously-skip-permissions)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#background-task-management">2.4. Background Task Management</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#read-more">2.5. Read More</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#knowledge-quiz">2.6. Knowledge Quiz</a></li>
 </ul>

@@ -4,7 +4,7 @@ Running large language models (LLMs) on your own machine gives you complete priv
 
 ---
 
-## 1. Why Run LLMs Locally?
+## Why Run LLMs Locally?
 
 | Benefit | Description |
 | :--- | :--- |
@@ -25,14 +25,13 @@ Running large language models (LLMs) on your own machine gives you complete priv
 
 ---
 
-## 2. Ollama: Your Local Model Engine
+## Ollama: Your Local Model Engine
 
 [Ollama](https://ollama.com/) is a lightweight CLI tool that lets you download and run open-source LLMs with a single command. Think of it as "Docker for LLMs."
 
-### 2.1 Installation
+### Installation
 
 ````{tab-set}
-
 ```{tab-item} Windows
 1. Visit [ollama.com/download](https://ollama.com/download) and download the `.exe` installer.
 2. Run the installer and follow the setup wizard.
@@ -57,7 +56,7 @@ Verify your installation:
 ollama --version
 ```
 
-### 2.2 Downloading Your First Model
+### Downloading Your First Model
 
 Browse the full model library at [ollama.com/library](https://ollama.com/library). Here are popular choices for beginners:
 
@@ -81,7 +80,7 @@ ollama pull llama3.1:8b
 ollama pull nomic-embed-text
 ```
 
-### 2.3 Running a Model (Interactive Chat)
+### Running a Model (Interactive Chat)
 
 ```bash
 ollama run llama3.1:8b
@@ -100,7 +99,7 @@ The capital of France is Paris...
 - Type `/bye` to exit the session.
 - Type `/set parameter num_ctx 4096` to change context window size on the fly.
 
-### 2.4 Essential Ollama CLI Commands
+### Essential Ollama CLI Commands
 
 ```bash
 # List all downloaded models
@@ -119,7 +118,7 @@ ollama serve
 ollama cp llama3.1:8b my-research-model
 ```
 
-### 2.5 Using Ollama's REST API (Programmatic Access)
+### Using Ollama's REST API (Programmatic Access)
 
 Ollama exposes a local REST API at `http://localhost:11434`. You can call it from any language:
 
@@ -147,7 +146,7 @@ curl http://localhost:11434/api/generate -d '{
 }'
 ```
 
-### 2.6 Creating Custom Models with Modelfiles
+### Creating Custom Models with Modelfiles
 
 You can create a specialized version of any model by writing a `Modelfile`:
 
@@ -180,11 +179,11 @@ ollama run research-assistant
 
 ---
 
-## 3. AnythingLLM: A Private Document Q&A System (RAG)
+## AnythingLLM: A Private Document Q&A System (RAG)
 
 [AnythingLLM](https://anythingllm.com/) is a desktop application that connects to your local Ollama models and lets you chat with your own documents — PDFs, Word files, code repositories, and more. This is called **Retrieval-Augmented Generation (RAG)**.
 
-### 3.1 How RAG Works (For Beginners)
+### How RAG Works (For Beginners)
 
 ```mermaid
 graph LR
@@ -199,7 +198,7 @@ graph LR
 
 Instead of the LLM guessing from its training data, RAG forces it to **look up your actual documents first**, then generate an answer based on what it found. This dramatically reduces hallucination.
 
-### 3.2 Installing AnythingLLM
+### Installing AnythingLLM
 
 1. Visit [useanything.com](https://useanything.com/) and download the desktop app for your OS.
 2. Install and launch it. You'll see a setup wizard.
@@ -213,7 +212,7 @@ docker run -d -p 3001:3001 \
   mintplexlabs/anythingllm
 ```
 
-### 3.3 Connecting AnythingLLM to Ollama
+### Connecting AnythingLLM to Ollama
 
 During the setup wizard (or in Settings):
 
@@ -224,7 +223,7 @@ During the setup wizard (or in Settings):
    - Model: Choose `nomic-embed-text` (the embedding model we downloaded earlier).
 3. **Vector Database**: Keep the default **LanceDB** (built-in, zero config).
 
-### 3.4 Creating a Workspace & Uploading Documents
+### Creating a Workspace & Uploading Documents
 
 1. Click **"New Workspace"** and name it (e.g., "Research Papers").
 2. Click the **Upload** icon in your workspace.
@@ -233,7 +232,7 @@ During the setup wizard (or in Settings):
 4. Click **"Move to Workspace"** to process and embed your documents.
 5. Wait for the status to show **"Embedded"** for each file.
 
-### 3.5 Chatting With Your Documents
+### Chatting With Your Documents
 
 Once documents are embedded, simply type questions in the chat box:
 
@@ -247,7 +246,7 @@ AI:   Based on the uploaded papers, the authors employed a two-stage approach:
 
 The AI will cite which document and page it found the answer in!
 
-### 3.6 Advanced AnythingLLM Features
+### Advanced AnythingLLM Features
 
 | Feature | Description |
 | :--- | :--- |
@@ -259,23 +258,23 @@ The AI will cite which document and page it found the answer in!
 
 ---
 
-## 4. Publishing Models to Hugging Face
+## Publishing Models to Hugging Face
 
 Once you've fine-tuned a model or created a useful custom variant, you can share it with the world via the [Hugging Face Hub](https://huggingface.co/).
 
-### 4.1 Setting Up Your Hugging Face Account
+### Setting Up Your Hugging Face Account
 
 1. Sign up at [huggingface.co/join](https://huggingface.co/join).
 2. Go to **Settings → Access Tokens → New Token**.
 3. Create a token with **Write** access. Copy it — you'll need it shortly.
 
-### 4.2 Installing the Hugging Face CLI
+### Installing the Hugging Face CLI
 
 ```bash
 pip install huggingface_hub transformers
 ```
 
-### 4.3 Authenticating
+### Authenticating
 
 ```bash
 huggingface-cli login
@@ -289,7 +288,7 @@ from huggingface_hub import login
 login(token="hf_YOUR_TOKEN_HERE")
 ```
 
-### 4.4 Uploading a Model (Python API)
+### Uploading a Model (Python API)
 
 If you have a fine-tuned Transformers model saved locally:
 
@@ -306,7 +305,7 @@ model.push_to_hub("your-username/my-research-llm")
 tokenizer.push_to_hub("your-username/my-research-llm")
 ```
 
-### 4.5 Uploading a Model (CLI)
+### Uploading a Model (CLI)
 
 For uploading arbitrary files (GGUF, safetensors, configs):
 
@@ -318,7 +317,7 @@ huggingface-cli repo create my-research-llm --type model
 huggingface-cli upload your-username/my-research-llm ./my-model-folder .
 ```
 
-### 4.6 Uploading GGUF Files (Ollama-Compatible Format)
+### Uploading GGUF Files (Ollama-Compatible Format)
 
 If you've quantized a model into GGUF format (used by Ollama and llama.cpp):
 
@@ -338,7 +337,7 @@ api.upload_file(
 )
 ```
 
-### 4.7 Writing a Good Model Card
+### Writing a Good Model Card
 
 Every model on Hugging Face should have a `README.md` (Model Card). This is critical for discoverability and reproducibility:
 
@@ -398,7 +397,7 @@ If you use this model, please cite:
 
 ---
 
-## 5. End-to-End Workflow: From Download to Deployment
+## End-to-End Workflow: From Download to Deployment
 
 Here is a complete workflow combining everything we've learned:
 
@@ -417,7 +416,7 @@ graph TD
 
 ---
 
-## 6. Troubleshooting Common Issues
+## Troubleshooting Common Issues
 
 | Problem | Solution |
 | :--- | :--- |

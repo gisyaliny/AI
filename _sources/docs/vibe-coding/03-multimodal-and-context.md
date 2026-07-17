@@ -2,7 +2,7 @@
 
 This chapter introduces how Claude Code interacts with the outside world through visual inputs and the Model Context Protocol (MCP), and how to manage the AI's memory (context) for long-running projects.
 
-## 1. What is MCP (Model Context Protocol)?
+## What is MCP (Model Context Protocol)?
 
 Think of Claude Code as a brilliant brain. By default, it can read and write files on your computer. But what if it needs to query your live PostgreSQL database, fetch issues from your GitHub board, read documentation from a live website, or extract Figma design tokens? 
 
@@ -22,7 +22,7 @@ Imagine you want Claude to analyze your local database structure and write a SQL
    *"Use the db tool to list all tables, then write a query to find users who signed up in the last 30 days."*
 3. **How it works:** Claude Code automatically calls the `db` MCP server, assesses the schema, and generates the exact query. You never have to manually paste database schemas into the chat!
 
-## 2. Using Visuals: Multimodal Input
+## Using Visuals: Multimodal Input
 
 Sometimes, describing a UI purely with text is impossible. You can provide Claude Code directly with your design mockups or screenshots.
 
@@ -30,7 +30,7 @@ Sometimes, describing a UI purely with text is impossible. You can provide Claud
 - **Clipboard Paste**: Copy the image and use `Ctrl + V` to paste it. *(Note: Even on macOS, you must use `Ctrl + V`, not `Command + V`, inside the terminal)*.
 
 
-## 3. High-Fidelity UI Generation (The Figma MCP)
+## High-Fidelity UI Generation (The Figma MCP)
 
 While pasting a screenshot is great for rough prototyping, an image lacks exact font sizes, hex colors, and margin data. For pixel-perfect React or HTML components, use the Figma MCP instead:
 
@@ -39,7 +39,7 @@ While pasting a screenshot is great for rough prototyping, an image lacks exact 
 3. **Prompt it:** *"Modify `index.html` to match the Figma mockup exactly. Here is the link: [Figma Object Link]"*
 4. **Result:** Claude uses the MCP to fetch the exact design tokens (padding: 16px, background: #1A1A1A, etc.) and writes a 1:1 matching code component.
 
-## 4. Managing AI Memory (Context)
+## Managing AI Memory (Context)
 
 As you chat, paste images, and call MCP tools, Claude's "context window" (its short-term memory) gets crowded. A bloated context makes the AI slower, more expensive, and prone to forgetting early instructions.
 
@@ -53,12 +53,12 @@ When you notice Claude getting sluggish after a long coding session:
 ### The `/clear` Command
 If you are moving on to a completely different task (e.g., from Frontend styling to Backend database design), use `/clear`. This completely eradicates the memory of the current chat, giving you a fresh, fast slate.
 
-## 5. Version Rewind & Resuming
+## Version Rewind & Resuming
 
 - **Oops, go back! (`/rewind`)**: If Claude writes bad code, type `/rewind` (or tap `ESC` twice). You can select a previous moment in the conversation and choose "Restore code and session" to undo the AI's file edits. *(Note: It cannot undo `npm install` or other shell commands).*
 - **I closed the terminal! (`/resume`)**: If you accidentally close your terminal, just reopen it, type `claude`, and then type `/resume` to pick up exactly where you left off. Alternatively, start Claude with `claude -c` (Continue) to auto-load the last session.
 
-## 6. Project Memory: CLAUDE.md
+## Project Memory: CLAUDE.md
 
 How do you give Claude permanent instructions that persist across *every* session? (e.g., "Always use TypeScript, never use classes, prefer functional components").
 

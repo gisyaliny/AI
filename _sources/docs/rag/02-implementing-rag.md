@@ -13,7 +13,7 @@ This hands-on tutorial walks you through building a complete RAG system from scr
 
 ---
 
-## 1. Project Setup
+## Project Setup
 
 ```bash
 # Create project directory
@@ -43,7 +43,7 @@ uv run jupyter notebook
 
 ---
 
-## 2. Step 1 — Chunking
+## Step 1 — Chunking
 
 The first step is splitting your document into smaller chunks. Here we use a simple line-based strategy:
 
@@ -85,7 +85,7 @@ def recursive_chunk(text: str, chunk_size: int = 500, overlap: int = 50) -> List
 
 ---
 
-## 3. Step 2 — Embedding
+## Step 2 — Embedding
 
 Convert each chunk into a vector using a Sentence Transformer embedding model:
 
@@ -112,7 +112,7 @@ print(f"Total embeddings: {len(embeddings)}")
 
 ---
 
-## 4. Step 3 — Storing in a Vector Database (ChromaDB)
+## Step 3 — Storing in a Vector Database (ChromaDB)
 
 ```python
 import chromadb
@@ -140,7 +140,7 @@ store_chunks(chunks, embeddings)
 
 ---
 
-## 5. Step 4 — Retrieval
+## Step 4 — Retrieval
 
 Search the vector database for chunks most similar to the user's question:
 
@@ -165,7 +165,7 @@ for i, chunk in enumerate(retrieved):
 
 ---
 
-## 6. Step 5 — Reranking with Cross-Encoder
+## Step 5 — Reranking with Cross-Encoder
 
 Refine the retrieved results using a more accurate Cross-Encoder model:
 
@@ -197,7 +197,7 @@ for i, chunk in enumerate(reranked):
 
 ---
 
-## 7. Step 6 — Generation with an LLM
+## Step 6 — Generation with an LLM
 
 Finally, send the reranked chunks and the question to a large language model:
 
@@ -244,7 +244,7 @@ GEMINI_API_KEY=your_api_key_here
 
 ---
 
-## 8. Putting It All Together
+## Putting It All Together
 
 Here is the complete pipeline in one clean function:
 
@@ -271,7 +271,7 @@ print(result)
 
 ---
 
-## 9. Complete Project Structure
+## Complete Project Structure
 
 ```
 rag-demo/

@@ -186,7 +186,7 @@
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">Local LLM</span></p>
 <ul class="nav bd-sidenav">
 <li class="toctree-l1"><a class="reference internal" href="../local-llm/01-deploy-local-llm.html">6. Deploy Open-Source LLMs Locally with Ollama &amp; AnythingLLM</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../local-llm/02-mastering-ollama.html">7. 02 — Mastering Ollama: Local Models, APIs, RAG, Tools, and Production Patterns</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../local-llm/02-mastering-ollama.html">7. — Mastering Ollama: Local Models, APIs, RAG, Tools, and Production Patterns</a></li>
 </ul>
 <p aria-level="2" class="caption" role="heading"><span class="caption-text">RAG</span></p>
 <ul class="current nav bd-sidenav">
@@ -405,31 +405,31 @@ document.write(`
             </div>
             <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-limitations-of-traditional-rag">10.1. 1. The Limitations of Traditional RAG</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-a-knowledge-graph">10.2. 2. What is a Knowledge Graph?</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-limitations-of-traditional-rag">10.1. The Limitations of Traditional RAG</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-a-knowledge-graph">10.2. What is a Knowledge Graph?</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#formal-terminology">10.2.1. Formal Terminology</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-graph-rag-builds-the-knowledge-graph">10.3. 3. How Graph RAG Builds the Knowledge Graph</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-graph-rag-builds-the-knowledge-graph">10.3. How Graph RAG Builds the Knowledge Graph</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#step-1-entity-and-relationship-extraction">10.3.1. Step 1: Entity and Relationship Extraction</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#step-2-data-gleaning-the-llm-pua-loop">10.3.2. Step 2: Data Gleaning (The “LLM PUA” Loop)</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#step-3-merging-across-chunks">10.3.3. Step 3: Merging Across Chunks</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#community-detection-building-hierarchies">10.4. 4. Community Detection: Building Hierarchies</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#indexing-embedding-the-graph">10.5. 5. Indexing: Embedding the Graph</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#querying-local-search-vs-global-search">10.6. 6. Querying: Local Search vs. Global Search</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#community-detection-building-hierarchies">10.4. Community Detection: Building Hierarchies</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#indexing-embedding-the-graph">10.5. Indexing: Embedding the Graph</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#querying-local-search-vs-global-search">10.6. Querying: Local Search vs. Global Search</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#local-search-bottom-up">10.6.1. Local Search (Bottom-Up)</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#global-search-top-down">10.6.2. Global Search (Top-Down)</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#graph-rag-vs-traditional-rag">10.7. 7. Graph RAG vs. Traditional RAG</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#getting-started-with-graph-rag">10.8. 8. Getting Started with Graph RAG</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#graph-rag-vs-traditional-rag">10.7. Graph RAG vs. Traditional RAG</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#getting-started-with-graph-rag">10.8. Getting Started with Graph RAG</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#option-a-microsoft-s-graphrag-python">10.8.1. Option A: Microsoft’s GraphRAG (Python)</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#option-b-neo4j-langchain">10.8.2. Option B: Neo4j + LangChain</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#when-to-use-graph-rag">10.9. 9. When to Use Graph RAG</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#when-to-use-graph-rag">10.9. When to Use Graph RAG</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#read-more">10.10. Read More</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#knowledge-quiz">10.11. Knowledge Quiz</a></li>
 </ul>
@@ -448,7 +448,7 @@ document.write(`
 <p>Traditional RAG struggles with global questions (“How many times is X mentioned?”) and loses inter-chunk relationships. <strong>Graph RAG</strong> solves this by building a <strong>knowledge graph</strong> from your documents, enabling both fine-grained and high-level reasoning.</p>
 <hr class="docutils" />
 <section id="the-limitations-of-traditional-rag">
-<h2><span class="section-number">10.1. </span>1. The Limitations of Traditional RAG<a class="headerlink" href="#the-limitations-of-traditional-rag" title="Link to this heading">#</a></h2>
+<h2><span class="section-number">10.1. </span>The Limitations of Traditional RAG<a class="headerlink" href="#the-limitations-of-traditional-rag" title="Link to this heading">#</a></h2>
 <p>Before diving into Graph RAG, let’s understand <em>why</em> it exists:</p>
 <div class="pst-scrollable-table-container"><table class="table">
 <thead>
@@ -483,7 +483,7 @@ document.write(`
 </section>
 <hr class="docutils" />
 <section id="what-is-a-knowledge-graph">
-<h2><span class="section-number">10.2. </span>2. What is a Knowledge Graph?<a class="headerlink" href="#what-is-a-knowledge-graph" title="Link to this heading">#</a></h2>
+<h2><span class="section-number">10.2. </span>What is a Knowledge Graph?<a class="headerlink" href="#what-is-a-knowledge-graph" title="Link to this heading">#</a></h2>
 <p>A knowledge graph is a structured representation of information as a network of <strong>entities</strong> (nodes) and <strong>relationships</strong> (edges).</p>
 <p><strong>Example sentence</strong>: <em>“Wang likes to eat watermelon.”</em></p>
 <p>In a knowledge graph, this becomes:</p>
@@ -521,7 +521,7 @@ document.write(`
 </section>
 <hr class="docutils" />
 <section id="how-graph-rag-builds-the-knowledge-graph">
-<h2><span class="section-number">10.3. </span>3. How Graph RAG Builds the Knowledge Graph<a class="headerlink" href="#how-graph-rag-builds-the-knowledge-graph" title="Link to this heading">#</a></h2>
+<h2><span class="section-number">10.3. </span>How Graph RAG Builds the Knowledge Graph<a class="headerlink" href="#how-graph-rag-builds-the-knowledge-graph" title="Link to this heading">#</a></h2>
 <p>Before LLMs, building knowledge graphs required complex NLP pipelines (NER models, dependency parsers, etc.). Graph RAG leverages LLMs to do it all with prompts.</p>
 <section id="step-1-entity-and-relationship-extraction">
 <h3><span class="section-number">10.3.1. </span>Step 1: Entity and Relationship Extraction<a class="headerlink" href="#step-1-entity-and-relationship-extraction" title="Link to this heading">#</a></h3>
@@ -583,7 +583,7 @@ Relationships:
 </section>
 <hr class="docutils" />
 <section id="community-detection-building-hierarchies">
-<h2><span class="section-number">10.4. </span>4. Community Detection: Building Hierarchies<a class="headerlink" href="#community-detection-building-hierarchies" title="Link to this heading">#</a></h2>
+<h2><span class="section-number">10.4. </span>Community Detection: Building Hierarchies<a class="headerlink" href="#community-detection-building-hierarchies" title="Link to this heading">#</a></h2>
 <p>A knowledge graph for a long document can have hundreds or thousands of nodes. To make it navigable, Graph RAG applies <strong>Leiden community detection</strong> to cluster densely connected nodes.</p>
 <p><img alt="graph-rag-community" src="../../_images/006.png" /></p>
 <p>At each level, the LLM generates a <strong>summary description</strong> for the cluster. Crucially, these summaries can contain <strong>inferred information</strong> not explicitly in any single chunk:</p>
@@ -594,7 +594,7 @@ Relationships:
 </section>
 <hr class="docutils" />
 <section id="indexing-embedding-the-graph">
-<h2><span class="section-number">10.5. </span>5. Indexing: Embedding the Graph<a class="headerlink" href="#indexing-embedding-the-graph" title="Link to this heading">#</a></h2>
+<h2><span class="section-number">10.5. </span>Indexing: Embedding the Graph<a class="headerlink" href="#indexing-embedding-the-graph" title="Link to this heading">#</a></h2>
 <p>Once the hierarchical knowledge graph is built, Graph RAG converts everything into searchable vectors:</p>
 <ol class="arabic simple">
 <li><p><strong>Entity descriptions</strong> → embedded and stored in vector DB</p></li>
@@ -605,7 +605,7 @@ Relationships:
 </section>
 <hr class="docutils" />
 <section id="querying-local-search-vs-global-search">
-<h2><span class="section-number">10.6. </span>6. Querying: Local Search vs. Global Search<a class="headerlink" href="#querying-local-search-vs-global-search" title="Link to this heading">#</a></h2>
+<h2><span class="section-number">10.6. </span>Querying: Local Search vs. Global Search<a class="headerlink" href="#querying-local-search-vs-global-search" title="Link to this heading">#</a></h2>
 <p>Graph RAG offers two complementary search strategies:</p>
 <section id="local-search-bottom-up">
 <h3><span class="section-number">10.6.1. </span>Local Search (Bottom-Up)<a class="headerlink" href="#local-search-bottom-up" title="Link to this heading">#</a></h3>
@@ -659,7 +659,7 @@ Relationships:
 </section>
 <hr class="docutils" />
 <section id="graph-rag-vs-traditional-rag">
-<h2><span class="section-number">10.7. </span>7. Graph RAG vs. Traditional RAG<a class="headerlink" href="#graph-rag-vs-traditional-rag" title="Link to this heading">#</a></h2>
+<h2><span class="section-number">10.7. </span>Graph RAG vs. Traditional RAG<a class="headerlink" href="#graph-rag-vs-traditional-rag" title="Link to this heading">#</a></h2>
 <div class="pst-scrollable-table-container"><table class="table">
 <thead>
 <tr class="row-odd"><th class="head text-left"><p>Aspect</p></th>
@@ -702,7 +702,7 @@ Relationships:
 </section>
 <hr class="docutils" />
 <section id="getting-started-with-graph-rag">
-<h2><span class="section-number">10.8. </span>8. Getting Started with Graph RAG<a class="headerlink" href="#getting-started-with-graph-rag" title="Link to this heading">#</a></h2>
+<h2><span class="section-number">10.8. </span>Getting Started with Graph RAG<a class="headerlink" href="#getting-started-with-graph-rag" title="Link to this heading">#</a></h2>
 <section id="option-a-microsoft-s-graphrag-python">
 <h3><span class="section-number">10.8.1. </span>Option A: Microsoft’s GraphRAG (Python)<a class="headerlink" href="#option-a-microsoft-s-graphrag-python" title="Link to this heading">#</a></h3>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip<span class="w"> </span>install<span class="w"> </span>graphrag
@@ -745,7 +745,7 @@ python<span class="w"> </span>-m<span class="w"> </span>graphrag<span class="w">
 </section>
 <hr class="docutils" />
 <section id="when-to-use-graph-rag">
-<h2><span class="section-number">10.9. </span>9. When to Use Graph RAG<a class="headerlink" href="#when-to-use-graph-rag" title="Link to this heading">#</a></h2>
+<h2><span class="section-number">10.9. </span>When to Use Graph RAG<a class="headerlink" href="#when-to-use-graph-rag" title="Link to this heading">#</a></h2>
 <p>✅ <strong>Use Graph RAG when:</strong></p>
 <ul class="simple">
 <li><p>Your documents are long and complex (research papers, legal contracts, technical manuals).</p></li>
@@ -850,31 +850,31 @@ Use Global Search for abstract, thematic, or panoramic questions (e.g., "What ar
   </div>
   <nav class="bd-toc-nav page-toc">
     <ul class="visible nav section-nav flex-column">
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-limitations-of-traditional-rag">10.1. 1. The Limitations of Traditional RAG</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-a-knowledge-graph">10.2. 2. What is a Knowledge Graph?</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#the-limitations-of-traditional-rag">10.1. The Limitations of Traditional RAG</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#what-is-a-knowledge-graph">10.2. What is a Knowledge Graph?</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#formal-terminology">10.2.1. Formal Terminology</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-graph-rag-builds-the-knowledge-graph">10.3. 3. How Graph RAG Builds the Knowledge Graph</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#how-graph-rag-builds-the-knowledge-graph">10.3. How Graph RAG Builds the Knowledge Graph</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#step-1-entity-and-relationship-extraction">10.3.1. Step 1: Entity and Relationship Extraction</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#step-2-data-gleaning-the-llm-pua-loop">10.3.2. Step 2: Data Gleaning (The “LLM PUA” Loop)</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#step-3-merging-across-chunks">10.3.3. Step 3: Merging Across Chunks</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#community-detection-building-hierarchies">10.4. 4. Community Detection: Building Hierarchies</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#indexing-embedding-the-graph">10.5. 5. Indexing: Embedding the Graph</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#querying-local-search-vs-global-search">10.6. 6. Querying: Local Search vs. Global Search</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#community-detection-building-hierarchies">10.4. Community Detection: Building Hierarchies</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#indexing-embedding-the-graph">10.5. Indexing: Embedding the Graph</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#querying-local-search-vs-global-search">10.6. Querying: Local Search vs. Global Search</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#local-search-bottom-up">10.6.1. Local Search (Bottom-Up)</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#global-search-top-down">10.6.2. Global Search (Top-Down)</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#graph-rag-vs-traditional-rag">10.7. 7. Graph RAG vs. Traditional RAG</a></li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#getting-started-with-graph-rag">10.8. 8. Getting Started with Graph RAG</a><ul class="nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#graph-rag-vs-traditional-rag">10.7. Graph RAG vs. Traditional RAG</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#getting-started-with-graph-rag">10.8. Getting Started with Graph RAG</a><ul class="nav section-nav flex-column">
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#option-a-microsoft-s-graphrag-python">10.8.1. Option A: Microsoft’s GraphRAG (Python)</a></li>
 <li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#option-b-neo4j-langchain">10.8.2. Option B: Neo4j + LangChain</a></li>
 </ul>
 </li>
-<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#when-to-use-graph-rag">10.9. 9. When to Use Graph RAG</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#when-to-use-graph-rag">10.9. When to Use Graph RAG</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#read-more">10.10. Read More</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#knowledge-quiz">10.11. Knowledge Quiz</a></li>
 </ul>
