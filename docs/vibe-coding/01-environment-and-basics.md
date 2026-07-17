@@ -2,7 +2,7 @@
 
 This chapter will guide you from scratch to set up the runtime environment for Claude Code and complete your first basic interaction. As a highly popular AI programming Agent, Claude Code can significantly boost your development efficiency.
 
-## 1. Installing Claude Code
+## Installing Claude Code
 
 To install Claude Code, perform the following steps:
 1. Visit the official Claude Code website and copy the installation command.
@@ -15,7 +15,7 @@ npm install -g @anthropic-ai/claude-code
 
 > **Image Suggestion (Nanobanana Prompt)**: A sleek, minimalist dark-themed terminal application window on a desk. The terminal screen displays a clean green checkmark in the center, accompanied by glowing crisp white text reading "Claude Code Installed Successfully!". Below the text, there is a prominent progress bar filled to 100%. The surrounding environment is a dimly lit cyberpunk hacker room with subtle neon blue backlighting on the keyboard, ultra-detailed 8k resolution, cinematic lighting.
 
-## 2. Login & Authorization
+## Login & Authorization
 
 After installation, navigate to your project directory in the terminal, for example:
 ```bash
@@ -27,13 +27,13 @@ Upon your first entry, it may prompt you to log in. If not prompted, you can man
 - **Login Methods**: The official platform offers two methods: Subscription (Pro/Max) and API Key (Pay-as-you-go).
 - **Authorization**: After making a selection, you will be redirected to a browser page for authorization. Once successful, return to the terminal to complete the login.
 
-## 3. The First Practical Task
+## The First Practical Task
 
 Next, we will use Claude Code to create a simple ToDo application.
 - Enter the command: `Make a ToDo app for me, implement it using HTML.`
 - Claude Code will plan to create an `index.html` file and prompt you for permission/authorization.
 
-## 4. Understanding the Three Modes (Default / Auto / Plan)
+## Understanding the Three Modes (Default / Auto / Plan)
 
 When Claude Code wants to perform file operations (like creating a file), you face a choice among three authorization modes. You can use the `Shift + Tab` shortcut to toggle between them:
 

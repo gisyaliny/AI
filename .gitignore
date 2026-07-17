@@ -2,6 +2,7 @@ assets/~$graph.pptx
 _build/
 private/
 **/.ipynb_checkpoints/
+**/*.bak
 **/*.db
 **/*.csv
 **/*.parquet

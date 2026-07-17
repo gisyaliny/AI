@@ -4,7 +4,7 @@ Traditional RAG struggles with global questions ("How many times is X mentioned?
 
 ---
 
-## 1. The Limitations of Traditional RAG
+## The Limitations of Traditional RAG
 
 Before diving into Graph RAG, let's understand *why* it exists:
 
@@ -19,7 +19,7 @@ Before diving into Graph RAG, let's understand *why* it exists:
 
 ---
 
-## 2. What is a Knowledge Graph?
+## What is a Knowledge Graph?
 
 A knowledge graph is a structured representation of information as a network of **entities** (nodes) and **relationships** (edges).
 
@@ -40,7 +40,7 @@ In a knowledge graph, this becomes:
 
 ---
 
-## 3. How Graph RAG Builds the Knowledge Graph
+## How Graph RAG Builds the Knowledge Graph
 
 Before LLMs, building knowledge graphs required complex NLP pipelines (NER models, dependency parsers, etc.). Graph RAG leverages LLMs to do it all with prompts.
 
@@ -106,7 +106,7 @@ After processing every chunk independently, Graph RAG **merges** entities with t
 
 ---
 
-## 4. Community Detection: Building Hierarchies
+## Community Detection: Building Hierarchies
 
 A knowledge graph for a long document can have hundreds or thousands of nodes. To make it navigable, Graph RAG applies **Leiden community detection** to cluster densely connected nodes.
 
@@ -120,7 +120,7 @@ This is reasoning that traditional RAG simply cannot perform.
 
 ---
 
-## 5. Indexing: Embedding the Graph
+## Indexing: Embedding the Graph
 
 Once the hierarchical knowledge graph is built, Graph RAG converts everything into searchable vectors:
 
@@ -131,7 +131,7 @@ Once the hierarchical knowledge graph is built, Graph RAG converts everything in
 
 ---
 
-## 6. Querying: Local Search vs. Global Search
+## Querying: Local Search vs. Global Search
 
 Graph RAG offers two complementary search strategies:
 
@@ -164,7 +164,7 @@ Graph RAG offers two complementary search strategies:
 
 ---
 
-## 7. Graph RAG vs. Traditional RAG
+## Graph RAG vs. Traditional RAG
 
 | Aspect | Traditional RAG | Graph RAG |
 | :--- | :--- | :--- |
@@ -178,7 +178,7 @@ Graph RAG offers two complementary search strategies:
 
 ---
 
-## 8. Getting Started with Graph RAG
+## Getting Started with Graph RAG
 
 ### Option A: Microsoft's GraphRAG (Python)
 
@@ -221,7 +221,7 @@ graph.add_graph_documents(graph_documents)
 
 ---
 
-## 9. When to Use Graph RAG
+## When to Use Graph RAG
 
 ✅ **Use Graph RAG when:**
 - Your documents are long and complex (research papers, legal contracts, technical manuals).

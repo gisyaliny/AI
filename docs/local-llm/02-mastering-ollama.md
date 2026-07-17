@@ -1,10 +1,10 @@
-# 02 — Mastering Ollama: Local Models, APIs, RAG, Tools, and Production Patterns
+# — Mastering Ollama: Local Models, APIs, RAG, Tools, and Production Patterns
 
 > Goal: Tutorial 01 introduced the basic local LLM stack. Tutorial 02 focuses on mastering Ollama itself: model management, APIs, Modelfiles, Hugging Face GGUF models, embeddings, RAG, tool calling, cloud models, troubleshooting, and safe integration into local or web applications.
 
 ---
 
-## 0. What You Should Be Able to Do After This Tutorial
+## What You Should Be Able to Do After This Tutorial
 
 By the end, you should be able to:
 
@@ -23,7 +23,7 @@ By the end, you should be able to:
 
 ---
 
-## 1. Mental Model: What Ollama Actually Is
+## Mental Model: What Ollama Actually Is
 
 Ollama is not “the model.” It is a **local model runtime and management layer**.
 
@@ -43,7 +43,7 @@ Your hardware: Apple Silicon / NVIDIA GPU / AMD GPU / CPU
 
 **What this means:** your model does not automatically browse the web, read files, call APIs, or run code. Ollama provides the local model engine. RAG, web search, function calling, and UI features are added around it by your application or by tools such as Open WebUI and AnythingLLM.
 
-### 1.1 Ollama vs Llama vs llama.cpp vs GGUF
+### Ollama vs Llama vs llama.cpp vs GGUF
 
 | Term | Meaning |
 | :--- | :--- |
@@ -65,13 +65,12 @@ Your application = custom product built around the model engine
 
 ---
 
-## 2. Installation and First Checks
+## Installation and First Checks
 
-### 2.1 Install Ollama
+### Install Ollama
 
-```{tab-set}
-
-```{tab-item} macOS
+::::{tab-set}
+:::{tab-item} macOS
 Download Ollama from:
 
 https://ollama.com/download
@@ -85,18 +84,18 @@ ollama --version
 ```
 
 **Example description:** this command checks whether the Ollama CLI is available in your terminal. If macOS says `command not found`, reopen the terminal or restart Ollama so the CLI link can be created.
-```
+:::
 
-```{tab-item} Linux
+:::{tab-item} Linux
 ```bash
 curl -fsSL https://ollama.com/install.sh | sh
 ollama --version
 ```
 
 **Example description:** the first command downloads and runs Ollama's Linux installer. The second command confirms that installation succeeded and that the `ollama` executable is available in your shell.
-```
+:::
 
-```{tab-item} Windows
+:::{tab-item} Windows
 Download the installer from:
 
 https://ollama.com/download
@@ -108,33 +107,133 @@ ollama --version
 ```
 
 **Example description:** PowerShell should print the installed Ollama version. If it does not, close and reopen PowerShell or reinstall Ollama.
+:::
+
+::::
+### Verify the API server
+
+Ollama normally starts its local server automatically. The default local API endpoint is:
+
+```text
+http://localhost:11434
 ```
 
-```
+Use the command for your operating system.
 
-### 2.2 Verify the API server
-
-Ollama normally starts its local server automatically.
-
+::::{tab-set}
+:::{tab-item} macOS / Linux
 ```bash
 curl http://localhost:11434/api/tags
 ```
 
-**Example description:** this asks the local Ollama server for the list of installed models. If you receive JSON, the API server is working. This is the fastest health check before debugging Python or JavaScript code.
+**Example description:** this asks the local Ollama server for the list of installed models. If you receive JSON, the API server is working. This is the fastest health check before debugging Python, JavaScript, Open WebUI, or AnythingLLM connections.
+:::
 
-If it fails, start the server manually:
+:::{tab-item} Windows PowerShell
+```powershell
+Invoke-RestMethod http://localhost:11434/api/tags
+```
 
+**Example description:** `Invoke-RestMethod` is PowerShell's native HTTP client. It converts the JSON response into PowerShell objects, which makes it easier to inspect model names on Windows.
+:::
+
+:::{tab-item} Windows CMD
+```cmd
+curl.exe http://localhost:11434/api/tags
+```
+
+**Example description:** Windows also has `curl.exe`. In CMD, use `curl.exe` explicitly so Windows does not confuse it with PowerShell aliases.
+:::
+
+::::
+If the health check fails, start or restart Ollama manually.
+
+::::{tab-set}
+:::{tab-item} macOS
 ```bash
+open -a Ollama
+# or, if you want to run the server directly in this terminal:
 ollama serve
 ```
 
-**Example description:** `ollama serve` launches the local HTTP API server. Use it when the desktop app is not running or when another program cannot connect to `localhost:11434`.
+**Example description:** opening the app starts Ollama in the menu bar. `ollama serve` starts the API server in the foreground, which is useful when you want to see server logs while debugging.
+:::
 
+:::{tab-item} Linux
+```bash
+sudo systemctl status ollama
+sudo systemctl restart ollama
+```
+
+**Example description:** on most Linux installs, Ollama runs as a systemd service. `status` checks whether the service is running; `restart` reloads it after configuration or environment changes.
+:::
+
+:::{tab-item} Windows PowerShell
+```powershell
+ollama serve
+```
+
+**Example description:** running `ollama serve` in PowerShell starts the local API server in the foreground. Keep that window open while testing from another terminal or application.
+:::
+
+::::
+### Cross-platform command convention
+
+Most Ollama commands are identical across macOS, Linux, and Windows:
+
+```bash
+ollama list
+ollama run qwen3.6
+ollama ps
+ollama stop qwen3.6
+```
+
+The main differences are the **shell syntax** around HTTP calls, environment variables, virtual environments, file paths, and service management.
+
+| Task | macOS / Linux | Windows PowerShell |
+| :--- | :--- | :--- |
+| HTTP request | `curl ...` | `Invoke-RestMethod ...` or `curl.exe ...` |
+| Environment variable | `export NAME=value` | `$env:NAME="value"` |
+| Python launcher | `python3` | `py` or `python` |
+| Activate venv | `source .venv/bin/activate` | `.\.venv\Scripts\Activate.ps1` |
+| Home directory | `~/Models` | `$HOME\Models` |
+
+**Example description:** the model commands are portable, but the surrounding operating-system commands are not always portable. When copying examples, match the shell you are using.
+
+### Where Ollama stores models
+
+Model storage locations are useful when you need to estimate disk usage, back up models, or move a model cache to a larger drive.
+
+| OS | Common location |
+| :--- | :--- |
+| macOS | `~/.ollama/models` |
+| Linux user install | `~/.ollama/models` |
+| Linux service install | often `/usr/share/ollama/.ollama/models` |
+| Windows | `%USERPROFILE%\.ollama\models` |
+
+::::{tab-set}
+:::{tab-item} macOS / Linux
+```bash
+du -sh ~/.ollama/models 2>/dev/null
+```
+
+**Example description:** this estimates how much disk space your local Ollama models consume. Large models and multiple quantizations can quickly use hundreds of gigabytes.
+:::
+
+:::{tab-item} Windows PowerShell
+```powershell
+Get-ChildItem "$env:USERPROFILE\.ollama\models" -Recurse | Measure-Object -Property Length -Sum
+```
+
+**Example description:** this recursively sums model files in the Windows Ollama model directory. The result is shown in bytes, which you can divide by `1GB` for a rough gigabyte estimate.
+:::
+
+::::
 ---
 
-## 3. Core CLI Commands You Must Know
+## Core CLI Commands You Must Know
 
-### 3.1 Download a model
+### Download a model
 
 ```bash
 ollama pull qwen3.6
@@ -144,7 +243,7 @@ ollama pull embeddinggemma
 
 **Example description:** `pull` downloads model weights into Ollama's local model store. `qwen3.6` and `llama3.2` are chat/generation models, while `embeddinggemma` is an embedding model used for semantic search and RAG.
 
-### 3.2 Run a model interactively
+### Run a model interactively
 
 ```bash
 ollama run qwen3.6
@@ -160,7 +259,7 @@ Exit the interactive session:
 
 **Example description:** `/bye` exits the terminal chat without deleting the model. The model may stay loaded briefly for faster reuse.
 
-### 3.3 List downloaded models
+### List downloaded models
 
 ```bash
 ollama list
@@ -170,7 +269,7 @@ ollama ls
 
 **Example description:** this shows local model names, IDs, sizes, and modified dates. Use the exact model name from this output when calling Ollama from code.
 
-### 3.4 Show model information
+### Show model information
 
 ```bash
 ollama show qwen3.6
@@ -179,7 +278,7 @@ ollama show --modelfile qwen3.6
 
 **Example description:** `ollama show` displays metadata such as architecture, parameter size, quantization, context information, and template details. `--modelfile` shows how Ollama packages the model internally.
 
-### 3.5 List running models
+### List running models
 
 ```bash
 ollama ps
@@ -187,7 +286,7 @@ ollama ps
 
 **Example description:** this is one of the most useful diagnostic commands. It shows currently loaded models, memory size, processor placement, context allocation, and how long the model will remain loaded.
 
-### 3.6 Stop a running model
+### Stop a running model
 
 ```bash
 ollama stop qwen3.6
@@ -195,7 +294,7 @@ ollama stop qwen3.6
 
 **Example description:** this unloads a model from memory. Use it when your machine feels slow, when a different model needs memory, or before changing large context settings.
 
-### 3.7 Remove a model
+### Remove a model
 
 ```bash
 ollama rm llama3.2
@@ -203,7 +302,7 @@ ollama rm llama3.2
 
 **Example description:** this deletes a local model from disk. It is useful because model files can easily consume tens or hundreds of gigabytes.
 
-### 3.8 Copy or rename a model
+### Copy or rename a model
 
 ```bash
 ollama cp qwen3.6 qwen-local
@@ -222,7 +321,7 @@ ollama cp qwen3.6 gpt-4
 
 ---
 
-## 4. Model Names, Tags, and Versions
+## Model Names, Tags, and Versions
 
 Ollama model names often follow this pattern:
 
@@ -243,7 +342,7 @@ hf.co/bartowski/Llama-3.2-3B-Instruct-GGUF:Q4_K_M
 
 **Example description:** the part before `:` is the model family or repository. The part after `:` is the variant, such as size, quantization, MLX build, or cloud mode. If you omit the tag, Ollama often uses `latest`.
 
-### 4.1 Local vs cloud
+### Local vs cloud
 
 ```bash
 ollama run qwen3.6
@@ -257,7 +356,7 @@ ollama run glm-5.2:cloud
 
 **Example description:** the `:cloud` suffix means the model runs through Ollama Cloud. It may consume cloud usage, credits, or plan limits. Use it for tasks that are too large for local hardware, not for routine private or offline work.
 
-### 4.2 Hugging Face models
+### Hugging Face models
 
 For GGUF models on Hugging Face:
 
@@ -277,7 +376,7 @@ ollama run hf.co/bartowski/Llama-3.2-3B-Instruct-GGUF:Q4_K_M
 
 ---
 
-## 5. Quantization: Q4, Q5, Q8, IQ2, MLX
+## Quantization: Q4, Q5, Q8, IQ2, MLX
 
 Quantization compresses model weights to reduce memory and disk usage. Lower precision usually means lower memory cost, but sometimes lower output quality.
 
@@ -305,9 +404,9 @@ Apple Silicon: try MLX variants when available
 
 ---
 
-## 6. Interactive Chat: Useful Terminal Techniques
+## Interactive Chat: Useful Terminal Techniques
 
-### 6.1 One-shot prompt
+### One-shot prompt
 
 ```bash
 ollama run qwen3.6 "Explain SQL joins in simple terms."
@@ -315,7 +414,7 @@ ollama run qwen3.6 "Explain SQL joins in simple terms."
 
 **Example description:** this sends one prompt and prints one answer without keeping you in a long interactive workflow. It is useful for quick tests, shell scripts, and comparing model outputs.
 
-### 6.2 Multiline prompt
+### Multiline prompt
 
 Inside `ollama run`:
 
@@ -327,7 +426,7 @@ Inside `ollama run`:
 
 **Example description:** triple quotes make it easier to send longer instructions. The key operation is giving the model enough structured context without needing an external file.
 
-### 6.3 Image input with a vision model
+### Image input with a vision model
 
 Only works with vision-capable models.
 
@@ -339,7 +438,7 @@ ollama run gemma4 "Describe this image: ./sample-image.jpg"
 
 ---
 
-## 7. REST API: The Most Important Interface
+## REST API: The Most Important Interface
 
 Ollama's local API usually runs here:
 
@@ -347,7 +446,7 @@ Ollama's local API usually runs here:
 http://localhost:11434
 ```
 
-### 7.1 `/api/generate`
+### `/api/generate`
 
 Good for simple prompt completion.
 
@@ -363,7 +462,7 @@ curl http://localhost:11434/api/generate \
 
 **Example description:** `/api/generate` is the simplest endpoint. `model` selects the local model, `prompt` contains the user instruction, and `stream:false` asks Ollama to return one complete JSON response instead of many small streaming chunks.
 
-### 7.2 `/api/chat`
+### `/api/chat`
 
 Better for multi-turn chat-style messages.
 
@@ -382,7 +481,7 @@ curl http://localhost:11434/api/chat \
 
 **Example description:** `/api/chat` separates messages by role. The `system` message controls behavior, while the `user` message contains the task. This format is better for apps because it preserves conversation structure.
 
-### 7.3 Streaming vs non-streaming
+### Streaming vs non-streaming
 
 For easier development:
 
@@ -400,9 +499,55 @@ For ChatGPT-like UI:
 
 **Example description:** streaming returns partial tokens as the model generates them. It makes the UI feel faster but requires your frontend or backend to handle a stream of chunks.
 
+### Windows PowerShell API examples
+
+The REST API is the same on every operating system, but Windows users often prefer PowerShell objects instead of raw JSON strings.
+
+```powershell
+$body = @{
+  model = "qwen3.6"
+  messages = @(
+    @{ role = "user"; content = "Explain what Ollama does in two sentences." }
+  )
+  stream = $false
+} | ConvertTo-Json -Depth 5
+
+$response = Invoke-RestMethod `
+  -Uri "http://localhost:11434/api/chat" `
+  -Method Post `
+  -ContentType "application/json" `
+  -Body $body
+
+$response.message.content
+```
+
+**Example description:** this is the PowerShell equivalent of the `/api/chat` cURL example. `ConvertTo-Json -Depth 5` is important because chat messages are nested objects; without enough depth, PowerShell can truncate nested JSON.
+
+If you prefer the OpenAI-compatible endpoint:
+
+```powershell
+$body = @{
+  model = "qwen3.6"
+  messages = @(
+    @{ role = "system"; content = "You are a concise assistant." },
+    @{ role = "user"; content = "Give me a one-line definition of RAG." }
+  )
+} | ConvertTo-Json -Depth 5
+
+$response = Invoke-RestMethod `
+  -Uri "http://localhost:11434/v1/chat/completions" `
+  -Method Post `
+  -ContentType "application/json" `
+  -Body $body
+
+$response.choices[0].message.content
+```
+
+**Example description:** this uses Ollama's OpenAI-compatible path. It is useful when your application already follows the OpenAI chat completion response structure.
+
 ---
 
-## 8. Python: Native Ollama SDK
+## Python: Native Ollama SDK
 
 Install:
 
@@ -412,7 +557,7 @@ pip install ollama
 
 **Example description:** this installs the official Python client, which wraps Ollama's local HTTP API so you do not need to write raw `requests` calls.
 
-### 8.1 Basic chat
+### Basic chat
 
 ```python
 from ollama import chat
@@ -430,7 +575,7 @@ print(response.message.content)
 
 **Example description:** `chat()` sends structured role-based messages to the local model. The important part is `model="qwen3.6"`: it must match a model shown by `ollama list`.
 
-### 8.2 Streaming
+### Streaming
 
 ```python
 from ollama import chat
@@ -449,7 +594,7 @@ for chunk in stream:
 
 ---
 
-## 9. Python: OpenAI-Compatible SDK
+## Python: OpenAI-Compatible SDK
 
 This is the most useful method if your existing code already uses the OpenAI SDK.
 
@@ -461,7 +606,7 @@ pip install openai
 
 **Example description:** the OpenAI SDK can talk to Ollama because Ollama exposes an OpenAI-compatible `/v1` API. This makes provider switching much easier.
 
-### 9.1 Minimal example
+### Minimal example
 
 ```python
 from openai import OpenAI
@@ -484,7 +629,7 @@ print(response.choices[0].message.content)
 
 **Example description:** `base_url` redirects the OpenAI SDK to your local Ollama server. `api_key` is required by the SDK, but Ollama does not require a real cloud API key for local use. `model` must be an installed Ollama model name.
 
-### 9.2 Why this matters
+### Why this matters
 
 You can switch providers by changing only these values:
 
@@ -498,7 +643,7 @@ model = "qwen3.6"
 
 ---
 
-## 10. JavaScript / Node.js
+## JavaScript / Node.js
 
 Install:
 
@@ -533,11 +678,11 @@ console.log(completion.choices[0].message.content);
 
 ---
 
-## 11. Modelfile: Create Your Own Local Assistant
+## Modelfile: Create Your Own Local Assistant
 
 A `Modelfile` is a recipe for creating a customized Ollama model. It can define a base model, system prompt, context length, sampling parameters, and other behavior.
 
-### 11.1 Basic generic assistant
+### Basic generic assistant
 
 Create a file named `Modelfile`:
 
@@ -566,7 +711,7 @@ ollama run local-technical-assistant
 
 **Example description:** `ollama create` builds a named model from your recipe. After that, `local-technical-assistant` behaves like any other Ollama model and can be called from CLI or API.
 
-### 11.2 Useful Modelfile instructions
+### Useful Modelfile instructions
 
 | Instruction | Purpose |
 | :--- | :--- |
@@ -579,7 +724,7 @@ ollama run local-technical-assistant
 | `LICENSE` | Add model license text. |
 | `REQUIRES` | Minimum Ollama version. |
 
-### 11.3 View an existing model's Modelfile
+### View an existing model's Modelfile
 
 ```bash
 ollama show --modelfile qwen3.6
@@ -589,7 +734,7 @@ ollama show --modelfile qwen3.6
 
 ---
 
-## 12. Runtime Parameters You Should Understand
+## Runtime Parameters You Should Understand
 
 | Parameter | Meaning | Typical value |
 | :--- | :--- | :--- |
@@ -600,7 +745,7 @@ ollama show --modelfile qwen3.6
 | `stop` | Stop sequences | model-specific |
 | `repeat_penalty` | Reduces repetition | `1.05–1.2` |
 
-### 12.1 Practical presets
+### Practical presets
 
 Coding assistant:
 
@@ -634,7 +779,7 @@ PARAMETER num_ctx 65536
 
 ---
 
-## 13. Context Length and Memory
+## Context Length and Memory
 
 Context length is how much text the model can “see” at once.
 
@@ -651,7 +796,7 @@ multi-turn conversations
 
 But larger context uses more memory.
 
-### 13.1 Check actual context allocation
+### Check actual context allocation
 
 ```bash
 ollama ps
@@ -659,7 +804,7 @@ ollama ps
 
 **Example description:** look at the `CONTEXT` column. A model may support a large maximum context, but Ollama may allocate a smaller context unless configured.
 
-### 13.2 Increase context globally when serving
+### Increase context globally when serving
 
 ```bash
 OLLAMA_CONTEXT_LENGTH=64000 ollama serve
@@ -667,7 +812,7 @@ OLLAMA_CONTEXT_LENGTH=64000 ollama serve
 
 **Example description:** this starts the Ollama server with a larger default context length. It is useful for experiments but can increase memory pressure for every loaded model.
 
-### 13.3 Increase context through Modelfile
+### Increase context through Modelfile
 
 ```dockerfile
 FROM qwen3.6
@@ -687,11 +832,11 @@ ollama run qwen-large-context
 
 ---
 
-## 14. Toy Experiment 1 — Compare System Prompts
+## Toy Experiment 1 — Compare System Prompts
 
 Goal: see how a system prompt changes behavior.
 
-### 14.1 Plain model
+### Plain model
 
 ```bash
 ollama run qwen3.6 "Design a database schema for a document review system."
@@ -699,7 +844,7 @@ ollama run qwen3.6 "Design a database schema for a document review system."
 
 **Example description:** this uses the base model without a custom system prompt. The result will depend mostly on the model's default behavior.
 
-### 14.2 Custom model
+### Custom model
 
 Create `Modelfile`:
 
@@ -727,7 +872,7 @@ ollama run backend-architect "Design a database schema for a document review sys
 
 ---
 
-## 15. Toy Experiment 2 — Build a Tiny Local RAG System
+## Toy Experiment 2 — Build a Tiny Local RAG System
 
 Goal: understand RAG without a framework.
 
@@ -810,7 +955,7 @@ python tiny_rag.py
 
 ---
 
-## 16. RAG Architecture for Real Projects
+## RAG Architecture for Real Projects
 
 For a serious local RAG stack:
 
@@ -824,7 +969,7 @@ For a serious local RAG stack:
 | App backend | Django, FastAPI, Flask, Express |
 | UI | Open WebUI, AnythingLLM, custom React/Vue/Svelte UI |
 
-### 16.1 RAG database design example
+### RAG database design example
 
 For PostgreSQL + pgvector:
 
@@ -865,7 +1010,7 @@ ChatMessage
 
 ---
 
-## 17. Toy Experiment 3 — Tool Calling
+## Toy Experiment 3 — Tool Calling
 
 Goal: let the model call a Python function.
 
@@ -969,7 +1114,7 @@ python tool_calling_demo.py
 
 ---
 
-## 18. Tool Calling Pattern for Web Applications
+## Tool Calling Pattern for Web Applications
 
 A real agent loop looks like this:
 
@@ -1010,7 +1155,7 @@ The model proposes; your backend validates.
 
 ---
 
-## 19. Embeddings: What They Are and How Ollama Uses Them
+## Embeddings: What They Are and How Ollama Uses Them
 
 Embeddings turn text into numeric vectors.
 
@@ -1025,7 +1170,7 @@ recommendation
 similarity search
 ```
 
-### 19.1 Generate embeddings with cURL
+### Generate embeddings with cURL
 
 ```bash
 curl -X POST http://localhost:11434/api/embed \
@@ -1038,7 +1183,7 @@ curl -X POST http://localhost:11434/api/embed \
 
 **Example description:** `/api/embed` returns a vector instead of a natural-language answer. You store this vector in a vector database and compare it to other vectors for semantic search.
 
-### 19.2 Generate embeddings in Python
+### Generate embeddings in Python
 
 ```python
 import ollama
@@ -1054,7 +1199,7 @@ print(len(vector))
 
 **Example description:** the printed length is the embedding dimension. Every vector in the same index must have the same dimension and come from the same embedding model.
 
-### 19.3 Important embedding rule
+### Important embedding rule
 
 Do not mix embedding models in the same vector index.
 
@@ -1067,11 +1212,11 @@ Index documents with qwen3-embedding → query with qwen3-embedding
 
 ---
 
-## 20. Structured Outputs / JSON Mode
+## Structured Outputs / JSON Mode
 
 For app development, you often do not want prose. You want JSON.
 
-### 20.1 JSON output with `/api/chat`
+### JSON output with `/api/chat`
 
 ```bash
 curl http://localhost:11434/api/chat \
@@ -1091,7 +1236,7 @@ curl http://localhost:11434/api/chat \
 
 **Example description:** `format:"json"` asks Ollama to constrain the output to JSON. This is useful for classification, extraction, database previews, and backend workflows.
 
-### 20.2 Practical use
+### Practical use
 
 Structured output is useful for:
 
@@ -1120,7 +1265,7 @@ Example target shape:
 
 ---
 
-## 21. Vision Models
+## Vision Models
 
 Some Ollama models can accept images.
 
@@ -1160,11 +1305,11 @@ Vision LLM = explanation, report writing, visual QA, human-readable summary
 
 ---
 
-## 22. Hugging Face GGUF Workflow
+## Hugging Face GGUF Workflow
 
 Ollama's official library will not always have the newest models. Hugging Face often has GGUF versions earlier.
 
-### 22.1 Direct run from Hugging Face
+### Direct run from Hugging Face
 
 ```bash
 ollama run hf.co/<username>/<repo>
@@ -1188,7 +1333,7 @@ ollama run hf.co/bartowski/Llama-3.2-3B-Instruct-GGUF:Q4_K_M
 
 **Example description:** this runs a Hugging Face GGUF model that may not be present in the official Ollama library. It is a useful pattern for trying newer community quantizations.
 
-### 22.2 Full filename as tag
+### Full filename as tag
 
 Sometimes this works:
 
@@ -1198,7 +1343,7 @@ ollama run hf.co/<username>/<repo>:model-name-Q4_K_M.gguf
 
 **Example description:** some repositories expose multiple `.gguf` filenames instead of simple tags. Using the full filename can disambiguate which file Ollama should download.
 
-### 22.3 Manual GGUF import
+### Manual GGUF import
 
 Download a `.gguf` file, then create a `Modelfile`:
 
@@ -1217,7 +1362,7 @@ ollama run my-gguf-model
 
 **Example description:** after import, `my-gguf-model` becomes a normal Ollama model name. Your Python, JavaScript, and API calls can use it like any other model.
 
-### 22.4 Sharded GGUF warning
+### Sharded GGUF warning
 
 If files look like this:
 
@@ -1243,7 +1388,7 @@ Possible solutions:
 
 ---
 
-## 23. Cloud Models
+## Cloud Models
 
 Some models are too large to run locally conveniently.
 
@@ -1291,7 +1436,7 @@ sensitive data
 
 ---
 
-## 24. Web Search
+## Web Search
 
 Local models cannot browse the web by themselves.
 
@@ -1337,7 +1482,7 @@ hash or cache key
 
 ---
 
-## 25. Open WebUI and AnythingLLM
+## Open WebUI and AnythingLLM
 
 Ollama is the engine. It is not a complete ChatGPT replacement by itself.
 
@@ -1364,9 +1509,9 @@ Step 4: Custom backend integration for your own application
 
 ---
 
-## 26. Production Pattern for Django / FastAPI
+## Production Pattern for Django / FastAPI
 
-### 26.1 Minimal backend architecture
+### Minimal backend architecture
 
 ```text
 Django/FastAPI
@@ -1381,7 +1526,7 @@ Django/FastAPI
 
 **Example description:** the application should not expose Ollama directly to every user. Your backend should validate requests, enforce permissions, manage RAG retrieval, and decide which tools are allowed.
 
-### 26.2 Generic service wrapper
+### Generic service wrapper
 
 ```python
 # services/llm.py
@@ -1415,7 +1560,7 @@ answer = ask_local_model([
 
 **Example description:** application code passes a standard `messages` list. This makes it easy to add RAG context, conversation history, or tool results before calling the model.
 
-### 26.3 Recommended environment variables
+### Recommended environment variables
 
 ```bash
 OLLAMA_BASE_URL=http://localhost:11434/v1
@@ -1427,9 +1572,9 @@ OLLAMA_EMBED_MODEL=embeddinggemma
 
 ---
 
-## 27. Performance Tuning Checklist
+## Performance Tuning Checklist
 
-### 27.1 If responses are slow
+### If responses are slow
 
 Check:
 
@@ -1450,7 +1595,7 @@ stop unused models
 use MLX version on Apple Silicon if available
 ```
 
-### 27.2 If you run out of memory
+### If you run out of memory
 
 Try:
 
@@ -1476,7 +1621,7 @@ PARAMETER num_ctx 8192
 
 **Example description:** context length is often a hidden memory cost. Reducing it can make a model usable even when the base model size stays the same.
 
-### 27.3 If API connection fails
+### If API connection fails
 
 Test:
 
@@ -1504,11 +1649,11 @@ lsof -i :11434
 
 ---
 
-## 28. Security and Privacy Rules
+## Security and Privacy Rules
 
 Local models are powerful, but your wrapper code decides safety.
 
-### 28.1 Good rules
+### Good rules
 
 ```text
 Use local models for private documents.
@@ -1522,7 +1667,7 @@ Use human approval for writes.
 
 **Example description:** the model can generate convincing but wrong actions. Your application must enforce boundaries and require review for anything that changes data or sends information externally.
 
-### 28.2 Bad patterns
+### Bad patterns
 
 ```text
 Letting the model run any SQL it writes.
@@ -1536,7 +1681,7 @@ Trusting model JSON without validation.
 
 ---
 
-## 29. Troubleshooting Table
+## Troubleshooting Table
 
 | Problem | Likely cause | Fix |
 | :--- | :--- | :--- |
@@ -1553,7 +1698,7 @@ Trusting model JSON without validation.
 
 ---
 
-## 30. Recommended Learning Path
+## Recommended Learning Path
 
 ### Phase 1 — Basic control
 
@@ -1629,7 +1774,7 @@ cloud model comparison
 
 ---
 
-## 31. End-to-End Workflow for a Local AI Stack
+## End-to-End Workflow for a Local AI Stack
 
 ```mermaid
 graph TD
@@ -1650,9 +1795,9 @@ graph TD
 
 ---
 
-## 32. Mini Project — Generic Local Documentation Assistant
+## Mini Project — Generic Local Documentation Assistant
 
-### 32.1 Goal
+### Goal
 
 Build a local assistant that can:
 
@@ -1666,7 +1811,7 @@ Build a local assistant that can:
 
 **Example description:** this project is intentionally generic. It teaches the same building blocks needed for many private AI assistants without depending on any specific organization or domain.
 
-### 32.2 Suggested stack
+### Suggested stack
 
 ```text
 LLM: qwen3.6, Llama, Gemma, Mistral, or another local model
@@ -1680,7 +1825,7 @@ UI: Open WebUI for testing, custom web UI later
 
 **Example description:** this stack separates the chat model, embedding model, database, backend, tools, and UI. That separation makes the system easier to debug and replace piece by piece.
 
-### 32.3 Example system prompt
+### Example system prompt
 
 ```text
 You are a local documentation assistant.
@@ -1694,7 +1839,7 @@ For actions that change data, create a draft and ask for human confirmation.
 
 ---
 
-## 33. Knowledge Quiz
+## Knowledge Quiz
 
 ### Q1. What command shows downloaded local models?
 
@@ -1786,7 +1931,346 @@ A Modelfile is Ollama's recipe for creating a customized model from a base model
 
 ---
 
-## 34. Reference Links for Further Reading
+## Appendix A — Cross-Platform Examples: macOS, Windows, and Linux
+
+This section collects equivalent commands for the most common operations. Use it as a quick translation table when an example appears to be written for a different operating system.
+
+### A.1 Health check and model list
+
+::::{tab-set}
+:::{tab-item} macOS / Linux
+```bash
+ollama list
+curl http://localhost:11434/api/tags
+```
+
+**Example description:** `ollama list` checks the local model registry from the CLI. `curl /api/tags` checks the same idea through the HTTP API, which is what applications use.
+:::
+
+:::{tab-item} Windows PowerShell
+```powershell
+ollama list
+Invoke-RestMethod http://localhost:11434/api/tags
+```
+
+**Example description:** the first command confirms the CLI works. The second confirms the local API works and returns the installed models as PowerShell objects.
+:::
+
+:::{tab-item} Windows CMD
+```cmd
+ollama list
+curl.exe http://localhost:11434/api/tags
+```
+
+**Example description:** CMD can use `curl.exe` for the API health check. This is useful on machines where PowerShell execution policies are restricted.
+:::
+
+::::
+### A.2 Run the same model on each OS
+
+::::{tab-set}
+:::{tab-item} macOS / Linux
+```bash
+ollama run qwen3.6
+```
+
+**Example description:** this loads the model and starts an interactive terminal chat. If the model is missing, Ollama downloads it first.
+:::
+
+:::{tab-item} Windows PowerShell / CMD
+```powershell
+ollama run qwen3.6
+```
+
+**Example description:** Ollama's model commands are the same on Windows. The difference usually appears only when you write JSON, paths, or environment variables.
+:::
+
+::::
+### A.3 Python virtual environment setup
+
+::::{tab-set}
+:::{tab-item} macOS / Linux
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+python3 -m pip install -U ollama openai numpy
+```
+
+**Example description:** this creates an isolated Python environment, activates it, and installs the Ollama SDK, OpenAI SDK, and NumPy for simple RAG experiments.
+:::
+
+:::{tab-item} Windows PowerShell
+```powershell
+py -m venv .venv
+.\.venv\Scripts\Activate.ps1
+py -m pip install -U ollama openai numpy
+```
+
+**Example description:** Windows virtual environments use a different activation script. If activation is blocked, run PowerShell as the current user and set a less restrictive execution policy for the session.
+:::
+
+:::{tab-item} Windows CMD
+```cmd
+py -m venv .venv
+.venv\Scripts\activate.bat
+py -m pip install -U ollama openai numpy
+```
+
+**Example description:** CMD uses `activate.bat` instead of the PowerShell activation script.
+:::
+
+::::
+### A.4 Run toy scripts
+
+::::{tab-set}
+:::{tab-item} macOS / Linux
+```bash
+python3 tiny_rag.py
+python3 tool_calling_demo.py
+```
+
+**Example description:** these commands run the tutorial's toy RAG and tool-calling scripts with the active Python environment.
+:::
+
+:::{tab-item} Windows PowerShell / CMD
+```powershell
+py tiny_rag.py
+py tool_calling_demo.py
+```
+
+**Example description:** `py` is the Windows Python launcher. It helps select the installed Python version consistently.
+:::
+
+::::
+### A.5 Environment variables
+
+::::{tab-set}
+:::{tab-item} macOS / Linux temporary session
+```bash
+export OLLAMA_HOST=127.0.0.1:11434
+export OLLAMA_KEEP_ALIVE=5m
+export OLLAMA_CONTEXT_LENGTH=8192
+ollama serve
+```
+
+**Example description:** these variables affect the Ollama server launched from the same shell. They are temporary and disappear when the terminal closes.
+:::
+
+:::{tab-item} Windows PowerShell temporary session
+```powershell
+$env:OLLAMA_HOST="127.0.0.1:11434"
+$env:OLLAMA_KEEP_ALIVE="5m"
+$env:OLLAMA_CONTEXT_LENGTH="8192"
+ollama serve
+```
+
+**Example description:** `$env:` sets variables for the current PowerShell session. Start `ollama serve` from that same window so the server receives the settings.
+:::
+
+:::{tab-item} Linux systemd service
+```bash
+sudo systemctl edit ollama
+```
+
+Then add:
+
+```ini
+[Service]
+Environment="OLLAMA_KEEP_ALIVE=5m"
+Environment="OLLAMA_CONTEXT_LENGTH=8192"
+```
+
+Reload and restart:
+
+```bash
+sudo systemctl daemon-reload
+sudo systemctl restart ollama
+```
+
+**Example description:** Linux service installs do not automatically inherit shell variables. A systemd override is the correct place for persistent server-level settings.
+:::
+
+::::
+### A.6 API calls: cURL vs PowerShell
+
+::::{tab-set}
+:::{tab-item} macOS / Linux cURL
+```bash
+curl http://localhost:11434/api/chat \
+  -H "Content-Type: application/json" \
+  -d '{
+    "model": "qwen3.6",
+    "messages": [
+      {"role": "user", "content": "Explain local LLMs in one paragraph."}
+    ],
+    "stream": false
+  }'
+```
+
+**Example description:** this sends a complete chat request to the local Ollama API. `stream:false` makes the response easier to read in scripts because Ollama returns one final JSON object.
+:::
+
+:::{tab-item} Windows PowerShell
+```powershell
+$body = @{
+  model = "qwen3.6"
+  messages = @(
+    @{ role = "user"; content = "Explain local LLMs in one paragraph." }
+  )
+  stream = $false
+} | ConvertTo-Json -Depth 5
+
+Invoke-RestMethod `
+  -Uri "http://localhost:11434/api/chat" `
+  -Method Post `
+  -ContentType "application/json" `
+  -Body $body
+```
+
+**Example description:** PowerShell objects are safer than manually escaping a long JSON string. `ConvertTo-Json` turns the hashtable into the JSON body expected by Ollama.
+:::
+
+::::
+### A.7 Check which process owns port 11434
+
+::::{tab-set}
+:::{tab-item} macOS
+```bash
+lsof -i :11434
+```
+
+**Example description:** this checks whether Ollama or another process is listening on the default API port.
+:::
+
+:::{tab-item} Linux
+```bash
+ss -ltnp | grep 11434
+```
+
+**Example description:** `ss` is the modern Linux tool for checking listening TCP ports. It helps diagnose connection refused errors.
+:::
+
+:::{tab-item} Windows PowerShell
+```powershell
+Get-NetTCPConnection -LocalPort 11434
+```
+
+**Example description:** this shows Windows TCP listeners using port `11434`. If another process owns the port, stop it or change Ollama's host/port.
+:::
+
+::::
+### A.8 Import a local GGUF file
+
+::::{tab-set}
+:::{tab-item} macOS / Linux
+```bash
+mkdir -p ~/Models/demo-gguf
+cd ~/Models/demo-gguf
+# Put model.Q4_K_M.gguf in this folder first.
+cat > Modelfile <<'EOF'
+FROM ./model.Q4_K_M.gguf
+PARAMETER temperature 0.3
+EOF
+ollama create demo-local -f Modelfile
+ollama run demo-local
+```
+
+**Example description:** the `Modelfile` tells Ollama which local GGUF file to wrap as a runnable model. `ollama create` registers it under the name `demo-local`.
+:::
+
+:::{tab-item} Windows PowerShell
+```powershell
+New-Item -ItemType Directory -Force -Path "$HOME\Models\demo-gguf"
+Set-Location "$HOME\Models\demo-gguf"
+# Put model.Q4_K_M.gguf in this folder first.
+@"
+FROM ./model.Q4_K_M.gguf
+PARAMETER temperature 0.3
+"@ | Set-Content Modelfile
+ollama create demo-local -f Modelfile
+ollama run demo-local
+```
+
+**Example description:** PowerShell's here-string creates the `Modelfile`. Forward slashes inside `FROM ./model...` are fine because Ollama reads the path relative to the Modelfile.
+:::
+
+::::
+### A.9 Open WebUI with Docker
+
+::::{tab-set}
+:::{tab-item} macOS / Linux
+```bash
+docker run -d \
+  -p 3000:8080 \
+  --add-host=host.docker.internal:host-gateway \
+  -v open-webui:/app/backend/data \
+  --name open-webui \
+  --restart always \
+  ghcr.io/open-webui/open-webui:main
+```
+
+**Example description:** this runs Open WebUI and points containers to the host machine so the web UI can reach Ollama at `host.docker.internal:11434`.
+:::
+
+:::{tab-item} Windows PowerShell
+```powershell
+docker run -d `
+  -p 3000:8080 `
+  --add-host=host.docker.internal:host-gateway `
+  -v open-webui:/app/backend/data `
+  --name open-webui `
+  --restart always `
+  ghcr.io/open-webui/open-webui:main
+```
+
+**Example description:** this is the PowerShell line-continuation version of the Docker command. The backtick character continues the command on the next line.
+:::
+
+::::
+### A.10 Common path translations
+
+| Concept | macOS / Linux | Windows PowerShell |
+| :--- | :--- | :--- |
+| Home folder | `~` | `$HOME` |
+| Models folder example | `~/Models` | `$HOME\Models` |
+| Current directory | `./file.gguf` | `.\file.gguf` |
+| Activate venv | `source .venv/bin/activate` | `.\.venv\Scripts\Activate.ps1` |
+| Delete model file/folder manually | `rm -rf path` | `Remove-Item -Recurse -Force path` |
+
+**Example description:** most Ollama commands are OS-neutral, but file paths are not. When an example fails, check path syntax before assuming the model or API is broken.
+
+---
+
+## Final Practical Advice
+
+A reliable learning order is:
+
+```text
+1. Use a local chat model through Ollama.
+2. Learn the CLI: list, run, show, ps, stop, rm.
+3. Use the OpenAI-compatible SDK in Python or JavaScript.
+4. Create a custom Modelfile.
+5. Add an embedding model.
+6. Build a tiny RAG system.
+7. Add tool calling for safe backend actions.
+8. Use Open WebUI for daily local ChatGPT-like use.
+9. Use cloud models only for difficult tasks or comparison.
+10. Use Hugging Face GGUF when Ollama's official library lacks a model.
+```
+
+The big idea:
+
+```text
+Ollama gives you the local model engine.
+RAG gives it your knowledge.
+Tools give it controlled actions.
+Your backend gives it rules.
+Your UI gives it a useful product experience.
+```
+
+---
+
+## Reference Links for Further Reading
 
 ### Ollama official
 
@@ -1821,32 +2305,4 @@ A Modelfile is Ollama's recipe for creating a customized model from a base model
 - LangChain: https://www.langchain.com/
 - Qdrant: https://qdrant.tech/
 - pgvector: https://github.com/pgvector/pgvector
-
----
-
-## 35. Final Practical Advice
-
-A reliable learning order is:
-
-```text
-1. Use a local chat model through Ollama.
-2. Learn the CLI: list, run, show, ps, stop, rm.
-3. Use the OpenAI-compatible SDK in Python or JavaScript.
-4. Create a custom Modelfile.
-5. Add an embedding model.
-6. Build a tiny RAG system.
-7. Add tool calling for safe backend actions.
-8. Use Open WebUI for daily local ChatGPT-like use.
-9. Use cloud models only for difficult tasks or comparison.
-10. Use Hugging Face GGUF when Ollama's official library lacks a model.
-```
-
-The big idea:
-
-```text
-Ollama gives you the local model engine.
-RAG gives it your knowledge.
-Tools give it controlled actions.
-Your backend gives it rules.
-Your UI gives it a useful product experience.
-```
+ 

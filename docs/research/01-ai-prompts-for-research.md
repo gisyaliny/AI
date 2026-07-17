@@ -6,7 +6,7 @@ This tutorial is a curated collection of **battle-tested AI prompts** designed t
 
 ---
 
-## 1. Auto-Citing a Manuscript Paragraph
+## Auto-Citing a Manuscript Paragraph
 
 This is perhaps the single most time-saving prompt for researchers. You paste in a paragraph of your draft, and the AI finds real, high-quality papers and inserts in-text citations naturally.
 
@@ -53,7 +53,7 @@ Here is my manuscript text:
 
 ---
 
-## 2. Literature Review Synthesis
+## Literature Review Synthesis
 
 When you've collected 10–20 papers but need help synthesizing their findings into a coherent narrative:
 
@@ -83,9 +83,9 @@ Paper Summaries:
 
 ---
 
-## 3. Generating Publication-Quality Research Figures
+## Generating Publication-Quality Research Figures
 
-### 3.1 Methodology Flowchart / Framework Diagram
+### Methodology Flowchart / Framework Diagram
 
 Use this prompt to generate a clean, publication-ready methodology diagram:
 
@@ -108,7 +108,7 @@ Requirements:
 - Add brief annotations on arrows to describe data flow.
 ```
 
-### 3.2 Comparison / Results Table as a Figure
+### Comparison / Results Table as a Figure
 
 ```text
 Convert the following experimental results into a professional, publication-ready 
@@ -121,7 +121,7 @@ Results:
 [PASTE YOUR RAW RESULTS HERE]
 ```
 
-### 3.3 AI Image Generation for Conceptual Figures
+### AI Image Generation for Conceptual Figures
 
 When you need a conceptual illustration (e.g., for a graphical abstract), use this prompt template for image generation tools (DALL-E, Midjourney, Stable Diffusion):
 
@@ -140,9 +140,9 @@ Resolution: high-resolution, print-quality.
 
 ---
 
-## 4. Creating Conference Presentation Slides
+## Creating Conference Presentation Slides
 
-### 4.1 Generating a Slide Outline
+### Generating a Slide Outline
 
 ```text
 You are a presentation design expert for academic conferences. Create a detailed 
@@ -168,7 +168,7 @@ For each slide, provide:
 - Speaker notes (2–3 sentences of what to say)
 ```
 
-### 4.2 Converting a Paper Section into Slide Content
+### Converting a Paper Section into Slide Content
 
 ```text
 Convert the following paper section into concise presentation slide content.
@@ -186,9 +186,9 @@ Paper Section:
 
 ---
 
-## 5. Writing Enhancement Prompts
+## Writing Enhancement Prompts
 
-### 5.1 Academic Tone Polishing
+### Academic Tone Polishing
 
 ```text
 You are an expert academic editor for [journal name, e.g., Nature Communications].
@@ -207,7 +207,7 @@ Original Paragraph:
 [PASTE HERE]
 ```
 
-### 5.2 Abstract Generator
+### Abstract Generator
 
 ```text
 Based on the following paper sections, write a structured abstract of 
@@ -224,7 +224,7 @@ approximately [150–250] words. Follow this structure:
 
 ---
 
-## 6. Responding to Peer Review Comments
+## Responding to Peer Review Comments
 
 ```text
 You are an experienced academic author. I will give you a reviewer's comment and 
@@ -249,7 +249,7 @@ Relevant Manuscript Section:
 
 ---
 
-## 7. Quick Reference: Recommended Tools
+## Quick Reference: Recommended Tools
 
 | Task | Recommended AI Tools |
 | :--- | :--- |

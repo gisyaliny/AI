@@ -2,7 +2,7 @@
 
 This chapter explores how to customize Claude Code's behavior to fit your exact workflow. You'll learn how to inject domain-specific instructions with Agent Skills, offload complex tasks to Subagents, and trigger automatic scripts using Hooks.
 
-## 1. Agent Skills: Dynamic "How-To" Manuals
+## Agent Skills: Dynamic "How-To" Manuals
 
 **What are they?** 
 Agent Skills are modular markdown files that teach Claude *how* to do specific things perfectly. Instead of typing a massive prompt every time, you define a Skill once. When Claude detects a relevant task, it automatically reads the Skill to learn the exact steps, patterns, and checklists.
@@ -29,7 +29,7 @@ When asked to write a new feature, you must strictly follow the Red-Green-Refact
 2. Type `/skills` in Claude Code to ensure it's loaded.
 3. Next time you say, *"Implement a user login validation module,"* Claude will automatically see the `TDD Master` skill, adopt the workflow, and write your test files before touching the implementation logic.
 
-## 2. Subagents: A Team of Specialized AI Assistants
+## Subagents: A Team of Specialized AI Assistants
 
 **What are they?**
 If you ask Claude to "Review the entire repository for security flaws," the massive amount of code and intermediate thinking will bloat your main chat context, making the AI slow and expensive.
@@ -51,7 +51,7 @@ If you ask Claude to "Review the entire repository for security flaws," the mass
 | **Context Memory** | **Shared.** It thinks and works inside your current active chat window, increasing your token load. | **Isolated.** It gets a brand-new, empty sandbox to work in and doesn't pollute your main chat history. |
 | **Best Scenario** | Quick tasks, maintaining coding standards, generating fixed-format logs (e.g., writing a daily status report). | Huge tasks, massive file reads, exhaustive research (e.g., Code review, full project refactoring analysis). |
 
-## 3. Automated Formatting with Hooks
+## Automated Formatting with Hooks
 
 Hooks let you hijack Claude's actions. You can tell your computer to automatically run a background script every time Claude finishes using a specific tool (like writing a file).
 
@@ -66,7 +66,7 @@ If Claude occasionally writes messy HTML, you can force it through `prettier` im
 
 ![claude hooks](./img/003.png)
 
-## 4. Plugins: The Ultimate "All-in-One" Power-Up
+## Plugins: The Ultimate "All-in-One" Power-Up
 
 **What are they?**
 A Plugin is a distributable "capsule" that bundles everything we've learned so far. It can contain Skills, Subagents, Hooks, and MCP Server configurations all wrapped together for easy one-click installation and sharing across teams.
